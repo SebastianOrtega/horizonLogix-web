@@ -31,9 +31,8 @@ function LangSwitch({ lang, setLang }) {
         <button
           key={l}
           onClick={() => setLang(l)}
-          className={`px-2.5 py-1 rounded-full transition-colors ${
-            lang === l ? "bg-signal text-ink-950" : "text-paper-50/70 hover:text-paper-50"
-          }`}
+          className={`px-2.5 py-1 rounded-full transition-colors ${lang === l ? "bg-signal text-ink-950" : "text-paper-50/70 hover:text-paper-50"
+            }`}
           aria-pressed={lang === l}
         >
           {l.toUpperCase()}
@@ -55,16 +54,13 @@ export function Nav({ t, lang, setLang, onDemo }) {
   ];
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${
-        scrolled ? "bg-ink-950/70 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
-      }`}
+      className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${scrolled ? "bg-ink-950/70 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
+        }`}
     >
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2 text-paper-50">
-          <Logo size={32} />
-          <span className="font-display text-[18px] tracking-tightish leading-none">
-            Horizon<span className="text-paper-50/55"> Logix</span>
-          </span>
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between">
+        <a href="#top" className="flex items-center gap-2.5 text-paper-50">
+          <Logo size={80} />
+
         </a>
         <nav className="hidden lg:flex items-center gap-7 text-[13.5px] text-paper-50/75">
           {items.map((i) => (
@@ -818,11 +814,9 @@ export function Footer({ t, lang, setLang }) {
     <footer className="bg-ink-950 border-t border-white/5 text-paper-50/70">
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-16 grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
-          <div className="flex items-center gap-2 text-paper-50">
-            <Logo size={32} />
-            <span className="font-display text-[18px] tracking-tightish leading-none">
-              Horizon<span className="text-paper-50/55"> Logix</span>
-            </span>
+          <div className="flex items-center gap-3 text-paper-50">
+            <Logo size={80} />
+
           </div>
           <p className="mt-4 text-[14px] max-w-[300px] leading-relaxed">{t.footer.tagline}</p>
           <div className="mt-6 flex items-center gap-2">
