@@ -951,21 +951,22 @@ export function ArchIT({ t }) {
 
           <Reveal delay={300}>
             <div className="sm:col-span-3 rounded-xl border border-white/10 bg-ink-950 p-5 font-mono text-[12px] text-paper-50/75 leading-6">
-              <div className="text-paper-50/35"># workflow · shipping_dock_a</div>
+              <div className="text-paper-50/35"># workflow · ejemplo</div>
               <div>
                 <span className="text-paper-50/85">read</span>:{" "}
-                <span className="text-paper-50/55">rfid.dock_a → validate(sku, serial)</span>
+                <span className="text-paper-50/55">lector → tag(id, hora, zona)</span>
+              </div>
+              <div>
+                <span className="text-paper-50/85">rule</span>:{" "}
+                <span className="text-paper-50/55">regla.de_negocio</span>
               </div>
               <div>
                 <span className="text-paper-50/85">enrich</span>:{" "}
-                <span className="text-paper-50/55">lookup(order) from netsuite</span>
+                <span className="text-paper-50/55">agregar(orden, operador)</span>
               </div>
               <div>
                 <span className="text-paper-50/85">route</span>:{" "}
-                <span className="text-paper-50/55">"shipment.closed" → sap.s4hana</span>
-              </div>
-              <div>
-                <span className="text-paper-50/85">tenant</span>: <span className="text-paper-50/55">isolation: collection</span>
+                <span className="text-paper-50/55">evento → tu_sistema</span>
               </div>
             </div>
           </Reveal>
