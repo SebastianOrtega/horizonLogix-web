@@ -61,7 +61,7 @@ export function Reveal({ children, delay = 0, as = "div", className = "" }) {
 }
 
 export function Eyebrow({ children, tone = "dark" }) {
-  const cls = tone === "dark" ? "text-signal" : "text-graphite-600";
+  const cls = tone === "dark" ? "text-paper-50/55" : "text-graphite-600";
   return (
     <div className={`flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] ${cls}`}>
       <span className="inline-block w-5 h-px bg-current opacity-60"></span>
@@ -75,9 +75,10 @@ export function Pill({ children, tone = "dark" }) {
     tone === "dark"
       ? "border-white/10 bg-white/5 text-paper-50"
       : "border-graphite-600/15 bg-paper-50 text-graphite-700";
+  const dot = tone === "dark" ? "bg-paper-50/45" : "bg-graphite-500";
   return (
     <span className={`inline-flex items-center gap-2 rounded-full border ${base} px-3.5 py-1.5 text-[13px] font-medium`}>
-      <span className="w-1.5 h-1.5 rounded-full bg-signal"></span>
+      <span className={`w-1.5 h-1.5 rounded-full ${dot}`}></span>
       {children}
     </span>
   );

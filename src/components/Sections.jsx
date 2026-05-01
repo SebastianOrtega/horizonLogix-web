@@ -140,7 +140,7 @@ export function Hero({ t, onDemo }) {
               <br />
               {t.hero.h1b}
               <br />
-              <span className="italic text-signal/90">{t.hero.h1c}</span>
+              <span className="text-signal/90">{t.hero.h1c}</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
@@ -539,7 +539,7 @@ export function Plugins({ t }) {
                 <ul className="mt-6 space-y-2.5 text-[13.5px] text-ink-900/85 flex-1">
                   {c.bullets.map((b) => (
                     <li key={b} className="flex items-start gap-2.5">
-                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-signal flex-shrink-0"></span>
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-ink-900/30 flex-shrink-0"></span>
                       <span>{b}</span>
                     </li>
                   ))}
@@ -590,7 +590,7 @@ export function Industries({ t }) {
                     <div className="mt-2 font-display text-[22px] leading-tight tracking-tightish text-paper-50">
                       {c.use}
                     </div>
-                    <div className="mt-4 inline-flex items-center gap-2 text-[13.5px] text-signal font-mono tnum">
+                    <div className="mt-4 inline-flex items-center gap-2 text-[13.5px] text-paper-50/70 font-mono tnum">
                       {c.metric}
                     </div>
                   </div>
@@ -628,7 +628,7 @@ export function Partners({ t }) {
             <h2 className="display-h1 mt-5 text-[clamp(44px,5.4vw,76px)] text-ink-950 tracking-tight leading-[0.96]">
               {t.partners.title1}
               <br />
-              <span className="italic font-display-italic" style={{ color: accent }}>
+              <span style={{ color: accent }}>
                 {t.partners.title2}
               </span>
             </h2>
@@ -863,7 +863,7 @@ export function Why({ t }) {
         {t.why.items.map((it, i) => (
           <Reveal key={it.t} delay={i * 80}>
             <div className="card-lift rounded-2xl border border-graphite-600/12 bg-white p-7 h-full">
-              <div className="w-9 h-9 rounded-lg bg-ink-900 text-signal flex items-center justify-center font-mono text-[12px] tnum">
+              <div className="w-9 h-9 rounded-lg bg-ink-900 text-paper-50 flex items-center justify-center font-mono text-[12px] tnum">
                 0{i + 1}
               </div>
               <h3 className="mt-6 font-display text-[22px] tracking-tightish text-ink-900">{it.t}</h3>
@@ -910,7 +910,7 @@ export function ArchIT({ t }) {
           {t.arch2.security.map((s, i) => (
             <Reveal key={s.t} delay={i * 100}>
               <div className="card-lift rounded-xl border border-white/10 bg-ink-900 p-6 h-full">
-                <div className="font-mono text-[10.5px] tracking-[0.15em] uppercase text-signal">SEC · 0{i + 1}</div>
+                <div className="font-mono text-[10.5px] tracking-[0.15em] uppercase text-paper-50/55">SEC · 0{i + 1}</div>
                 <h4 className="mt-4 font-display text-[19px] tracking-tightish text-paper-50">{s.t}</h4>
                 <p className="mt-2 text-[13px] text-paper-50/60 leading-relaxed">{s.d}</p>
               </div>
@@ -921,19 +921,19 @@ export function ArchIT({ t }) {
             <div className="sm:col-span-3 rounded-xl border border-white/10 bg-ink-950 p-5 font-mono text-[12px] text-paper-50/75 leading-6">
               <div className="text-paper-50/35"># workflow · shipping_dock_a</div>
               <div>
-                <span className="text-signal">read</span>:{" "}
+                <span className="text-paper-50/85">read</span>:{" "}
                 <span className="text-paper-50/55">rfid.dock_a → validate(sku, serial)</span>
               </div>
               <div>
-                <span className="text-signal">enrich</span>:{" "}
+                <span className="text-paper-50/85">enrich</span>:{" "}
                 <span className="text-paper-50/55">lookup(order) from netsuite</span>
               </div>
               <div>
-                <span className="text-signal">route</span>:{" "}
+                <span className="text-paper-50/85">route</span>:{" "}
                 <span className="text-paper-50/55">"shipment.closed" → sap.s4hana</span>
               </div>
               <div>
-                <span className="text-signal">tenant</span>: <span className="text-paper-50/55">isolation: collection</span>
+                <span className="text-paper-50/85">tenant</span>: <span className="text-paper-50/55">isolation: collection</span>
               </div>
             </div>
           </Reveal>
@@ -953,7 +953,7 @@ export function Testimonial({ t }) {
             “{t.quote.text}”
           </blockquote>
           <figcaption className="mt-8 flex items-center justify-center gap-4 text-[13.5px]">
-            <div className="w-10 h-10 rounded-full bg-ink-900 text-signal flex items-center justify-center font-mono">
+            <div className="w-10 h-10 rounded-full bg-ink-900 text-paper-50 flex items-center justify-center font-mono">
               MG
             </div>
             <div className="text-left">
