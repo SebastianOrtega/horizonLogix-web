@@ -108,6 +108,54 @@ export const I18N = {
         { name: "Alimentos & Bebidas", use: "Contenedores reutilizables", metric: "+65% rotación de activos" },
       ],
     },
+    partners: {
+      eyebrow: "Para partners de hardware",
+      title1: "Tú vendes el lector.",
+      title2: "Nosotros entregamos el software.",
+      body: "Horizon Logix es la capa de software que tus clientes pedían pero nadie quería construir. Si vendes Zebra, Impinj, Alien o cualquier otra marca industrial, te damos el middleware listo para producción — y tu equipo de implementación cierra proyectos en días, no en trimestres.",
+      ctaPrimary: "Aplicar al programa",
+      ctaSecondary: "Hablar con el equipo de canal",
+      stats: [
+        { n: "5–10×", l: "Proyectos por integrador al año" },
+        { n: "≤ 2 sem", l: "Tiempo a producción" },
+        { n: "0", l: "Líneas de código en cliente" },
+      ],
+      tableTitle: "Programa de partners",
+      programLabel: "Aplicaciones abiertas",
+      tiers: [
+        {
+          label: "Reseller",
+          name: "Vende con nosotros",
+          points: [
+            "Licenciamiento por planta o por sitio",
+            "Margen de canal y deal-registration",
+            "Co-branding y materiales de venta en ES/EN",
+          ],
+        },
+        {
+          label: "Integrador certificado",
+          name: "Implementa con nosotros",
+          points: [
+            "Capacitación técnica + acceso a sandbox",
+            "Soporte L2 directo durante go-live",
+            "Plantillas de flujo por industria",
+          ],
+        },
+      ],
+      timelineTitle: "Implementación típica con un partner certificado",
+      timeline: [
+        { t: "Kickoff", d: "Día 0" },
+        { t: "Lectores en sitio", d: "Día 2–3" },
+        { t: "Flujo configurado", d: "Día 5" },
+        { t: "Go-live", d: "Día 10" },
+      ],
+      brands: [
+        { label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FXR90 · ATR7000" },
+        { label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
+        { label: "Hardware", name: "Alien Technology", note: "ALR-F800 · ALR-9650" },
+        { label: "Hardware", name: "Honeywell · CAEN", note: "y otros lectores MQTT" },
+      ],
+    },
     livedemo: {
       eyebrow: "En vivo",
       title: "Mira viajar un tag por Horizon Logix.",
@@ -283,6 +331,54 @@ export const I18N = {
         { name: "Retail / DC", use: "Receiving & cycle counts", metric: "98% inventory accuracy" },
         { name: "Pharma", use: "Serialization & cold chain", metric: "100% lot traceability" },
         { name: "Food & Beverage", use: "Reusable containers", metric: "+65% asset turnover" },
+      ],
+    },
+    partners: {
+      eyebrow: "For hardware partners",
+      title1: "You sell the reader.",
+      title2: "We ship the software.",
+      body: "Horizon Logix is the software layer your customers were already asking for, but nobody wanted to build. If you sell Zebra, Impinj, Alien or any other industrial-grade reader, we give you a production-ready middleware — so your implementation team closes projects in days, not quarters.",
+      ctaPrimary: "Apply to the program",
+      ctaSecondary: "Talk to channel",
+      stats: [
+        { n: "5–10×", l: "Projects per integrator per year" },
+        { n: "≤ 2 wks", l: "Time to production" },
+        { n: "0", l: "Lines of code at the customer" },
+      ],
+      tableTitle: "Partner program",
+      programLabel: "Applications open",
+      tiers: [
+        {
+          label: "Reseller",
+          name: "Sell with us",
+          points: [
+            "Per-site or per-plant licensing",
+            "Channel margin & deal registration",
+            "Co-branded sales material in EN/ES",
+          ],
+        },
+        {
+          label: "Certified integrator",
+          name: "Implement with us",
+          points: [
+            "Technical enablement + sandbox access",
+            "Direct L2 support during go-live",
+            "Industry-specific workflow templates",
+          ],
+        },
+      ],
+      timelineTitle: "Typical rollout with a certified partner",
+      timeline: [
+        { t: "Kickoff", d: "Day 0" },
+        { t: "Readers on site", d: "Day 2–3" },
+        { t: "Workflow live", d: "Day 5" },
+        { t: "Go-live", d: "Day 10" },
+      ],
+      brands: [
+        { label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FXR90 · ATR7000" },
+        { label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
+        { label: "Hardware", name: "Alien Technology", note: "ALR-F800 · ALR-9650" },
+        { label: "Hardware", name: "Honeywell · CAEN", note: "and other MQTT readers" },
       ],
     },
     livedemo: {

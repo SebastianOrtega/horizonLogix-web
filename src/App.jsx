@@ -9,6 +9,7 @@ import {
   Hero,
   HowItWorks,
   Industries,
+  Partners,
   LiveDemo,
   Nav,
   Plugins,
@@ -70,6 +71,7 @@ export default function App() {
         <WorkflowDesigner lang={lang} accent={ACCENT} />
         <Plugins t={t} />
         <Industries t={t} />
+        <Partners t={t} />
         <LiveDemo t={t} />
         <Why t={t} />
         <ArchIT t={t} />

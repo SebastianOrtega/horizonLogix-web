@@ -124,16 +124,16 @@ export function Hero({ t, onDemo }) {
           </Reveal>
           <Reveal delay={320}>
             <div className="mt-14">
-              <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper-50/45">
+              {/*<div className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper-50/45">
                 {t.hero.trust}
               </div>
-              <div className="mt-4 flex flex-wrap items-center gap-x-9 gap-y-3 opacity-60">
+                <div className="mt-4 flex flex-wrap items-center gap-x-9 gap-y-3 opacity-60">
                 {["NORDEX", "ALMACENA", "CFE-LOG", "GRUPO MV", "TRAZA·MX", "PHARMALINK"].map((b) => (
                   <span key={b} className="font-mono text-[13px] tracking-widest text-paper-50/65">
                     {b}
                   </span>
                 ))}
-              </div>
+              </div> */}
             </div>
           </Reveal>
         </div>
@@ -564,6 +564,151 @@ export function Industries({ t }) {
               </Reveal>
             );
           })}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+export function Partners({ t }) {
+  const reduced = useReducedMotion();
+  const accent = ACCENT;
+  return (
+    <Section id="partners" tone="light" className="py-28 bg-paper-100 relative overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.55]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(11,15,26,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(11,15,26,0.04) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+          maskImage: "radial-gradient(ellipse at 50% 30%, black 40%, transparent 75%)",
+        }}
+      />
+
+      <div className="relative grid lg:grid-cols-12 gap-12 items-start">
+        <div className="lg:col-span-5">
+          <Reveal>
+            <Eyebrow tone="light">{t.partners.eyebrow}</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="display-h1 mt-5 text-[clamp(44px,5.4vw,76px)] text-ink-950 tracking-tight leading-[0.96]">
+              {t.partners.title1}
+              <br />
+              <span className="italic font-display-italic" style={{ color: accent }}>
+                {t.partners.title2}
+              </span>
+            </h2>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-7 text-[17px] leading-[1.55] text-graphite-700 max-w-[440px]">{t.partners.body}</p>
+          </Reveal>
+          <Reveal delay={220}>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button variant="filledLight" href="#cta">
+                {t.partners.ctaPrimary} <Icon.Arrow />
+              </Button>
+              <a
+                href="#cta"
+                className="inline-flex items-center gap-1.5 px-3 py-2.5 text-[13.5px] text-graphite-700 hover:text-ink-950"
+              >
+                {t.partners.ctaSecondary} <Icon.Arrow />
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={280}>
+            <div className="mt-10 grid grid-cols-3 gap-4 max-w-[440px]">
+              {t.partners.stats.map((s, i) => (
+                <div key={i} className="border-l border-ink-950/15 pl-3">
+                  <div className="font-display text-[28px] leading-none text-ink-950 tracking-tight tnum">{s.n}</div>
+                  <div className="mt-1.5 text-[11.5px] uppercase tracking-[0.12em] text-graphite-700/70 leading-snug">
+                    {s.l}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="lg:col-span-7">
+          <Reveal delay={120}>
+            <div className="relative rounded-2xl border border-ink-950/10 bg-white p-7 md:p-8 shadow-[0_30px_80px_-40px_rgba(11,15,26,0.25)]">
+              <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.18em] text-graphite-700/60 pb-5 border-b border-ink-950/10">
+                <span>{t.partners.tableTitle}</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent }}></span>
+                  {t.partners.programLabel}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-x-8 gap-y-6 mt-7">
+                {t.partners.tiers.map((tier, i) => (
+                  <div key={i} className="group">
+                    <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-graphite-700/60">{tier.label}</div>
+                    <div className="mt-1.5 font-display text-[26px] leading-tight tracking-tightish text-ink-950">{tier.name}</div>
+                    <ul className="mt-3 space-y-1.5">
+                      {tier.points.map((p, j) => (
+                        <li key={j} className="flex items-start gap-2 text-[14px] text-graphite-700 leading-snug">
+                          <span className="mt-2 w-1 h-1 rounded-full flex-none" style={{ background: accent }}></span>
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-9 pt-7 border-t border-ink-950/10">
+                <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-graphite-700/60 mb-5">
+                  {t.partners.timelineTitle}
+                </div>
+                <div className="relative">
+                  <div className="absolute left-0 right-0 top-[14px] h-px bg-ink-950/12"></div>
+                  <div className="absolute left-0 top-[14px] h-px" style={{ width: "82%", background: accent }}></div>
+                  <div className="grid grid-cols-4 gap-3 relative">
+                    {t.partners.timeline.map((step, i) => (
+                      <div key={i} className="flex flex-col items-start">
+                        <div
+                          className="relative w-7 h-7 rounded-full bg-white border-[1.5px] flex items-center justify-center font-mono text-[11px] tnum"
+                          style={{
+                            borderColor: i < 3 ? accent : "rgba(11,15,26,0.2)",
+                            color: i < 3 ? accent : "rgba(11,15,26,0.5)",
+                          }}
+                        >
+                          {i + 1}
+                          {!reduced && i === 2 && (
+                            <span
+                              className="absolute inset-0 rounded-full pulse-ring"
+                              style={{ border: `1px solid ${accent}` }}
+                            ></span>
+                          )}
+                        </div>
+                        <div className="mt-3 text-[13px] font-medium text-ink-950 leading-tight">{step.t}</div>
+                        <div className="mt-1 text-[11.5px] text-graphite-700/65 font-mono tnum">{step.d}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={200}>
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              {t.partners.brands.map((b, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl border border-ink-950/10 bg-white px-6 py-5 flex items-center justify-between"
+                >
+                  <div>
+                    <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-graphite-700/55">{b.label}</div>
+                    <div className="mt-1.5 font-display text-[20px] tracking-tightish text-ink-950">{b.name}</div>
+                  </div>
+                  <div className="text-[11.5px] font-mono text-graphite-700/55 tracking-wide">{b.note}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </div>
     </Section>
