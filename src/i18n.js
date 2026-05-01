@@ -21,9 +21,9 @@ export const I18N = {
       trust: "Socios seleccionados",
       diagramReader: "Lector RFID",
       diagramHub: "Middleware Horizon Logix",
-      diagramPlugins: ["Warehouse", "Containers", "RTLS"],
+      diagramPlugins: ["Warehouse", "Containers", "LogixIQ"],
       srDiagram:
-        "Diagrama animado: un lector RFID emite un pulso que viaja hacia el middleware Horizon Logix y se distribuye a los plugins Warehouse, Containers y RTLS.",
+        "Diagrama animado: un lector RFID emite un pulso que viaja hacia el middleware Horizon Logix y se distribuye a los plugins Warehouse, Containers y LogixIQ.",
     },
     problem: {
       eyebrow: "El problema",
@@ -48,7 +48,7 @@ export const I18N = {
         { k: "readers", t: "Lectores RFID", d: "Zebra, Impinj y otros." },
         { k: "mqtt", t: "Ingesta", d: "Transporte en tiempo real sobre tu red." },
         { k: "core", t: "Middleware Horizon Logix", d: "Diseñador gráfico de flujos · multi-tenant." },
-        { k: "plugins", t: "Plugins", d: "Warehouse, Containers, RTLS — o el tuyo." },
+        { k: "plugins", t: "Plugins", d: "Warehouse, Containers, LogixIQ — o el tuyo." },
         { k: "erp", t: "Oracle · NetSuite · Dynamics · SAP", d: "O cualquier ERP, WMS o MES vía API." },
       ],
       pills: [
@@ -84,15 +84,15 @@ export const I18N = {
           ribbon: null,
         },
         {
-          name: "Horizon RTLS / WIP",
-          tag: "Localización en tiempo real y tiempos & movimientos para work-in-progress.",
+          name: "LogixIQ",
+          tag: "RTLS sobre el plano real: piso de planta, hospital, taller o bodega.",
           bullets: [
-            "Tiempo de ciclo por estación",
-            "Mapas de calor de planta",
-            "Cuellos de botella detectados",
+            "Editor visual de zonas y antenas",
+            "Alertas, mapa de calor y 12+ reportes",
+            "Cycle time y permanencia por etapa",
           ],
           link: "Conocer más",
-          ribbon: "Disponible Q3 2026",
+          ribbon: null,
         },
       ],
     },
@@ -237,7 +237,7 @@ export const I18N = {
           links: [
             { label: "Warehouse", to: "/warehouse" },
             { label: "Containers", to: "/contenedores" },
-            { label: "RTLS / WIP", to: "/rtls" },
+            { label: "LogixIQ", to: "/rtls" },
           ],
         },
         {
@@ -304,9 +304,9 @@ export const I18N = {
       trust: "Selected partners",
       diagramReader: "RFID reader",
       diagramHub: "Horizon Logix Middleware",
-      diagramPlugins: ["Warehouse", "Containers", "RTLS"],
+      diagramPlugins: ["Warehouse", "Containers", "LogixIQ"],
       srDiagram:
-        "Animated diagram: an RFID reader emits a pulse that travels to the Horizon Logix middleware and is dispatched to the Warehouse, Containers and RTLS plugins.",
+        "Animated diagram: an RFID reader emits a pulse that travels to the Horizon Logix middleware and is dispatched to the Warehouse, Containers and LogixIQ plugins.",
     },
     problem: {
       eyebrow: "The problem",
@@ -331,7 +331,7 @@ export const I18N = {
         { k: "readers", t: "RFID readers", d: "Zebra, Impinj and others." },
         { k: "mqtt", t: "Ingest", d: "Real-time transport over your existing network." },
         { k: "core", t: "Horizon Logix Middleware", d: "Visual workflow designer · multi-tenant." },
-        { k: "plugins", t: "Plugins", d: "Warehouse, Containers, RTLS — or your own." },
+        { k: "plugins", t: "Plugins", d: "Warehouse, Containers, LogixIQ — or your own." },
         { k: "erp", t: "Oracle · NetSuite · Dynamics · SAP", d: "Or any ERP, WMS or MES via API." },
       ],
       pills: [
@@ -367,15 +367,15 @@ export const I18N = {
           ribbon: null,
         },
         {
-          name: "Horizon RTLS / WIP",
-          tag: "Real-time location and time-and-motion for work-in-progress.",
+          name: "LogixIQ",
+          tag: "RTLS on the real floor plan: shop floor, hospital, service bay, or warehouse.",
           bullets: [
-            "Cycle time per station",
-            "Plant heat maps",
-            "Bottleneck detection",
+            "Visual editor for zones and antennas",
+            "Alerts, heatmap, and 12+ reports",
+            "Cycle time and dwell per stage",
           ],
           link: "Learn more",
-          ribbon: "Coming Q3 2026",
+          ribbon: null,
         },
       ],
     },
@@ -520,7 +520,7 @@ export const I18N = {
           links: [
             { label: "Warehouse", to: "/warehouse" },
             { label: "Containers", to: "/containers" },
-            { label: "RTLS / WIP", to: "/rtls" },
+            { label: "LogixIQ", to: "/rtls" },
           ],
         },
         {

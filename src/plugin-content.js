@@ -2,12 +2,21 @@
 // page rendered by <PluginPage>. Tone follows .impeccable.md — industrial
 // editorial, technical, opinionated where it matters.
 
+import dashboardImg from "./assets/rtls/dashboard.png";
+import editorImg from "./assets/rtls/editor.png";
+import heatmapImg from "./assets/rtls/heatmap.png";
+import alertsImg from "./assets/rtls/alerts.png";
+import historyImg from "./assets/rtls/history.png";
+import reportDwellImg from "./assets/rtls/report-dwell.png";
+
 const SHARED = {
   es: {
     eyebrow: "Plugin",
     backToPlugins: "Ver todos los plugins",
     sections: {
+      metrics: "En números",
       capabilities: "Capacidades",
+      inProduct: "Dentro del producto",
       useCases: "Dónde encaja",
       integrations: "Integraciones y despliegue",
     },
@@ -16,7 +25,7 @@ const SHARED = {
       readers: "Lectores compatibles",
       deployment: "Despliegue",
       tags: "Tags",
-      mes: "MES / SCADA",
+      mes: "MES / API",
     },
     closingCtaTitle: "Hablemos de tu operación.",
     closingCtaSub: "Una llamada con el equipo de ingeniería para ver si encaja.",
@@ -27,7 +36,9 @@ const SHARED = {
     eyebrow: "Plugin",
     backToPlugins: "See all plugins",
     sections: {
+      metrics: "By the numbers",
       capabilities: "Capabilities",
+      inProduct: "Inside the product",
       useCases: "Where it fits",
       integrations: "Integrations & deployment",
     },
@@ -36,7 +47,7 @@ const SHARED = {
       readers: "Compatible readers",
       deployment: "Deployment",
       tags: "Tags",
-      mes: "MES / SCADA",
+      mes: "MES / API",
     },
     closingCtaTitle: "Let's talk about your operation.",
     closingCtaSub: "A call with the engineering team to see if it fits.",
@@ -271,91 +282,203 @@ export const PLUGINS = {
     nameplate: "PL · 03",
     routes: { es: "/rtls", en: "/rtls" },
     es: {
-      title: "Horizon RTLS / WIP",
-      tagline: "Localización en tiempo real para work-in-progress en piso.",
+      title: "LogixIQ",
+      tagline:
+        "Saber dónde está cada activo, cuánto lleva ahí, y cuándo se sale de lugar.",
       lead:
-        "Mientras el WMS mira el inventario terminado, RTLS / WIP mira lo que está pasando AHORA en tu línea: dónde está cada pieza, cuánto lleva en cada estación, dónde se está atorando.",
-      ribbon: "Disponible Q3 2026",
+        "Localización en tiempo real sobre el plano real de tu instalación: piso de planta, hospital, taller o bodega. Mientras el WMS ve inventario terminado, LogixIQ ve lo que está pasando ahora — piezas en estación, equipos médicos, vehículos en servicio, contenedores en bahía.",
+      ribbon: null,
+      metrics: [
+        { label: "Latencia tiempo real", value: "< 1 s", note: "streaming en vivo" },
+        { label: "Throughput probado", value: "M / día", note: "lecturas por planta" },
+        { label: "Retención de historial", value: "365 días", note: "compresión > 7 d" },
+        { label: "Reportes preconstruidos", value: "12+", note: "+ constructor personalizado" },
+      ],
       capabilities: [
         {
-          h: "Cycle time por estación",
-          d: "Tiempo real que cada pieza pasa en cada paso del proceso. Identifica desviaciones por turno, operador o producto.",
+          h: "Vista en vivo sobre tu plano",
+          d: "Activos, zonas y feed de actividad reciente en una sola pantalla, actualizándose en vivo. Sin recargar, sin esperar.",
         },
         {
-          h: "Mapas de calor de planta",
-          d: "Visualización 2D de densidad de activos. Detecta zonas saturadas o vacías que deberían tener trabajo.",
+          h: "Editor visual de planos",
+          d: "Sube el plano de tu instalación, dibuja zonas (rectangulares, circulares o poligonales), arrastra antenas a su posición real. Sin código, sin GIS especializado.",
         },
         {
-          h: "Detección de cuellos de botella",
-          d: "El sistema marca las estaciones donde el tiempo de ciclo se desvía del promedio histórico. Alertas cuando una estación se atora más de N minutos.",
+          h: "Detección por RSSI observable",
+          d: "Cada lectura se asigna a la zona con mayor señal. Regla pública, debuggeable, sin ML opaco — puedes auditarla y entender por qué un activo cayó en una zona u otra.",
         },
         {
-          h: "Tiempos & movimientos automáticos",
-          d: "Estudios de tiempos & movimientos sin cronómetro humano. Datos continuos en lugar de muestreos.",
+          h: "Alertas en tiempo real",
+          d: "Salida de zona, entrada a zona prohibida, fuera de zona permitida, no detectado por N minutos. Email, webhook o panel. Reglas por activo, categoría o zona.",
         },
         {
-          h: "Integración con MES",
-          d: "Compatible con los principales MES industriales. Eventos RTLS pueden disparar transiciones de orden de producción.",
+          h: "Reportes y mapa de calor",
+          d: "12 reportes preconstruidos — permanencia, ocupación, historial, mapa de calor — más constructor personalizado. Exportables a CSV y PDF.",
+        },
+        {
+          h: "Cycle time y permanencia",
+          d: "Tiempo de cada pieza en cada estación, de cada vehículo en cada bahía, de cada equipo médico en cada área. Para WIP, ciclo de servicio o cualquier flujo por etapas.",
+        },
+        {
+          h: "Roles y permisos por usuario",
+          d: "Operador ve su área, supervisor ve toda la planta, administrador configura. Roles, accesos y vistas finas por usuario y por sitio.",
+        },
+        {
+          h: "Importación masiva",
+          d: "CSV con mapeo dinámico de columnas y resumen de errores por fila. Arrancar un piloto con miles de activos no requiere captura manual.",
+        },
+      ],
+      screenshots: [
+        {
+          src: dashboardImg,
+          caption: "Panel de control: planta + zonas + actividad reciente en vivo.",
+        },
+        {
+          src: editorImg,
+          caption: "Editor visual de planos: dibuja zonas, coloca antenas, calibra escala.",
+        },
+        {
+          src: heatmapImg,
+          caption: "Mapa de calor: densidad de detecciones por zona en el rango de fechas que elijas.",
+        },
+        {
+          src: alertsImg,
+          caption: "Alertas configurables: activas, atendidas y resueltas, con razón y operador.",
+        },
+        {
+          src: historyImg,
+          caption: "Historial por activo: ruta, transiciones de zona y permanencia, paso a paso.",
+        },
+        {
+          src: reportDwellImg,
+          caption: "Reporte de permanencia: horas por zona, exportable a CSV o PDF.",
         },
       ],
       useCases: [
         {
-          h: "Manufactura discreta",
-          d: "Líneas con múltiples estaciones, donde el cuello de botella se mueve dependiendo de mix de producto.",
+          h: "Manufactura discreta / WIP",
+          d: "Líneas con múltiples estaciones donde el cuello de botella varía con el mix. Detecta dónde se atora cada unidad y por cuánto tiempo.",
         },
         {
-          h: "Ensambles complejos",
-          d: "Aeroespacial, equipo médico, automotriz especializada — donde cada unidad tiene un recorrido específico y el tracking importa.",
+          h: "Hospitales y clínicas",
+          d: "Sillas de ruedas, bombas de infusión, monitores. Saber dónde está cada uno y recibir alerta si sale del piso, sin recorrer el edificio.",
+        },
+        {
+          h: "Talleres automotrices y de servicio",
+          d: "Flujo del vehículo por etapas: recepción, mecánica, hojalatería, pintura, lavado. Tiempo en cada bahía, sin checador humano.",
+        },
+        {
+          h: "Bodegas y centros de distribución",
+          d: "Pallets, racks, contenedores reutilizables. Ubicación correcta, alertas si algo se mueve fuera de horario, auditoría de cada movimiento.",
         },
       ],
       integrations: {
-        tags: "RFID pasivo de largo alcance, UWB activo (Sewio, Ubisense), BLE.",
-        mes: "Conectores para los MES industriales más comunes; eventos vía MQTT/REST.",
-        deployment: "Edge en planta para latencia mínima; cloud para análisis y reportería.",
+        tags: "Tags UHF estándar, códigos de barras o QR. Conectores opcionales de visión artificial para captura sin etiqueta.",
+        readers:
+          "Impinj R420 / R720 / xSpan / xArray, Zebra FX7500 / FX9600 / ATR7000, Alien ALR-F800 / 9680. Cualquier lector industrial estándar.",
+        mes: "API REST con más de 100 endpoints. Eventos en tiempo real hacia tu MES, BI o data warehouse. Conectores para los MES industriales más comunes.",
+        deployment:
+          "SaaS en la nube, sin servidores ni instaladores. O on-premises en tu planta cuando los datos tienen que quedarse ahí. También híbrido.",
       },
     },
     en: {
-      title: "Horizon RTLS / WIP",
-      tagline: "Real-time location for work-in-progress on the floor.",
+      title: "LogixIQ",
+      tagline:
+        "Know where every asset is, how long it's been there, and when it leaves where it should be.",
       lead:
-        "While the WMS watches finished inventory, RTLS / WIP watches what's happening RIGHT NOW on your line: where each piece is, how long it's been at each station, where it's getting stuck.",
-      ribbon: "Coming Q3 2026",
+        "Real-time location on the actual floor plan of your facility: shop floor, hospital, service bay, or warehouse. While the WMS watches finished inventory, LogixIQ watches what's happening right now — parts at a station, medical equipment, vehicles in service, containers in a bay.",
+      ribbon: null,
+      metrics: [
+        { label: "Real-time latency", value: "< 1 s", note: "live streaming" },
+        { label: "Proven throughput", value: "M / day", note: "reads per plant" },
+        { label: "History retention", value: "365 days", note: "compression after 7 d" },
+        { label: "Prebuilt reports", value: "12+", note: "+ custom builder" },
+      ],
       capabilities: [
         {
-          h: "Cycle time per station",
-          d: "Real time each piece spends at each process step. Identifies deviations by shift, operator, or product.",
+          h: "Live view on your floor plan",
+          d: "Assets, zones, and a recent-activity feed on one screen, updating live. No reload, no waiting.",
         },
         {
-          h: "Plant heat maps",
-          d: "2D visualization of asset density. Spots saturated or empty zones that should have work.",
+          h: "Visual floor-plan editor",
+          d: "Upload your facility's plan, draw zones (rectangular, circular, or polygonal), drag antennas to their real position. No code, no specialized GIS.",
         },
         {
-          h: "Bottleneck detection",
-          d: "The system flags stations where cycle time deviates from the historical average. Alerts when a station is stuck more than N minutes.",
+          h: "Observable RSSI detection",
+          d: "Each read maps to the zone with the strongest signal. The rule is public and debuggable — no opaque ML. You can audit why an asset landed in a given zone.",
         },
         {
-          h: "Automatic time-and-motion",
-          d: "Time-and-motion studies without a human stopwatch. Continuous data instead of sampling.",
+          h: "Real-time alerts",
+          d: "Zone exit, entry into a forbidden zone, out of allowed zone, not detected for N minutes. Email, webhook, or in-app. Rules by asset, category, or zone.",
         },
         {
-          h: "MES integration",
-          d: "Works with the main industrial MES platforms. RTLS events can trigger production-order state transitions.",
+          h: "Reports and heatmap",
+          d: "12 prebuilt reports — dwell time, occupancy, history, heatmap — plus a custom builder. Exportable to CSV and PDF.",
+        },
+        {
+          h: "Cycle time and dwell",
+          d: "Time per part at each station, per vehicle at each bay, per medical asset in each area. For WIP, service cycles, or any staged flow.",
+        },
+        {
+          h: "Roles and permissions per user",
+          d: "Operator sees their area, supervisor sees the whole plant, admin configures. Fine-grained roles, access, and views per user and per site.",
+        },
+        {
+          h: "Bulk import",
+          d: "CSV with dynamic column mapping and per-row error reporting. Onboarding thousands of assets doesn't require manual entry.",
+        },
+      ],
+      screenshots: [
+        {
+          src: dashboardImg,
+          caption: "Control panel: floor plan + zones + live activity feed.",
+        },
+        {
+          src: editorImg,
+          caption: "Visual floor-plan editor: draw zones, place antennas, calibrate scale.",
+        },
+        {
+          src: heatmapImg,
+          caption: "Heatmap report: detection density by zone over any date range.",
+        },
+        {
+          src: alertsImg,
+          caption: "Configurable alerts: active, acknowledged, and resolved, with reason and operator.",
+        },
+        {
+          src: historyImg,
+          caption: "Per-asset history: route, zone transitions, and dwell time, step by step.",
+        },
+        {
+          src: reportDwellImg,
+          caption: "Dwell-time report: hours per zone, exportable to CSV or PDF.",
         },
       ],
       useCases: [
         {
-          h: "Discrete manufacturing",
-          d: "Lines with multiple stations, where the bottleneck moves depending on product mix.",
+          h: "Discrete manufacturing / WIP",
+          d: "Lines with multiple stations where the bottleneck moves with product mix. Spot where each unit is stuck and for how long.",
         },
         {
-          h: "Complex assemblies",
-          d: "Aerospace, medical devices, specialty automotive — where each unit has a specific routing and tracking matters.",
+          h: "Hospitals and clinics",
+          d: "Wheelchairs, infusion pumps, monitors. Know where each one is and get alerted if it leaves the floor — without walking the building.",
+        },
+        {
+          h: "Automotive and service workshops",
+          d: "Vehicle flow by stage: intake, mechanical, body, paint, wash. Time at each bay, no human stopwatch.",
+        },
+        {
+          h: "Warehouses and distribution centers",
+          d: "Pallets, racks, returnable containers. Correct location, off-hours movement alerts, audit trail for every move.",
         },
       ],
       integrations: {
-        tags: "Long-range passive RFID, active UWB (Sewio, Ubisense), BLE.",
-        mes: "Connectors for the most common industrial MES platforms; events via MQTT/REST.",
-        deployment: "Edge at the plant for minimum latency; cloud for analytics and reporting.",
+        tags: "Standard UHF RFID tags, barcodes, or QR codes. Optional computer-vision connectors for capture without a tag.",
+        readers:
+          "Impinj R420 / R720 / xSpan / xArray, Zebra FX7500 / FX9600 / ATR7000, Alien ALR-F800 / 9680. Any standard industrial reader.",
+        mes: "REST API with 100+ endpoints. Real-time events into your MES, BI, or data warehouse. Connectors for the main industrial MES platforms.",
+        deployment:
+          "SaaS in the cloud — no servers, no installers. Or on-premises at your plant when the data has to stay there. Hybrid available.",
       },
     },
   },

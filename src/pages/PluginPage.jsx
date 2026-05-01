@@ -12,11 +12,73 @@ export default function PluginPage({ slug, lang, onDemo, onSales }) {
   return (
     <main>
       <PluginHero plugin={plugin} data={data} shared={shared} onDemo={onDemo} />
+      <Metrics data={data} shared={shared} />
       <Capabilities data={data} shared={shared} />
+      <Screenshots data={data} shared={shared} />
       <UseCases data={data} shared={shared} />
       <Integrations data={data} shared={shared} />
       <ClosingCta plugin={plugin} shared={shared} onDemo={onDemo} onSales={onSales} />
     </main>
+  );
+}
+
+function Metrics({ data, shared }) {
+  if (!data.metrics?.length) return null;
+  return (
+    <Section tone="ink" className="py-16 border-b border-white/5">
+      <div className="max-w-[1180px] grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
+        {data.metrics.map((m, i) => (
+          <Reveal key={m.label} delay={i * 60}>
+            <div>
+              <div className="font-mono text-[11px] tracking-[0.18em] uppercase text-paper-50/55">
+                {m.label}
+              </div>
+              <div className="mt-2 font-display text-[clamp(28px,3vw,44px)] text-paper-50 leading-[1.05] tracking-tightish">
+                {m.value}
+              </div>
+              {m.note && (
+                <div className="mt-1 text-[12px] text-paper-50/55">{m.note}</div>
+              )}
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <span className="sr-only">{shared.sections.metrics}</span>
+    </Section>
+  );
+}
+
+function Screenshots({ data, shared }) {
+  if (!data.screenshots?.length) return null;
+  return (
+    <Section tone="light" className="py-28">
+      <div className="max-w-[760px]">
+        <Reveal>
+          <Eyebrow tone="light">{shared.sections.inProduct}</Eyebrow>
+        </Reveal>
+      </div>
+      <div className="mt-12 max-w-[1180px] grid md:grid-cols-2 gap-x-8 gap-y-14">
+        {data.screenshots.map((s, i) => (
+          <Reveal key={s.src} delay={(i % 2) * 60}>
+            <figure className="space-y-4">
+              <img
+                src={s.src}
+                alt={s.caption}
+                loading="lazy"
+                decoding="async"
+                className="w-full rounded-xl border border-ink-950/10 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)]"
+              />
+              <figcaption className="flex gap-3 text-[14px] text-graphite-700 leading-relaxed">
+                <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-graphite-700/55 tnum mt-0.5 whitespace-nowrap">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span>{s.caption}</span>
+              </figcaption>
+            </figure>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
   );
 }
 
