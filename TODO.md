@@ -99,7 +99,7 @@ Inventario actual tras `grep -rn 'href="#"' src/`:
 | `src/components/Sections.jsx:903` | "Leer la documentación" en `ArchIT` (comentado actualmente) | Decidir si va a haber docs públicas. Si no, eliminar el bloque. Si sí, abrir `/docs` o link a Notion/GitBook. |
 | `src/components/Sections.jsx:1018` | Todos los links del footer (4 columnas: Plataforma, Plugins, Empresa, Legal) | Mapear cada `link` del footer a su ruta real (sección 3 para Plugins; sección 2 para Legal; resto puede ir a anchors `#how`, `#arch`, `#partners`, `#cta`, etc.). |
 | `src/i18n.js` (`nav.cases` → `id: cases` en Nav) | Item "Casos" del nav apunta a `#cases` que es el ID de la sección LiveDemo, no a casos de cliente reales | Cuando haya casos publicables, crear `/casos` y reenrutar. Mientras tanto, considerar quitar el item del nav o renombrarlo a "Demo en vivo". |
-| `src/components/Sections.jsx:987` | CTA "Hablar con ventas" abre `mailto:hola@horizonlogix.com` | Verificar que ese email exista y haya alguien contestando. Si no, cambiar a abrir el modal de demo. |
+| `src/components/Sections.jsx:987` | CTA "Hablar con ventas" abre `mailto:hola@hlogix.app` | Verificar que ese email exista y haya alguien contestando. Si no, cambiar a abrir el modal de demo. |
 
 ---
 

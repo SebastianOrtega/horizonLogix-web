@@ -6,13 +6,12 @@
 // real company details.
 
 const COMPANY = {
-  legalName: "[Razón social completa, S.A. de C.V.]",
+  legalName: "Movil Track, S.A. de C.V.",
   shortName: "Horizon Logix",
-  address: "[Domicilio fiscal — calle, número, colonia, ciudad, estado, CP, México]",
-  rfc: "[RFC del responsable]",
-  contactEmail: "[privacidad@horizonlogix.com]",
-  generalEmail: "hola@horizonlogix.com",
-  website: "horizonlogix.com",
+  address: "Viaducto Tlalpan Sur 26B, Tlalpan, 14370, Mexico CDMX",
+  contactEmail: "privacidad@hlogix.app",
+  generalEmail: "hola@hlogix.app",
+  website: "hlogix.app",
   retentionMonths: 24,
 };
 
@@ -42,7 +41,7 @@ export const LEGAL = {
           h: "1. Identidad y datos del responsable",
           body:
             COMPANY.legalName + " (en adelante, “" + COMPANY.shortName + "” o “nosotros”), " +
-            "con domicilio en " + COMPANY.address + " y RFC " + COMPANY.rfc + ", es el " +
+            "con domicilio en " + COMPANY.address + ", es el " +
             "responsable del tratamiento de tus datos personales recabados a través del " +
             "sitio " + COMPANY.website + ".\n\n" +
             "Para cualquier asunto relacionado con este aviso, puedes contactarnos en " +
@@ -206,7 +205,7 @@ export const LEGAL = {
         {
           h: "1. Identity and contact of the data controller",
           body:
-            COMPANY.legalName + " (hereinafter, “" + COMPANY.shortName + "” or “we”), with registered office at " + COMPANY.address + " and tax ID " + COMPANY.rfc + ", is the controller responsible for the processing of personal data collected through the " + COMPANY.website + " website.\n\n" +
+            COMPANY.legalName + " (hereinafter, “" + COMPANY.shortName + "” or “we”), with registered office at " + COMPANY.address + ", is the controller responsible for the processing of personal data collected through the " + COMPANY.website + " website.\n\n" +
             "For any matter related to this notice, you can reach us at " + COMPANY.contactEmail + ".",
         },
         {

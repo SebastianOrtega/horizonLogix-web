@@ -1032,7 +1032,7 @@ export function CTABand({ t, onDemo }) {
             <Button onClick={onDemo}>
               {t.cta.primary} <Icon.Arrow />
             </Button>
-            <Button variant="ghost" href="mailto:hola@horizonlogix.com">
+            <Button variant="ghost" href="mailto:hola@hlogix.app">
               {t.cta.secondary}
             </Button>
           </div>
