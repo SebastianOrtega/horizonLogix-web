@@ -592,16 +592,16 @@ export function Industries({ t }) {
             const I = icons[i];
             return (
               <Reveal key={c.name} delay={i * 60}>
-                <div className="card-lift min-w-[300px] md:min-w-[340px] rounded-2xl border border-white/10 bg-ink-900 p-7 h-[280px] flex flex-col justify-between">
+                <div className="card-lift min-w-[300px] md:min-w-[340px] rounded-2xl border border-white/10 bg-ink-900 p-7 flex flex-col">
                   <div className="text-paper-50/85">
-                    <I />
+                    <I width={40} height={40} />
                   </div>
-                  <div>
+                  <div className="mt-5">
                     <div className="text-[11px] font-mono uppercase tracking-[0.15em] text-paper-50/45">{c.name}</div>
-                    <div className="mt-2 font-display text-[22px] leading-tight tracking-tightish text-paper-50">
+                    <div className="mt-2 font-display text-[22px] leading-tight tracking-tightish text-paper-50 min-h-[2lh]">
                       {c.use}
                     </div>
-                    <div className="mt-4 inline-flex items-center gap-2 text-[14px] text-paper-50/70 font-mono tnum">
+                    <div className="mt-4 inline-flex items-center gap-2 text-[14px] text-signal font-mono tnum">
                       {c.metric}
                     </div>
                   </div>
