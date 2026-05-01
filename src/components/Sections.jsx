@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import logoUrl from "../assets/logo-horizonlogix.png";
+import logoUrl from "../assets/logo-horizonlogix.svg";
+import { ACCENT, ACCENT_RGB } from "../theme.js";
 import {
   Button,
   Eyebrow,
@@ -91,7 +92,7 @@ export function Hero({ t, onDemo }) {
       <div
         aria-hidden
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[700px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, rgba(243,154,43,0.10), transparent 60%)" }}
+        style={{ background: `radial-gradient(ellipse at center, rgba(${ACCENT_RGB},0.10), transparent 60%)` }}
       ></div>
 
       <div className="relative grid lg:grid-cols-12 gap-10 items-center">
@@ -261,7 +262,7 @@ function wrapLine(s, n) {
 }
 
 function NodeIcon({ kind, active }) {
-  const c = active ? "#F39A2B" : "rgba(247,247,245,0.5)";
+  const c = active ? ACCENT : "rgba(247,247,245,0.5)";
   const props = { stroke: c, fill: "none", strokeWidth: 1.4, strokeLinecap: "round", strokeLinejoin: "round" };
   switch (kind) {
     case "readers":
@@ -310,8 +311,8 @@ function FlowDiagram({ stages, active, reduced }) {
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
         <defs>
           <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F39A2B" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#F39A2B" stopOpacity="0" />
+            <stop offset="0%" stopColor={ACCENT} stopOpacity="0.5" />
+            <stop offset="100%" stopColor={ACCENT} stopOpacity="0" />
           </radialGradient>
         </defs>
 
@@ -328,7 +329,7 @@ function FlowDiagram({ stages, active, reduced }) {
           y1={H / 2}
           x2={positions[Math.min(active, positions.length - 1)].x}
           y2={H / 2}
-          stroke="#F39A2B"
+          stroke={ACCENT}
           strokeWidth="2"
           style={{ transition: "all 600ms var(--ease-out)" }}
         />
@@ -342,7 +343,7 @@ function FlowDiagram({ stages, active, reduced }) {
               <circle
                 r={isCenter ? 38 : 22}
                 fill="#0E1424"
-                stroke={isActive ? "#F39A2B" : "rgba(255,255,255,0.18)"}
+                stroke={isActive ? ACCENT : "rgba(255,255,255,0.18)"}
                 strokeWidth={isActive ? 1.5 : 1}
                 style={{ transition: "all 500ms var(--ease-out)" }}
               />
@@ -463,7 +464,7 @@ function PluginMockup({ kind }) {
     <div className="rounded-md border border-graphite-600/12 bg-white p-3 text-[10.5px] text-graphite-600 font-mono relative h-[68px] overflow-hidden">
       <div className="absolute inset-2 grid grid-cols-8 grid-rows-3 gap-0.5">
         {Array.from({ length: 24 }).map((_, i) => (
-          <div key={i} className="rounded-[1px]" style={{ background: `rgba(243,154,43,${(i % 7) / 9})` }} />
+          <div key={i} className="rounded-[1px]" style={{ background: `rgba(${ACCENT_RGB},${(i % 7) / 9})` }} />
         ))}
       </div>
       <div className="absolute bottom-1.5 right-2 text-graphite-500">station-04</div>
@@ -601,8 +602,8 @@ export function LiveDemo({ t }) {
           <svg viewBox="0 0 1200 280" className="w-full h-auto">
             <defs>
               <linearGradient id="trackGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#F39A2B" stopOpacity="0" />
-                <stop offset="100%" stopColor="#F39A2B" stopOpacity="0.7" />
+                <stop offset="0%" stopColor={ACCENT} stopOpacity="0" />
+                <stop offset="100%" stopColor={ACCENT} stopOpacity="0.7" />
               </linearGradient>
             </defs>
 
@@ -622,10 +623,10 @@ export function LiveDemo({ t }) {
               return (
                 <g key={i} transform={`translate(${cx}, 140)`}>
                   {isActive && !reduced && (
-                    <circle r="22" fill="none" stroke="#F39A2B" strokeOpacity="0.4" className="pulse-ring" />
+                    <circle r="22" fill="none" stroke={ACCENT} strokeOpacity="0.4" className="pulse-ring" />
                   )}
-                  <circle r="9" fill="#0B0F1A" stroke={isActive ? "#F39A2B" : "rgba(255,255,255,0.25)"} strokeWidth="1.5" />
-                  {isActive && <circle r="3.5" fill="#F39A2B" />}
+                  <circle r="9" fill="#0B0F1A" stroke={isActive ? ACCENT : "rgba(255,255,255,0.25)"} strokeWidth="1.5" />
+                  {isActive && <circle r="3.5" fill={ACCENT} />}
                   <text y="-22" textAnchor="middle" fontSize="11" fill="rgba(247,247,245,0.55)" fontFamily="JetBrains Mono">
                     {String(i + 1).padStart(2, "0")}
                   </text>
@@ -644,8 +645,8 @@ export function LiveDemo({ t }) {
 
             {!reduced && (
               <g transform={`translate(${80 + 1040 * phase}, 140)`}>
-                <circle r="6" fill="#F39A2B" />
-                <circle r="14" fill="none" stroke="#F39A2B" strokeOpacity="0.45" />
+                <circle r="6" fill={ACCENT} />
+                <circle r="14" fill="none" stroke={ACCENT} strokeOpacity="0.45" />
               </g>
             )}
           </svg>
@@ -787,7 +788,7 @@ export function CTABand({ t, onDemo }) {
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(243,154,43,0.15), transparent 55%)" }}
+        style={{ background: `radial-gradient(ellipse at 50% 60%, rgba(${ACCENT_RGB},0.15), transparent 55%)` }}
       />
       <div className="relative">
         <Reveal>

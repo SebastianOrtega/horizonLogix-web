@@ -45,16 +45,16 @@ export const I18N = {
       title1: "Un middleware.",
       title2: "Muchos plugins.",
       stages: [
-        { k: "readers", t: "Lectores RFID", d: "Cualquier lector fijo industrial." },
+        { k: "readers", t: "Lectores RFID", d: "Zebra, Impinj y otros." },
         { k: "mqtt", t: "Ingesta", d: "Transporte en tiempo real sobre tu red." },
         { k: "core", t: "Middleware Horizon Logix", d: "Diseñador gráfico de flujos · multi-tenant." },
         { k: "plugins", t: "Plugins", d: "Warehouse, Containers, RTLS — o el tuyo." },
         { k: "erp", t: "Oracle · NetSuite · Dynamics · SAP", d: "O cualquier ERP, WMS o MES vía API." },
       ],
       pills: [
-        "Multi-tenant by design",
+        "Hasta 1,000,000 eventos por segundo",
         "Diseñador gráfico de flujos de trabajo",
-        "Compatible con cualquier lector RFID",
+        "Compatible Lectores Zebra e Impinj",
       ],
     },
     plugins: {
@@ -222,16 +222,16 @@ export const I18N = {
       title1: "One middleware.",
       title2: "Many plugins.",
       stages: [
-        { k: "readers", t: "RFID readers", d: "Any industrial fixed reader." },
+        { k: "readers", t: "RFID readers", d: "Zebra, Impinj and others." },
         { k: "mqtt", t: "Ingest", d: "Real-time transport over your existing network." },
         { k: "core", t: "Horizon Logix Middleware", d: "Visual workflow designer · multi-tenant." },
         { k: "plugins", t: "Plugins", d: "Warehouse, Containers, RTLS — or your own." },
         { k: "erp", t: "Oracle · NetSuite · Dynamics · SAP", d: "Or any ERP, WMS or MES via API." },
       ],
       pills: [
-        "Multi-tenant by design",
+        "Up to 1,000,000 events per second",
         "Visual workflow designer",
-        "Works with any RFID reader",
+        "Compatible with Zebra and Impinj readers",
       ],
     },
     plugins: {

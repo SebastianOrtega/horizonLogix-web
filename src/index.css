@@ -8,8 +8,9 @@
   --ink-900: #0e1424;
   --ink-800: #141b2e;
   --paper-50: #f7f7f5;
-  --signal: #f39a2b;
-  --signal-deep: #d77a0f;
+  --signal: #105ca9;
+  --signal-rgb: 16, 92, 169;
+  --signal-deep: #0d4a87;
   --grid-line: rgba(255, 255, 255, 0.06);
   --grid-line-dark: rgba(11, 15, 26, 0.06);
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -103,7 +104,7 @@ body {
 }
 .card-lift:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px -22px rgba(243, 154, 43, 0.25),
+  box-shadow: 0 18px 40px -22px rgba(var(--signal-rgb), 0.25),
     0 4px 14px -8px rgba(0, 0, 0, 0.4);
 }
 

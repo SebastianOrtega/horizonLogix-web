@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { I18N } from "./i18n.js";
+import { ACCENT, ACCENT_DEEP, ACCENT_RGB } from "./theme.js";
 import {
   ArchIT,
   CookieStrip,
@@ -17,8 +18,6 @@ import {
 } from "./components/Sections.jsx";
 import WorkflowDesigner from "./components/WorkflowDesigner.jsx";
 import DemoModal from "./components/DemoModal.jsx";
-
-const ACCENT = "#F39A2B";
 
 function detectLang() {
   const url = new URL(window.location.href);
@@ -40,7 +39,10 @@ export default function App() {
   }, [lang]);
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--signal", ACCENT);
+    const s = document.documentElement.style;
+    s.setProperty("--signal", ACCENT);
+    s.setProperty("--signal-deep", ACCENT_DEEP);
+    s.setProperty("--signal-rgb", ACCENT_RGB);
   }, []);
 
   const setLang = (l) => {

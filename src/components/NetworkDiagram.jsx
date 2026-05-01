@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ACCENT } from "../theme.js";
 
 export default function NetworkDiagram({ t, reduced }) {
   const W = 720,
@@ -42,13 +43,13 @@ export default function NetworkDiagram({ t, reduced }) {
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
         <defs>
           <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F39A2B" stopOpacity="0.55" />
-            <stop offset="60%" stopColor="#F39A2B" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#F39A2B" stopOpacity="0" />
+            <stop offset="0%" stopColor={ACCENT} stopOpacity="0.55" />
+            <stop offset="60%" stopColor={ACCENT} stopOpacity="0.08" />
+            <stop offset="100%" stopColor={ACCENT} stopOpacity="0" />
           </radialGradient>
           <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#ffffff" stopOpacity="0.08" />
-            <stop offset="50%" stopColor="#F39A2B" stopOpacity="0.55" />
+            <stop offset="50%" stopColor={ACCENT} stopOpacity="0.55" />
             <stop offset="100%" stopColor="#ffffff" stopOpacity="0.08" />
           </linearGradient>
           <pattern id="dotgrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
@@ -83,7 +84,7 @@ export default function NetworkDiagram({ t, reduced }) {
             y1={stage === 0 ? reader.y : mqtt.y}
             x2={stage === 0 ? mqtt.x - 26 : hub.x - 38}
             y2={stage === 0 ? mqtt.y : hub.y}
-            stroke="#F39A2B"
+            stroke={ACCENT}
             strokeWidth="1.5"
             strokeLinecap="round"
             className="flow"
@@ -110,7 +111,7 @@ export default function NetworkDiagram({ t, reduced }) {
               y1={hub.y}
               x2={hub.x + 38 + (p.x - 60 - (hub.x + 38)) * sub}
               y2={hub.y + (p.y - hub.y) * sub}
-              stroke="#F39A2B"
+              stroke={ACCENT}
               strokeWidth="1.5"
               strokeLinecap="round"
               opacity={0.85}
@@ -124,15 +125,15 @@ export default function NetworkDiagram({ t, reduced }) {
                 key={i}
                 r="22"
                 fill="none"
-                stroke="#F39A2B"
+                stroke={ACCENT}
                 strokeWidth="1"
                 className="pulse-ring"
                 style={{ animationDelay: `${d}s` }}
               />
             ))}
           <rect x="-26" y="-18" width="52" height="36" rx="6" fill="#0E1424" stroke="rgba(255,255,255,0.25)" />
-          <circle cx="0" cy="0" r="5" fill="#F39A2B" />
-          <circle cx="0" cy="0" r="9" fill="none" stroke="#F39A2B" strokeOpacity="0.5" />
+          <circle cx="0" cy="0" r="5" fill={ACCENT} />
+          <circle cx="0" cy="0" r="9" fill="none" stroke={ACCENT} strokeOpacity="0.5" />
         </g>
         <text
           x={reader.x}
@@ -153,10 +154,10 @@ export default function NetworkDiagram({ t, reduced }) {
         </g>
 
         <g transform={`translate(${hub.x}, ${hub.y})`}>
-          <circle r="62" fill="#0E1424" stroke="#F39A2B" strokeOpacity="0.4" />
+          <circle r="62" fill="#0E1424" stroke={ACCENT} strokeOpacity="0.4" />
           <circle r="48" fill="none" stroke="rgba(255,255,255,0.08)" />
           {!reduced && (
-            <circle r="62" fill="none" stroke="#F39A2B" strokeOpacity="0.35" strokeWidth="1.5" className="pulse-ring" />
+            <circle r="62" fill="none" stroke={ACCENT} strokeOpacity="0.35" strokeWidth="1.5" className="pulse-ring" />
           )}
           <text textAnchor="middle" y="-4" fontSize="11" fontWeight="600" fill="#F7F7F5">
             Horizon
@@ -169,7 +170,7 @@ export default function NetworkDiagram({ t, reduced }) {
         {plugins.map((p, i) => (
           <g key={i} transform={`translate(${p.x}, ${p.y})`}>
             <rect x="-58" y="-22" width="116" height="44" rx="22" fill="#0E1424" stroke="rgba(255,255,255,0.18)" />
-            <circle cx="-40" cy="0" r="4" fill="#F39A2B" opacity={stage === 2 && sub > 0.7 ? 1 : 0.35} />
+            <circle cx="-40" cy="0" r="4" fill={ACCENT} opacity={stage === 2 && sub > 0.7 ? 1 : 0.35} />
             <text x="-26" y="4" fontSize="11" fill="#F7F7F5" fontFamily="Inter">
               {p.label}
             </text>
@@ -178,8 +179,8 @@ export default function NetworkDiagram({ t, reduced }) {
 
         {tagPos && (
           <g transform={`translate(${tagPos.x}, ${tagPos.y})`}>
-            <circle r="6" fill="#F39A2B" />
-            <circle r="12" fill="none" stroke="#F39A2B" strokeOpacity="0.5" />
+            <circle r="6" fill={ACCENT} />
+            <circle r="12" fill="none" stroke={ACCENT} strokeOpacity="0.5" />
           </g>
         )}
 
