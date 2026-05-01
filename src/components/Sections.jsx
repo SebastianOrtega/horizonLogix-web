@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import logoUrl from "../assets/logo-horizonlogix.svg";
+import zebraLogoUrl from "../assets/zebra-logo.svg";
+import impinjLogoUrl from "../assets/impinj-logo.png";
 import { ACCENT, ACCENT_RGB } from "../theme.js";
 import {
   Button,
@@ -23,6 +25,38 @@ export function Logo({ size = 28 }) {
       style={{ width: size, height: "auto", display: "block" }}
     />
   );
+}
+
+function BrandWordmark({ slug }) {
+  // Shared slot keeps both logos vertically centered on the same baseline.
+  // Per-brand image height tunes optical weight: the Impinj PNG carries empty
+  // padding above the wordmark (room for the dots), so it gets more pixels.
+  const SLOT_HEIGHT = 84;
+  const imgHeights = { zebra: 56, impinj: 84 };
+  const slotStyle = { height: SLOT_HEIGHT, display: "flex", alignItems: "center" };
+  if (slug === "zebra") {
+    return (
+      <div style={slotStyle}>
+        <img
+          src={zebraLogoUrl}
+          alt="Zebra Technologies"
+          style={{ height: imgHeights.zebra, width: "auto", display: "block", marginTop: 18 }}
+        />
+      </div>
+    );
+  }
+  if (slug === "impinj") {
+    return (
+      <div style={slotStyle}>
+        <img
+          src={impinjLogoUrl}
+          alt="Impinj"
+          style={{ height: imgHeights.impinj, width: "auto", display: "block" }}
+        />
+      </div>
+    );
+  }
+  return null;
 }
 
 function LangSwitch({ lang, setLang }) {
@@ -698,13 +732,13 @@ export function Partners({ t }) {
               {t.partners.brands.map((b, i) => (
                 <div
                   key={i}
-                  className="rounded-xl border border-ink-950/10 bg-white px-6 py-5 flex items-center justify-between"
+                  className="rounded-xl border border-ink-950/10 bg-white px-7 py-6 flex flex-col gap-4 min-h-[140px] justify-between"
                 >
-                  <div>
-                    <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-graphite-700/55">{b.label}</div>
-                    <div className="mt-1.5 font-display text-[20px] tracking-tightish text-ink-950">{b.name}</div>
+                  <BrandWordmark slug={b.slug} />
+                  <div className="flex items-center justify-between text-[11.5px] font-mono">
+                    <span className="uppercase tracking-[0.2em] text-graphite-700/55">{b.label}</span>
+                    <span className="text-graphite-700/65 tracking-wide">{b.note}</span>
                   </div>
-                  <div className="text-[11.5px] font-mono text-graphite-700/55 tracking-wide">{b.note}</div>
                 </div>
               ))}
             </div>

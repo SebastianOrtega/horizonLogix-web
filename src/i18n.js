@@ -150,10 +150,8 @@ export const I18N = {
         { t: "Go-live", d: "Día 10" },
       ],
       brands: [
-        { label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FXR90 · ATR7000" },
-        { label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
-        { label: "Hardware", name: "Alien Technology", note: "ALR-F800 · ALR-9650" },
-        { label: "Hardware", name: "Honeywell · CAEN", note: "y otros lectores MQTT" },
+        { slug: "zebra", label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FX9600 · ATR7000" },
+        { slug: "impinj", label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
       ],
     },
     livedemo: {
@@ -248,7 +246,7 @@ export const I18N = {
       diagramHub: "Horizon Logix Middleware",
       diagramPlugins: ["Warehouse", "Containers", "RTLS"],
       srDiagram:
-        "Animated diagram: an RFID reader emits a pulse that travels to the Horizon Logix middleware and is dispatched to the Warehouse, Containers and RTLS plugins.",
+      "Animated diagram: an RFID reader emits a pulse that travels to the Horizon Logix middleware and is dispatched to the Warehouse, Containers and RTLS plugins.",
     },
     problem: {
       eyebrow: "The problem",
@@ -375,10 +373,8 @@ export const I18N = {
         { t: "Go-live", d: "Day 10" },
       ],
       brands: [
-        { label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FXR90 · ATR7000" },
-        { label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
-        { label: "Hardware", name: "Alien Technology", note: "ALR-F800 · ALR-9650" },
-        { label: "Hardware", name: "Honeywell · CAEN", note: "and other MQTT readers" },
+        { slug: "zebra", label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FXR90 · ATR7000" },
+        { slug: "impinj", label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
       ],
     },
     livedemo: {
