@@ -169,7 +169,7 @@ export function Problem({ t }) {
     for (let i = 0; i < count; i++) {
       list.push(t.problem.events[i % t.problem.events.length]);
     }
-    return list.slice(-5);
+    return list.slice(-4);
   }, [count, t]);
 
   return (
