@@ -1015,7 +1015,7 @@ export function Testimonial({ t }) {
   );
 }
 
-export function CTABand({ t, onDemo }) {
+export function CTABand({ t, onDemo, onSales }) {
   return (
     <Section id="cta" tone="dark" className="bg-grid-dark py-28 text-center relative overflow-hidden">
       <div
@@ -1032,7 +1032,7 @@ export function CTABand({ t, onDemo }) {
             <Button onClick={onDemo}>
               {t.cta.primary} <Icon.Arrow />
             </Button>
-            <Button variant="ghost" href="mailto:hola@hlogix.app">
+            <Button variant="ghost" onClick={onSales}>
               {t.cta.secondary}
             </Button>
           </div>

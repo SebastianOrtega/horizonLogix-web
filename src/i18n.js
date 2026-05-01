@@ -204,6 +204,7 @@ export const I18N = {
     },
     form: {
       title: "Solicitar demo",
+      salesTitle: "Hablar con ventas",
       sub: "Te respondemos en menos de un día hábil.",
       name: "Nombre",
       email: "Correo corporativo",
@@ -480,6 +481,7 @@ export const I18N = {
     },
     form: {
       title: "Request demo",
+      salesTitle: "Talk to sales",
       sub: "We reply within one business day.",
       name: "Name",
       email: "Work email",

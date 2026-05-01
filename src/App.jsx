@@ -51,6 +51,7 @@ function RouteSync({ lang, setLangState }) {
 function Shell() {
   const [lang, setLangState] = useState(detectLang);
   const [demoOpen, setDemoOpen] = useState(false);
+  const [demoKind, setDemoKind] = useState("demo");
   const [cookies, setCookies] = useState(() => !readConsent());
   const [prefsOpen, setPrefsOpen] = useState(false);
 
@@ -84,21 +85,26 @@ function Shell() {
   const dismissCookies = () => savePrefs({ analytics: true, marketing: true });
 
   const t = I18N[lang];
-  const onDemo = () => setDemoOpen(true);
+  const openContact = (kind) => {
+    setDemoKind(kind);
+    setDemoOpen(true);
+  };
+  const onDemo = () => openContact("demo");
+  const onSales = () => openContact("sales");
 
   return (
     <>
       <RouteSync lang={lang} setLangState={setLangState} />
       <Nav t={t} lang={lang} setLang={setLang} onDemo={onDemo} />
       <Routes>
-        <Route path="/" element={<Landing t={t} lang={lang} onDemo={onDemo} />} />
+        <Route path="/" element={<Landing t={t} lang={lang} onDemo={onDemo} onSales={onSales} />} />
         <Route path="/privacidad" element={<LegalPage t={t} lang="es" kind="privacy" />} />
         <Route path="/privacy" element={<LegalPage t={t} lang="en" kind="privacy" />} />
         <Route path="/terminos" element={<LegalPage t={t} lang="es" kind="terms" />} />
         <Route path="/terms" element={<LegalPage t={t} lang="en" kind="terms" />} />
       </Routes>
       <Footer t={t} lang={lang} setLang={setLang} />
-      <DemoModal t={t.form} open={demoOpen} onClose={() => setDemoOpen(false)} />
+      <DemoModal t={t.form} open={demoOpen} onClose={() => setDemoOpen(false)} kind={demoKind} />
       {cookies && <CookieStrip t={t} onClose={dismissCookies} onManage={() => setPrefsOpen(true)} />}
       <CookiePreferences
         t={t.cookies}

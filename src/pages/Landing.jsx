@@ -14,7 +14,7 @@ import {
 } from "../components/Sections.jsx";
 import WorkflowDesigner from "../components/WorkflowDesigner.jsx";
 
-export default function Landing({ t, lang, onDemo }) {
+export default function Landing({ t, lang, onDemo, onSales }) {
   return (
     <main>
       <Hero t={t} onDemo={onDemo} />
@@ -28,7 +28,7 @@ export default function Landing({ t, lang, onDemo }) {
       <Why t={t} />
       <ArchIT t={t} />
       <Testimonial t={t} />
-      <CTABand t={t} onDemo={onDemo} />
+      <CTABand t={t} onDemo={onDemo} onSales={onSales} />
     </main>
   );
 }

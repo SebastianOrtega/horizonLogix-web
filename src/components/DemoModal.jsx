@@ -10,6 +10,13 @@ const RECAPTCHA_SITE_KEY =
 const SOURCE = "hlogix-web";
 const RECAPTCHA_ACTION = "contact_form_submit";
 
+// Intent marker prepended to the message body sent to the leads endpoint.
+// Always Spanish — sales reads these regardless of the visitor's UI language.
+const INTENT_TEXT = {
+  demo: "Quiere un demo.",
+  sales: "Quiere hablar con ventas.",
+};
+
 let recaptchaLoader = null;
 const loadRecaptcha = () => {
   if (typeof window === "undefined") return Promise.reject(new Error("no-window"));
@@ -33,7 +40,7 @@ const loadRecaptcha = () => {
   return recaptchaLoader;
 };
 
-export default function DemoModal({ t, open, onClose }) {
+export default function DemoModal({ t, open, onClose, kind = "demo" }) {
   const [data, setData] = useState({ name: "", email: "", company: "", role: "", phone: "", message: "" });
   const [err, setErr] = useState({});
   const [state, setState] = useState("idle");
@@ -70,9 +77,11 @@ export default function DemoModal({ t, open, onClose }) {
 
     const trimmedRole = data.role.trim();
     const trimmedMessage = data.message.trim();
-    const message = trimmedRole
+    const intent = INTENT_TEXT[kind] || INTENT_TEXT.demo;
+    const tail = trimmedRole
       ? `Cargo: ${trimmedRole}${trimmedMessage ? `\n\n${trimmedMessage}` : ""}`
       : trimmedMessage;
+    const message = tail ? `${intent}\n\n${tail}` : intent;
 
     const payload = {
       recaptchaToken,
@@ -125,7 +134,7 @@ export default function DemoModal({ t, open, onClose }) {
           </div>
         ) : (
           <>
-            <h3 className="font-display text-[28px] tracking-tightish">{t.title}</h3>
+            <h3 className="font-display text-[28px] tracking-tightish">{kind === "sales" ? (t.salesTitle || t.title) : t.title}</h3>
             <p className="mt-1.5 text-[14px] text-graphite-600">{t.sub}</p>
 
             <form className="mt-6 grid grid-cols-2 gap-3.5" onSubmit={submit} noValidate>
