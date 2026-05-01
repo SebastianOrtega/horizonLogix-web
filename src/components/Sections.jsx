@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoUrl from "../assets/logo-horizonlogix.svg";
 import zebraLogoUrl from "../assets/zebra-logo.svg";
 import impinjLogoUrl from "../assets/impinj-logo.png";
 import { ACCENT, ACCENT_RGB } from "../theme.js";
+import { ROUTE_TWINS } from "../legal-content.js";
 import {
   Button,
   Eyebrow,
@@ -14,6 +16,10 @@ import {
   useScrollY,
 } from "./Primitives.jsx";
 import NetworkDiagram from "./NetworkDiagram.jsx";
+
+// Re-exports so other files can import these primitives via Sections.jsx
+// (LegalPage is one consumer; the existing import surface stays small).
+export { Eyebrow, Icon, Reveal, Section } from "./Primitives.jsx";
 
 export function Logo({ size = 28 }) {
   return (
@@ -59,13 +65,38 @@ function BrandWordmark({ slug }) {
   return null;
 }
 
+function FooterLink({ to, children }) {
+  // Real route: react-router Link. Anything else (hash, mailto, etc.): plain anchor.
+  if (to && to.startsWith("/") && !to.startsWith("/#")) {
+    return (
+      <Link to={to} className="hover:text-paper-50 u-grow">
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a className="hover:text-paper-50 u-grow" href={to || "#"}>
+      {children}
+    </a>
+  );
+}
+
 function LangSwitch({ lang, setLang }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const onSwitch = (l) => {
+    setLang(l);
+    const twin = ROUTE_TWINS[location.pathname];
+    if (twin) navigate(twin);
+  };
+
   return (
     <div className="hidden md:flex items-center gap-0.5 text-[12px] font-medium border border-white/10 rounded-full p-0.5 mr-1">
       {["es", "en"].map((l) => (
         <button
           key={l}
-          onClick={() => setLang(l)}
+          onClick={() => onSwitch(l)}
           className={`px-2.5 py-1 rounded-full transition-colors ${lang === l ? "bg-signal text-ink-950" : "text-paper-50/70 hover:text-paper-50"
             }`}
           aria-pressed={lang === l}
@@ -79,6 +110,8 @@ function LangSwitch({ lang, setLang }) {
 
 export function Nav({ t, lang, setLang, onDemo }) {
   const y = useScrollY();
+  const location = useLocation();
+  const onLanding = location.pathname === "/";
   const scrolled = y > 80;
   const items = [
     { k: "platform", id: "how" },
@@ -87,19 +120,21 @@ export function Nav({ t, lang, setLang, onDemo }) {
     { k: "cases", id: "cases" },
     { k: "docs", id: "arch" },
   ];
+  // From the landing, anchor links resolve in-page (smooth-scroll). From any
+  // other route, prefix with "/" so the browser navigates back to "/" first.
+  const anchorPrefix = onLanding ? "" : "/";
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${scrolled ? "bg-ink-950/70 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
+      className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${scrolled || !onLanding ? "bg-ink-950/70 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
         }`}
     >
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2.5 text-paper-50">
+        <Link to="/" className="flex items-center gap-2.5 text-paper-50">
           <Logo size={80} />
-
-        </a>
+        </Link>
         <nav className="hidden lg:flex items-center gap-7 text-[14px] text-paper-50/75">
           {items.map((i) => (
-            <a key={i.k} href={`#${i.id}`} className="u-grow hover:text-paper-50 transition-colors">
+            <a key={i.k} href={`${anchorPrefix}#${i.id}`} className="u-grow hover:text-paper-50 transition-colors">
               {t.nav[i.k]}
             </a>
           ))}
@@ -107,7 +142,7 @@ export function Nav({ t, lang, setLang, onDemo }) {
         <div className="flex items-center gap-2">
           <LangSwitch lang={lang} setLang={setLang} />
           <a
-            href="#cta"
+            href={`${anchorPrefix}#cta`}
             className="hidden md:inline-flex text-[14px] text-paper-50/75 hover:text-paper-50 px-3 py-2"
           >
             {t.nav.contact}
@@ -1027,10 +1062,8 @@ export function Footer({ t, lang, setLang }) {
             <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper-50/40">{c.h}</div>
             <ul className="mt-4 space-y-2.5 text-[14px]">
               {c.links.map((l) => (
-                <li key={l}>
-                  <a className="hover:text-paper-50 u-grow" href="#">
-                    {l}
-                  </a>
+                <li key={l.label}>
+                  <FooterLink to={l.to}>{l.label}</FooterLink>
                 </li>
               ))}
             </ul>

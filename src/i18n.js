@@ -223,10 +223,30 @@ export const I18N = {
     footer: {
       tagline: "El middleware RFID industrial.",
       cols: [
-        { h: "Plataforma", links: ["Cómo funciona", "Arquitectura", "Seguridad", "Documentación"] },
-        { h: "Plugins", links: ["Warehouse", "Containers", "RTLS / WIP", "Comparar"] },
-        { h: "Empresa", links: ["Sobre Horizon Logix", "Casos", "Partners", "Contacto"] },
-        { h: "Legal", links: ["Aviso de Privacidad"] },
+        {
+          h: "Plataforma",
+          links: [
+            { label: "Cómo funciona", to: "/#how" },
+            { label: "Arquitectura", to: "/#arch" },
+            { label: "Plugins", to: "/#plugins" },
+            { label: "Industrias", to: "/#industries" },
+          ],
+        },
+        {
+          h: "Empresa",
+          links: [
+            { label: "Casos", to: "/#cases" },
+            { label: "Partners", to: "/#partners" },
+            { label: "Contacto", to: "/#cta" },
+          ],
+        },
+        {
+          h: "Legal",
+          links: [
+            { label: "Aviso de privacidad", to: "/privacidad" },
+            { label: "Términos de uso", to: "/terminos" },
+          ],
+        },
       ],
       made: "Hecho en México",
       rights: "Todos los derechos reservados.",
@@ -479,10 +499,30 @@ export const I18N = {
     footer: {
       tagline: "The industrial RFID middleware.",
       cols: [
-        { h: "Platform", links: ["How it works", "Architecture", "Security", "Docs"] },
-        { h: "Plugins", links: ["Warehouse", "Containers", "RTLS / WIP", "Compare"] },
-        { h: "Company", links: ["About Horizon Logix", "Cases", "Partners", "Contact"] },
-        { h: "Legal", links: ["Privacy", "Terms", "Legal notice", "DPA"] },
+        {
+          h: "Platform",
+          links: [
+            { label: "How it works", to: "/#how" },
+            { label: "Architecture", to: "/#arch" },
+            { label: "Plugins", to: "/#plugins" },
+            { label: "Industries", to: "/#industries" },
+          ],
+        },
+        {
+          h: "Company",
+          links: [
+            { label: "Cases", to: "/#cases" },
+            { label: "Partners", to: "/#partners" },
+            { label: "Contact", to: "/#cta" },
+          ],
+        },
+        {
+          h: "Legal",
+          links: [
+            { label: "Privacy notice", to: "/privacy" },
+            { label: "Terms of use", to: "/terms" },
+          ],
+        },
       ],
       made: "Made in Mexico",
       rights: "All rights reserved.",
