@@ -135,7 +135,7 @@ export function Hero({ t, onDemo }) {
             <Eyebrow>{t.hero.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="display-h1 mt-6 text-[clamp(56px,7.4vw,104px)] text-paper-50">
+            <h1 className="display-h1 mt-6 text-[clamp(44px,5.8vw,80px)] text-paper-50">
               {t.hero.h1a}
               <br />
               {t.hero.h1b}

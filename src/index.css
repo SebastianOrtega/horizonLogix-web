@@ -8,9 +8,9 @@
   --ink-900: #0e1424;
   --ink-800: #141b2e;
   --paper-50: #f7f7f5;
-  --signal: #105ca9;
-  --signal-rgb: 16, 92, 169;
-  --signal-deep: #0d4a87;
+  --signal: #f6891a;
+  --signal-rgb: 246, 137, 26;
+  --signal-deep: #c5680b;
   --grid-line: rgba(255, 255, 255, 0.06);
   --grid-line-dark: rgba(11, 15, 26, 0.06);
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -31,18 +31,16 @@ body {
 }
 
 .display-h1 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Young Serif", Georgia, serif;
   font-weight: 400;
-  font-variation-settings: "opsz" 144;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
 }
 .display-h2 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Young Serif", Georgia, serif;
   font-weight: 400;
-  font-variation-settings: "opsz" 96;
-  letter-spacing: -0.03em;
-  line-height: 1;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
 }
 
 .bg-grid-dark {

@@ -136,7 +136,7 @@ export default function WorkflowDesigner({ lang, accent }) {
                       />
                       <circle cx="0" cy="30" r="3.5" fill={accent} />
                       <circle cx={n.w} cy="30" r="3.5" fill="rgba(255,255,255,0.45)" />
-                      <text x="14" y="24" fontSize="12" fontWeight="600" fill="#F7F7F5" fontFamily="Inter">
+                      <text x="14" y="24" fontSize="12" fontWeight="600" fill="#F7F7F5" fontFamily="Schibsted Grotesk">
                         {n.title}
                       </text>
                       <text x="14" y="42" fontSize="10.5" fill="rgba(247,247,245,0.55)" fontFamily="JetBrains Mono">

@@ -171,7 +171,7 @@ export default function NetworkDiagram({ t, reduced }) {
           <g key={i} transform={`translate(${p.x}, ${p.y})`}>
             <rect x="-58" y="-22" width="116" height="44" rx="22" fill="#0E1424" stroke="rgba(255,255,255,0.18)" />
             <circle cx="-40" cy="0" r="4" fill={ACCENT} opacity={stage === 2 && sub > 0.7 ? 1 : 0.35} />
-            <text x="-26" y="4" fontSize="11" fill="#F7F7F5" fontFamily="Inter">
+            <text x="-26" y="4" fontSize="11" fill="#F7F7F5" fontFamily="Schibsted Grotesk">
               {p.label}
             </text>
           </g>

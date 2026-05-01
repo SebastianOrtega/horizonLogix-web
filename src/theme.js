@@ -6,5 +6,5 @@
 // ACCENT_RGB must match ACCENT — kept as a tuple string for use inside rgba(...)
 
 export const ACCENT = "#f6891a";
-export const ACCENT_DEEP = "#0d4a87";
-export const ACCENT_RGB = "16, 92, 169";
+export const ACCENT_DEEP = "#c5680b";
+export const ACCENT_RGB = "246, 137, 26";

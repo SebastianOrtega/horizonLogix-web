@@ -12,8 +12,8 @@ export default {
         signal: { DEFAULT: ACCENT, soft: `rgba(${ACCENT_RGB}, 0.2)`, deep: ACCENT_DEEP },
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui"],
-        display: ["Fraunces", "Georgia", "serif"],
+        sans: ["Schibsted Grotesk", "ui-sans-serif", "system-ui"],
+        display: ["Young Serif", "Georgia", "serif"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
       letterSpacing: { tightish: "-0.02em", tighter2: "-0.035em" },
