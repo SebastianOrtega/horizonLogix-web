@@ -462,7 +462,7 @@ export function HowItWorks({ t }) {
 function PluginMockup({ kind }) {
   if (kind === 0)
     return (
-      <div className="rounded-md border border-graphite-600/12 bg-white p-3 font-mono text-[11px] text-graphite-600">
+      <div className="rounded-md bg-white p-3 font-mono text-[11px] text-graphite-600">
         <div className="flex justify-between">
           <span>SO-44812</span>
           <span className="text-signal-deep">VALID ✓</span>
@@ -482,7 +482,7 @@ function PluginMockup({ kind }) {
     );
   if (kind === 1)
     return (
-      <div className="rounded-md border border-graphite-600/12 bg-white p-3 text-[11px] text-graphite-600 font-mono">
+      <div className="rounded-md bg-white p-3 text-[11px] text-graphite-600 font-mono">
         <div className="grid grid-cols-6 gap-1">
           {Array.from({ length: 18 }).map((_, i) => (
             <div key={i} className={`aspect-square rounded-sm ${i % 5 === 0 ? "bg-signal/70" : "bg-paper-200"}`} />
@@ -495,7 +495,7 @@ function PluginMockup({ kind }) {
       </div>
     );
   return (
-    <div className="rounded-md border border-graphite-600/12 bg-white p-3 text-[11px] text-graphite-600 font-mono relative h-[68px] overflow-hidden">
+    <div className="rounded-md bg-white p-3 text-[11px] text-graphite-600 font-mono relative h-[68px] overflow-hidden">
       <div className="absolute inset-2 grid grid-cols-8 grid-rows-3 gap-0.5">
         {Array.from({ length: 24 }).map((_, i) => (
           <div key={i} className="rounded-[1px]" style={{ background: `rgba(${ACCENT_RGB},${(i % 7) / 9})` }} />
@@ -525,16 +525,27 @@ export function Plugins({ t }) {
           return (
             <Reveal key={c.name} delay={i * 100}>
               <article className="card-lift group relative overflow-hidden rounded-2xl border border-graphite-600/12 bg-white p-7 h-full flex flex-col">
-                {c.ribbon && (
-                  <span className="absolute top-5 right-5 text-[11px] font-mono uppercase tracking-[0.15em] text-signal-deep border border-signal-deep/30 bg-signal/10 rounded-full px-2.5 py-1">
-                    {c.ribbon}
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-graphite-700/55 whitespace-nowrap">
+                    PL · 0{i + 1}
                   </span>
-                )}
-                <div className="text-ink-900">
-                  <I />
+                  <span className="h-px flex-1 bg-graphite-600/15"></span>
+                  {c.ribbon && (
+                    <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-signal-deep border border-signal-deep/30 bg-signal/10 rounded-full px-2.5 py-1">
+                      {c.ribbon}
+                    </span>
+                  )}
                 </div>
-                <h3 className="mt-6 font-display text-[22px] tracking-tightish text-ink-900">{c.name}</h3>
-                <p className="mt-2 text-[14px] text-graphite-600 leading-relaxed">{c.tag}</p>
+
+                <div className="mt-7 flex items-start gap-3.5">
+                  <div className="text-ink-900/75 flex-shrink-0 mt-0.5">
+                    <I width="28" height="28" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-display text-[22px] tracking-tightish text-ink-900 leading-[1.1]">{c.name}</h3>
+                    <p className="mt-1.5 text-[14px] text-graphite-600 leading-relaxed">{c.tag}</p>
+                  </div>
+                </div>
 
                 <ul className="mt-6 space-y-2.5 text-[14px] text-ink-900/85 flex-1">
                   {c.bullets.map((b) => (
@@ -859,15 +870,17 @@ export function Why({ t }) {
           <h2 className="display-h2 mt-5 text-[clamp(40px,5vw,68px)] text-ink-900">{t.why.title}</h2>
         </Reveal>
       </div>
-      <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="mt-14 grid md:grid-cols-2 gap-x-12 gap-y-10 max-w-[1080px]">
         {t.why.items.map((it, i) => (
           <Reveal key={it.t} delay={i * 80}>
-            <div className="card-lift rounded-2xl border border-graphite-600/12 bg-white p-7 h-full">
-              <div className="w-9 h-9 rounded-lg bg-ink-900 text-paper-50 flex items-center justify-center font-mono text-[11px] tnum">
+            <div className="flex gap-5 pt-7 border-t border-ink-950/12">
+              <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-graphite-700/55 tnum mt-1.5">
                 0{i + 1}
+              </span>
+              <div className="min-w-0">
+                <h3 className="font-display text-[22px] tracking-tightish text-ink-900 leading-[1.15]">{it.t}</h3>
+                <p className="mt-2 text-[14px] text-graphite-600 leading-relaxed">{it.d}</p>
               </div>
-              <h3 className="mt-6 font-display text-[22px] tracking-tightish text-ink-900">{it.t}</h3>
-              <p className="mt-2 text-[14px] text-graphite-600 leading-relaxed">{it.d}</p>
             </div>
           </Reveal>
         ))}
