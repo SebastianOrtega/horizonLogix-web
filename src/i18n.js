@@ -229,14 +229,20 @@ export const I18N = {
           links: [
             { label: "Cómo funciona", to: "/#how" },
             { label: "Arquitectura", to: "/#arch" },
-            { label: "Plugins", to: "/#plugins" },
             { label: "Industrias", to: "/#industries" },
+          ],
+        },
+        {
+          h: "Plugins",
+          links: [
+            { label: "Warehouse", to: "/warehouse" },
+            { label: "Containers", to: "/contenedores" },
+            { label: "RTLS / WIP", to: "/rtls" },
           ],
         },
         {
           h: "Empresa",
           links: [
-            { label: "Casos", to: "/#cases" },
             { label: "Partners", to: "/#partners" },
             { label: "Contacto", to: "/#cta" },
           ],
@@ -506,14 +512,20 @@ export const I18N = {
           links: [
             { label: "How it works", to: "/#how" },
             { label: "Architecture", to: "/#arch" },
-            { label: "Plugins", to: "/#plugins" },
             { label: "Industries", to: "/#industries" },
+          ],
+        },
+        {
+          h: "Plugins",
+          links: [
+            { label: "Warehouse", to: "/warehouse" },
+            { label: "Containers", to: "/containers" },
+            { label: "RTLS / WIP", to: "/rtls" },
           ],
         },
         {
           h: "Company",
           links: [
-            { label: "Cases", to: "/#cases" },
             { label: "Partners", to: "/#partners" },
             { label: "Contact", to: "/#cta" },
           ],

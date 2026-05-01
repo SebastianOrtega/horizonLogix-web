@@ -353,18 +353,3 @@ export const LEGAL = {
   },
 };
 
-// Maps a path to its language twin (used by LangSwitch on legal pages).
-export const ROUTE_TWINS = {
-  "/privacidad": "/privacy",
-  "/privacy": "/privacidad",
-  "/terminos": "/terms",
-  "/terms": "/terminos",
-};
-
-// Maps a path to the language it forces (used by App to sync lang state).
-export const ROUTE_LANG = {
-  "/privacidad": "es",
-  "/privacy": "en",
-  "/terminos": "es",
-  "/terms": "en",
-};

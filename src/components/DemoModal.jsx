@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Icon } from "./Primitives.jsx";
+import { track } from "../lib/track.js";
 
 const LEADS_ENDPOINT =
   import.meta.env.VITE_LEADS_ENDPOINT ||
@@ -101,6 +102,7 @@ export default function DemoModal({ t, open, onClose, kind = "demo" }) {
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setState("done");
+      track("demo_request_submit", { form_type: kind, lang: document.documentElement.lang || undefined });
     } catch (e) {
       setState("idle");
       setSubmitErr(t.errSubmit);

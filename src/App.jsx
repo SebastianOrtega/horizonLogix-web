@@ -2,14 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { I18N } from "./i18n.js";
 import { ACCENT, ACCENT_DEEP, ACCENT_RGB } from "./theme.js";
-import { ROUTE_LANG } from "./legal-content.js";
+import { ROUTE_LANG } from "./lib/routes.js";
 import { CookieStrip, Footer, Nav } from "./components/Sections.jsx";
 import DemoModal from "./components/DemoModal.jsx";
 import CookiePreferences from "./components/CookiePreferences.jsx";
 import Landing from "./pages/Landing.jsx";
 import LegalPage from "./pages/LegalPage.jsx";
+import PluginPage from "./pages/PluginPage.jsx";
 import { applyConsent, readConsent, writeConsent } from "./lib/consent.js";
-import { trackPageview } from "./lib/track.js";
+import { track, trackPageview } from "./lib/track.js";
 
 function detectLang() {
   if (typeof window === "undefined") return "es";
@@ -85,12 +86,13 @@ function Shell() {
   const dismissCookies = () => savePrefs({ analytics: true, marketing: true });
 
   const t = I18N[lang];
-  const openContact = (kind) => {
+  const openContact = (kind, source) => {
     setDemoKind(kind);
     setDemoOpen(true);
+    track("demo_request_open", { form_type: kind, source });
   };
-  const onDemo = () => openContact("demo");
-  const onSales = () => openContact("sales");
+  const onDemo = (source) => openContact("demo", source);
+  const onSales = (source) => openContact("sales", source);
 
   return (
     <>
@@ -102,6 +104,10 @@ function Shell() {
         <Route path="/privacy" element={<LegalPage t={t} lang="en" kind="privacy" />} />
         <Route path="/terminos" element={<LegalPage t={t} lang="es" kind="terms" />} />
         <Route path="/terms" element={<LegalPage t={t} lang="en" kind="terms" />} />
+        <Route path="/warehouse" element={<PluginPage slug="warehouse" lang={lang} onDemo={onDemo} onSales={onSales} />} />
+        <Route path="/contenedores" element={<PluginPage slug="containers" lang="es" onDemo={onDemo} onSales={onSales} />} />
+        <Route path="/containers" element={<PluginPage slug="containers" lang="en" onDemo={onDemo} onSales={onSales} />} />
+        <Route path="/rtls" element={<PluginPage slug="rtls" lang={lang} onDemo={onDemo} onSales={onSales} />} />
       </Routes>
       <Footer t={t} lang={lang} setLang={setLang} />
       <DemoModal t={t.form} open={demoOpen} onClose={() => setDemoOpen(false)} kind={demoKind} />

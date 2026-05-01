@@ -4,7 +4,9 @@ import logoUrl from "../assets/logo-horizonlogix.svg";
 import zebraLogoUrl from "../assets/zebra-logo.svg";
 import impinjLogoUrl from "../assets/impinj-logo.png";
 import { ACCENT, ACCENT_RGB } from "../theme.js";
-import { ROUTE_TWINS } from "../legal-content.js";
+import { ROUTE_TWINS } from "../lib/routes.js";
+import { track } from "../lib/track.js";
+import { PLUGINS, PLUGIN_LIST } from "../plugin-content.js";
 import {
   Button,
   Eyebrow,
@@ -86,7 +88,9 @@ function LangSwitch({ lang, setLang }) {
   const navigate = useNavigate();
 
   const onSwitch = (l) => {
+    if (l === lang) return;
     setLang(l);
+    track("lang_switch", { to: l });
     const twin = ROUTE_TWINS[location.pathname];
     if (twin) navigate(twin);
   };
@@ -147,7 +151,7 @@ export function Nav({ t, lang, setLang, onDemo }) {
           >
             {t.nav.contact}
           </a>
-          <Button onClick={onDemo}>{t.nav.demo}</Button>
+          <Button onClick={() => onDemo("nav")}>{t.nav.demo}</Button>
         </div>
       </div>
     </header>
@@ -183,26 +187,12 @@ export function Hero({ t, onDemo }) {
           </Reveal>
           <Reveal delay={240}>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Button onClick={onDemo}>
+              <Button onClick={() => onDemo("hero")}>
                 {t.hero.ctaPrimary} <Icon.Arrow />
               </Button>
               <Button variant="ghost" href="#how">
                 {t.hero.ctaSecondary} <Icon.ArrowDown />
               </Button>
-            </div>
-          </Reveal>
-          <Reveal delay={320}>
-            <div className="mt-14">
-              {/*<div className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper-50/45">
-                {t.hero.trust}
-              </div>
-                <div className="mt-4 flex flex-wrap items-center gap-x-9 gap-y-3 opacity-60">
-                {["NORDEX", "ALMACENA", "CFE-LOG", "GRUPO MV", "TRAZA·MX", "PHARMALINK"].map((b) => (
-                  <span key={b} className="font-mono text-[13px] tracking-widest text-paper-50/65">
-                    {b}
-                  </span>
-                ))}
-              </div> */}
             </div>
           </Reveal>
         </div>
@@ -418,22 +408,22 @@ function FlowDiagram({ stages, active, reduced }) {
               />
               {isCenter ? (
                 <>
-                  <text textAnchor="middle" y="-3" fontSize="11" fontWeight="600" fill="#F7F7F5">
+                  <text textAnchor="middle" y="-3" fontSize="13" fontWeight="600" fill="#F7F7F5">
                     Horizon
                   </text>
-                  <text textAnchor="middle" y="11" fontSize="9" fill="rgba(247,247,245,0.6)" fontFamily="JetBrains Mono">
+                  <text textAnchor="middle" y="13" fontSize="11" fill="rgba(247,247,245,0.6)" fontFamily="JetBrains Mono">
                     core
                   </text>
                 </>
               ) : (
                 <NodeIcon kind={s.k} active={isActive} />
               )}
-              <text textAnchor="middle" y={isCenter ? 64 : 50} fontSize="12" fontWeight="500" fill="#F7F7F5">
+              <text textAnchor="middle" y={isCenter ? 70 : 54} fontSize="16" fontWeight="500" fill="#F7F7F5">
                 {s.t}
               </text>
-              <text textAnchor="middle" y={isCenter ? 82 : 68} fontSize="11" fill="rgba(247,247,245,0.55)">
+              <text textAnchor="middle" y={isCenter ? 92 : 76} fontSize="13" fill="rgba(247,247,245,0.6)">
                 {wrapLine(s.d, 28).map((line, li) => (
-                  <tspan key={li} x="0" dy={li === 0 ? 0 : 13}>
+                  <tspan key={li} x="0" dy={li === 0 ? 0 : 16}>
                     {line}
                   </tspan>
                 ))}
@@ -541,7 +531,7 @@ function PluginMockup({ kind }) {
   );
 }
 
-export function Plugins({ t }) {
+export function Plugins({ t, lang }) {
   const icons = [Icon.Warehouse, Icon.Container, Icon.RTLS];
   return (
     <Section id="plugins" tone="light" className="py-28">
@@ -557,6 +547,8 @@ export function Plugins({ t }) {
       <div className="mt-14 grid md:grid-cols-3 gap-5">
         {t.plugins.cards.map((c, i) => {
           const I = icons[i];
+          const slug = PLUGIN_LIST[i];
+          const route = PLUGINS[slug].routes[lang] || PLUGINS[slug].routes.es;
           return (
             <Reveal key={c.name} delay={i * 100}>
               <article className="card-lift group relative overflow-hidden rounded-2xl border border-graphite-600/12 bg-white p-7 h-full flex flex-col">
@@ -593,9 +585,13 @@ export function Plugins({ t }) {
 
                 <div className="mt-6 -mx-7 -mb-7 px-7 pt-5 pb-7 bg-paper-100 border-t border-graphite-600/10 transition-colors group-hover:bg-paper-50">
                   <PluginMockup kind={i} />
-                  <a className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink-900 u-grow">
+                  <Link
+                    to={route}
+                    onClick={() => track("plugin_card_click", { plugin: slug })}
+                    className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink-900 u-grow"
+                  >
                     {c.link} <Icon.Arrow />
-                  </a>
+                  </Link>
                 </div>
               </article>
             </Reveal>
@@ -684,11 +680,16 @@ export function Partners({ t }) {
           </Reveal>
           <Reveal delay={220}>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button variant="filledLight" href="#cta">
+              <Button
+                variant="filledLight"
+                href="#cta"
+                onClick={() => track("partners_apply_click", { source: "partners" })}
+              >
                 {t.partners.ctaPrimary} <Icon.Arrow />
               </Button>
               <a
                 href="#cta"
+                onClick={() => track("partners_apply_click", { source: "partners_secondary" })}
                 className="inline-flex items-center gap-1.5 px-3 py-2.5 text-[14px] text-graphite-700 hover:text-ink-950"
               >
                 {t.partners.ctaSecondary} <Icon.Arrow />
@@ -935,23 +936,6 @@ export function ArchIT({ t }) {
           <Reveal delay={80}>
             <h2 className="display-h2 mt-5 text-[clamp(40px,5vw,68px)] text-paper-50">{t.arch2.title}</h2>
           </Reveal>
-          <Reveal delay={140}>
-            {/* <div className="mt-8 flex flex-wrap gap-2">
-              {t.arch2.stack.map((s) => (
-                <span
-                  key={s}
-                  className="font-mono text-[12px] tracking-wide rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-paper-50/80"
-                >
-                  {s}
-                </span>
-              ))}
-            </div> */}
-          </Reveal>
-          {/*  <Reveal delay={220}>
-            <a href="#" className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-signal u-grow">
-              {t.arch2.docs} <Icon.Arrow />
-            </a>
-          </Reveal> */}
         </div>
 
         <div className="lg:col-span-7 grid sm:grid-cols-3 gap-3">
@@ -1029,10 +1013,10 @@ export function CTABand({ t, onDemo, onSales }) {
         </Reveal>
         <Reveal delay={120}>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Button onClick={onDemo}>
+            <Button onClick={() => onDemo("cta_band")}>
               {t.cta.primary} <Icon.Arrow />
             </Button>
-            <Button variant="ghost" onClick={onSales}>
+            <Button variant="ghost" onClick={() => onSales("cta_band")}>
               {t.cta.secondary}
             </Button>
           </div>
@@ -1075,10 +1059,7 @@ export function Footer({ t, lang, setLang }) {
           <span>
             © {year} Horizon Logix · {t.footer.rights}
           </span>
-          {/* <span className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-signal"></span>
-            {t.footer.made}
-          </span> */}
+          <span>{t.footer.made}</span>
         </div>
       </div>
     </footer>

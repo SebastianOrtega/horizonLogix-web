@@ -8,7 +8,12 @@
 export function track(event, params = {}) {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event, ...params });
+  window.dataLayer.push({
+    event,
+    page_path: window.location.pathname,
+    page_location: window.location.href,
+    ...params,
+  });
 }
 
 // Pushes a virtual page_view for SPA navigations.

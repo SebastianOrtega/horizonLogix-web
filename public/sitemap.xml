@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://hlogix.app/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hlogix.app/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/warehouse</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/warehouse?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/warehouse?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hlogix.app/warehouse"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/contenedores</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/contenedores"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/containers"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/containers</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/contenedores"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/containers"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/rtls</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/rtls?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/rtls?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hlogix.app/rtls"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/privacidad</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/privacy"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/privacy"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/terminos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/terminos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/terms"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://hlogix.app/terms</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/terminos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/terms"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>

@@ -21,7 +21,7 @@ export default function Landing({ t, lang, onDemo, onSales }) {
       <Problem t={t} />
       <HowItWorks t={t} />
       <WorkflowDesigner lang={lang} accent={ACCENT} />
-      <Plugins t={t} />
+      <Plugins t={t} lang={lang} />
       <Industries t={t} />
       <Partners t={t} />
       <LiveDemo t={t} />

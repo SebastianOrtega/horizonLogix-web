@@ -1,0 +1,176 @@
+<!doctype html>
+<!--
+  Open Graph image source — English (1200×630).
+  Export to public/og-image-en.png:
+    1. Open this file in Chrome (file:// or via Vite dev server at /og-image.html)
+    2. Open DevTools (Cmd+Opt+I)
+    3. Cmd+Shift+P → "Capture node screenshot"
+    4. In the Elements panel, select <div class="og"> first
+    5. Save as public/og-image-en.png
+  index.html declares this as an English alternate. The Spanish primary is
+  og-image-es.png (rendered from og-image-es.html).
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG image · Horizon Logix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink-950: #0b0f1a;
+        --paper-50: #f7f7f5;
+        --signal: #f6891a;
+        --signal-rgb: 246, 137, 26;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #1a1a1a;
+        font-family: "Schibsted Grotesk", system-ui, sans-serif;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      .og {
+        width: 1200px;
+        height: 630px;
+        position: relative;
+        overflow: hidden;
+        background: var(--ink-950);
+        color: var(--paper-50);
+        padding: 80px 90px;
+        box-sizing: border-box;
+      }
+      .og::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+        background-size: 32px 32px;
+        pointer-events: none;
+      }
+      .og::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 65%;
+        transform: translate(-50%, -50%);
+        width: 900px;
+        height: 600px;
+        background: radial-gradient(ellipse at center, rgba(var(--signal-rgb), 0.18), transparent 60%);
+        pointer-events: none;
+      }
+      .nameplate {
+        position: relative;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(247, 247, 245, 0.55);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        z-index: 1;
+      }
+      .nameplate .rule {
+        height: 1px;
+        width: 140px;
+        background: rgba(247, 247, 245, 0.2);
+      }
+      .title {
+        position: relative;
+        font-family: "Young Serif", Georgia, serif;
+        font-size: 124px;
+        line-height: 0.95;
+        letter-spacing: -0.025em;
+        color: var(--paper-50);
+        margin: 36px 0 0;
+        font-weight: 400;
+        z-index: 1;
+      }
+      .title .accent {
+        color: var(--signal);
+      }
+      .tagline {
+        position: relative;
+        margin: 40px 0 0;
+        font-size: 28px;
+        line-height: 1.35;
+        font-weight: 400;
+        color: rgba(247, 247, 245, 0.78);
+        max-width: 760px;
+        z-index: 1;
+      }
+      .footer {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        bottom: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+      }
+      .footer .url {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.04em;
+        color: rgba(247, 247, 245, 0.55);
+      }
+      .footer .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(247, 247, 245, 0.55);
+        border: 1px solid rgba(247, 247, 245, 0.15);
+        border-radius: 999px;
+        padding: 8px 14px;
+      }
+      .footer .pill .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--signal);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="og">
+      <div class="nameplate">
+        <span>Horizon Logix</span>
+        <span class="rule"></span>
+        <span>Industrial RFID</span>
+      </div>
+
+      <h1 class="title">
+        Every read.<br />
+        Every asset.<br />
+        <span class="accent">Real-time.</span>
+      </h1>
+
+      <p class="tagline">
+        The RFID middleware that turns every tag read into an operational decision.
+      </p>
+
+      <div class="footer">
+        <span class="url">hlogix.app</span>
+        <span class="pill">
+          <span class="dot"></span>
+          v1
+        </span>
+      </div>
+    </div>
+  </body>
+</html>
