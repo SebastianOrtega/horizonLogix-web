@@ -57,6 +57,15 @@ export default function App() {
   const dismissCookies = () => {
     localStorage.setItem("hlogix.cookies", "1");
     setCookies(false);
+    // Grant analytics/ads consent so GTM-gated tags can fire on this session.
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        analytics_storage: "granted",
+      });
+    }
   };
 
   const t = I18N[lang];

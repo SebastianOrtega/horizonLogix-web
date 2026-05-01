@@ -759,7 +759,8 @@ export function LiveDemo({ t }) {
   }, [reduced]);
 
   const phase = (tick / 100) % 1;
-  const stops = [0, 0.18, 0.4, 0.65, 0.88];
+  const callouts = t.livedemo.callouts;
+  const stops = callouts.map((_, i) => i / callouts.length);
   const activeIdx = stops.findLastIndex((s) => phase >= s);
 
   return (
@@ -799,6 +800,11 @@ export function LiveDemo({ t }) {
             {stops.map((s, i) => {
               const cx = 80 + 1040 * s;
               const isActive = i <= activeIdx;
+              // Zigzag labels so they don't overlap horizontally with neighbors:
+              // even index → callout below, odd → callout above (index swaps sides).
+              const above = i % 2 === 1;
+              const calloutY = above ? -30 : 42;
+              const indexY = above ? 26 : -22;
               return (
                 <g key={i} transform={`translate(${cx}, 140)`}>
                   {isActive && !reduced && (
@@ -806,11 +812,11 @@ export function LiveDemo({ t }) {
                   )}
                   <circle r="9" fill="#0B0F1A" stroke={isActive ? ACCENT : "rgba(255,255,255,0.25)"} strokeWidth="1.5" />
                   {isActive && <circle r="3.5" fill={ACCENT} />}
-                  <text y="-22" textAnchor="middle" fontSize="11" fill="rgba(247,247,245,0.55)" fontFamily="JetBrains Mono">
+                  <text y={indexY} textAnchor="middle" fontSize="11" fill="rgba(247,247,245,0.55)" fontFamily="JetBrains Mono">
                     {String(i + 1).padStart(2, "0")}
                   </text>
                   <text
-                    y="42"
+                    y={calloutY}
                     textAnchor="middle"
                     fontSize="13"
                     fontWeight="500"
@@ -882,7 +888,7 @@ export function ArchIT({ t }) {
             <h2 className="display-h2 mt-5 text-[clamp(34px,4vw,54px)] text-paper-50">{t.arch2.title}</h2>
           </Reveal>
           <Reveal delay={140}>
-            <div className="mt-8 flex flex-wrap gap-2">
+            {/* <div className="mt-8 flex flex-wrap gap-2">
               {t.arch2.stack.map((s) => (
                 <span
                   key={s}
@@ -891,13 +897,13 @@ export function ArchIT({ t }) {
                   {s}
                 </span>
               ))}
-            </div>
+            </div> */}
           </Reveal>
-          <Reveal delay={220}>
+          {/*  <Reveal delay={220}>
             <a href="#" className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-signal u-grow">
               {t.arch2.docs} <Icon.Arrow />
             </a>
-          </Reveal>
+          </Reveal> */}
         </div>
 
         <div className="lg:col-span-7 grid sm:grid-cols-3 gap-3">
@@ -1023,10 +1029,10 @@ export function Footer({ t, lang, setLang }) {
           <span>
             © {year} Horizon Logix · {t.footer.rights}
           </span>
-          <span className="flex items-center gap-2">
+          {/* <span className="flex items-center gap-2">
             <span className="w-1 h-1 rounded-full bg-signal"></span>
             {t.footer.made}
-          </span>
+          </span> */}
         </div>
       </div>
     </footer>
