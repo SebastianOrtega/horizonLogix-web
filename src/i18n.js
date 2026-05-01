@@ -232,6 +232,25 @@ export const I18N = {
       body: "Usamos cookies esenciales y analítica anónima para mejorar el sitio.",
       manage: "Administrar preferencias",
       ok: "Aceptar",
+      preferences: {
+        title: "Preferencias de cookies",
+        sub: "Decide qué cookies quieres permitir. Puedes cambiarlo cuando quieras.",
+        essential: {
+          label: "Esenciales",
+          desc: "Necesarias para que el sitio funcione: navegación, idioma, seguridad. No se pueden desactivar.",
+        },
+        analytics: {
+          label: "Analítica",
+          desc: "Mediciones agregadas y anónimas (Google Analytics) para entender qué páginas se visitan más.",
+        },
+        marketing: {
+          label: "Marketing",
+          desc: "Cookies para personalizar anuncios y medir campañas. Si las desactivas, igual ves contenido — solo no se personaliza.",
+        },
+        rejectAll: "Rechazar todo",
+        save: "Guardar selección",
+        acceptAll: "Aceptar todo",
+      },
     },
   },
   en: {
@@ -466,6 +485,25 @@ export const I18N = {
       body: "We use essential cookies and anonymous analytics to improve the site.",
       manage: "Manage preferences",
       ok: "Accept",
+      preferences: {
+        title: "Cookie preferences",
+        sub: "Choose which cookies you want to allow. You can change this any time.",
+        essential: {
+          label: "Essential",
+          desc: "Required for the site to work: navigation, language, security. Cannot be disabled.",
+        },
+        analytics: {
+          label: "Analytics",
+          desc: "Aggregated, anonymous measurements (Google Analytics) so we know which pages get visited.",
+        },
+        marketing: {
+          label: "Marketing",
+          desc: "Cookies for ad personalization and campaign measurement. Turning them off doesn't hide content — it just stops personalization.",
+        },
+        rejectAll: "Reject all",
+        save: "Save selection",
+        acceptAll: "Accept all",
+      },
     },
   },
 };

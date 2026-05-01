@@ -19,15 +19,29 @@
         security_storage: 'granted',
         wait_for_update: 500
       });
-      // Replay a prior grant so returning visitors don't see the banner again
-      // and tags fire immediately on this load.
+      // Replay prior preferences so returning visitors get their granular
+      // choices applied before GTM loads. New shape: hlogix.consent (JSON).
+      // Legacy "hlogix.cookies" = "1" is treated as "accept all" for migration.
       try {
-        if (localStorage.getItem('hlogix.cookies') === '1') {
+        var prefs = null;
+        var raw = localStorage.getItem('hlogix.consent');
+        if (raw) {
+          try {
+            var obj = JSON.parse(raw);
+            if (obj && obj.v === 1) {
+              prefs = { analytics: !!obj.analytics, marketing: !!obj.marketing };
+            }
+          } catch (e) {}
+        }
+        if (!prefs && localStorage.getItem('hlogix.cookies') === '1') {
+          prefs = { analytics: true, marketing: true };
+        }
+        if (prefs) {
           window.gtag('consent', 'update', {
-            ad_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted',
-            analytics_storage: 'granted'
+            analytics_storage: prefs.analytics ? 'granted' : 'denied',
+            ad_storage: prefs.marketing ? 'granted' : 'denied',
+            ad_user_data: prefs.marketing ? 'granted' : 'denied',
+            ad_personalization: prefs.marketing ? 'granted' : 'denied'
           });
         }
       } catch (e) {}

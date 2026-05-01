@@ -19,6 +19,8 @@ import {
 } from "./components/Sections.jsx";
 import WorkflowDesigner from "./components/WorkflowDesigner.jsx";
 import DemoModal from "./components/DemoModal.jsx";
+import CookiePreferences from "./components/CookiePreferences.jsx";
+import { applyConsent, readConsent, writeConsent } from "./lib/consent.js";
 
 function detectLang() {
   const url = new URL(window.location.href);
@@ -33,7 +35,8 @@ function detectLang() {
 export default function App() {
   const [lang, setLangState] = useState(detectLang);
   const [demoOpen, setDemoOpen] = useState(false);
-  const [cookies, setCookies] = useState(() => !localStorage.getItem("hlogix.cookies"));
+  const [cookies, setCookies] = useState(() => !readConsent());
+  const [prefsOpen, setPrefsOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -54,19 +57,15 @@ export default function App() {
     window.history.replaceState({}, "", url.toString());
   };
 
-  const dismissCookies = () => {
-    localStorage.setItem("hlogix.cookies", "1");
+  const savePrefs = (prefs) => {
+    writeConsent(prefs);
+    applyConsent(prefs);
     setCookies(false);
-    // Grant analytics/ads consent so GTM-gated tags can fire on this session.
-    if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      window.gtag("consent", "update", {
-        ad_storage: "granted",
-        ad_user_data: "granted",
-        ad_personalization: "granted",
-        analytics_storage: "granted",
-      });
-    }
+    setPrefsOpen(false);
   };
+
+  // "Aceptar" en el strip = aceptar todo.
+  const dismissCookies = () => savePrefs({ analytics: true, marketing: true });
 
   const t = I18N[lang];
 
@@ -89,7 +88,14 @@ export default function App() {
       </main>
       <Footer t={t} lang={lang} setLang={setLang} />
       <DemoModal t={t.form} open={demoOpen} onClose={() => setDemoOpen(false)} />
-      {cookies && <CookieStrip t={t} onClose={dismissCookies} />}
+      {cookies && <CookieStrip t={t} onClose={dismissCookies} onManage={() => setPrefsOpen(true)} />}
+      <CookiePreferences
+        t={t.cookies}
+        open={prefsOpen}
+        onClose={() => setPrefsOpen(false)}
+        onSave={savePrefs}
+        closeLabel={t.form.close}
+      />
     </div>
   );
 }

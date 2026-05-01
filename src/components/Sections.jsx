@@ -1039,7 +1039,7 @@ export function Footer({ t, lang, setLang }) {
   );
 }
 
-export function CookieStrip({ t, onClose }) {
+export function CookieStrip({ t, onClose, onManage }) {
   return (
     <div
       role="dialog"
@@ -1047,9 +1047,13 @@ export function CookieStrip({ t, onClose }) {
       className="fixed bottom-4 inset-x-4 md:left-auto md:right-6 md:bottom-6 z-30 max-w-[520px] rounded-xl border border-white/10 bg-ink-900/90 backdrop-blur px-5 py-4 text-[13px] text-paper-50/80 flex flex-wrap items-center gap-3"
     >
       <span className="flex-1 min-w-[200px]">{t.cookies.body}</span>
-      <a href="#" className="underline underline-offset-2 hover:text-paper-50">
+      <button
+        type="button"
+        onClick={onManage}
+        className="underline underline-offset-2 hover:text-paper-50"
+      >
         {t.cookies.manage}
-      </a>
+      </button>
       <button onClick={onClose} className="rounded-full bg-signal text-ink-950 px-3 py-1.5 text-[12px] font-medium">
         {t.cookies.ok}
       </button>
