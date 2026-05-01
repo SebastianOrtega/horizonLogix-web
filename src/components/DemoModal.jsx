@@ -87,7 +87,7 @@ function Field({ label, value, onChange, err, type = "text", textarea, full }) {
   }`;
   return (
     <label className={`block ${full ? "col-span-2" : ""}`}>
-      <span className="text-[12px] font-medium uppercase tracking-[0.12em] text-graphite-500">{label}</span>
+      <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-graphite-500">{label}</span>
       {textarea ? (
         <textarea rows="3" className={`${cls} mt-1.5`} value={value} onChange={onChange} />
       ) : (

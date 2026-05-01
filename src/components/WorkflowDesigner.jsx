@@ -58,7 +58,7 @@ export default function WorkflowDesigner({ lang, accent }) {
             </h2>
           </Reveal>
           <Reveal delay={140}>
-            <p className="mt-6 text-[16px] leading-relaxed text-paper-50/70 max-w-[440px]">
+            <p className="mt-6 text-[18px] leading-relaxed text-paper-50/70 max-w-[440px]">
               {lang === "es"
                 ? "Arrastra nodos, conecta pasos y publica. Cada flujo es un workflow versionado, auditable y desplegable por planta."
                 : "Drag nodes, connect steps, publish. Every flow is a versioned, auditable workflow you can deploy per site."}

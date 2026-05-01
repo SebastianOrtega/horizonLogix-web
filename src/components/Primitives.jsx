@@ -77,7 +77,7 @@ export function Pill({ children, tone = "dark" }) {
       : "border-graphite-600/15 bg-paper-50 text-graphite-700";
   const dot = tone === "dark" ? "bg-paper-50/45" : "bg-graphite-500";
   return (
-    <span className={`inline-flex items-center gap-2 rounded-full border ${base} px-3.5 py-1.5 text-[13px] font-medium`}>
+    <span className={`inline-flex items-center gap-2 rounded-full border ${base} px-3.5 py-1.5 text-[14px] font-medium`}>
       <span className={`w-1.5 h-1.5 rounded-full ${dot}`}></span>
       {children}
     </span>

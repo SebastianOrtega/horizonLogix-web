@@ -97,7 +97,7 @@ export function Nav({ t, lang, setLang, onDemo }) {
           <Logo size={80} />
 
         </a>
-        <nav className="hidden lg:flex items-center gap-7 text-[13.5px] text-paper-50/75">
+        <nav className="hidden lg:flex items-center gap-7 text-[14px] text-paper-50/75">
           {items.map((i) => (
             <a key={i.k} href={`#${i.id}`} className="u-grow hover:text-paper-50 transition-colors">
               {t.nav[i.k]}
@@ -108,7 +108,7 @@ export function Nav({ t, lang, setLang, onDemo }) {
           <LangSwitch lang={lang} setLang={setLang} />
           <a
             href="#cta"
-            className="hidden md:inline-flex text-[13.5px] text-paper-50/75 hover:text-paper-50 px-3 py-2"
+            className="hidden md:inline-flex text-[14px] text-paper-50/75 hover:text-paper-50 px-3 py-2"
           >
             {t.nav.contact}
           </a>
@@ -221,7 +221,7 @@ export function Problem({ t }) {
             </h2>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-6 max-w-[460px] text-[17px] leading-relaxed text-graphite-600">{t.problem.body}</p>
+            <p className="mt-6 max-w-[460px] text-[18px] leading-relaxed text-graphite-600">{t.problem.body}</p>
           </Reveal>
         </div>
 
@@ -260,7 +260,7 @@ export function Problem({ t }) {
                 {events.map((e, i) => (
                   <div
                     key={i}
-                    className="rounded-lg border border-graphite-600/12 bg-white px-3.5 py-3 flex items-center justify-between text-[13px]"
+                    className="rounded-lg border border-graphite-600/12 bg-white px-3.5 py-3 flex items-center justify-between text-[14px]"
                     style={{
                       animation: reduced ? "none" : "drift 4s var(--ease-out) infinite",
                       animationDelay: `${i * 0.4}s`,
@@ -270,7 +270,7 @@ export function Problem({ t }) {
                       <div className="font-mono text-ink-900 tnum">{e.sku}</div>
                       <div className="text-[11px] text-graphite-500 mt-0.5">{e.op}</div>
                     </div>
-                    <div className="font-mono text-[12px] text-graphite-500 tnum">{e.ts}</div>
+                    <div className="font-mono text-[11px] text-graphite-500 tnum">{e.ts}</div>
                   </div>
                 ))}
               </div>
@@ -462,7 +462,7 @@ export function HowItWorks({ t }) {
 function PluginMockup({ kind }) {
   if (kind === 0)
     return (
-      <div className="rounded-md border border-graphite-600/12 bg-white p-3 font-mono text-[10.5px] text-graphite-600">
+      <div className="rounded-md border border-graphite-600/12 bg-white p-3 font-mono text-[11px] text-graphite-600">
         <div className="flex justify-between">
           <span>SO-44812</span>
           <span className="text-signal-deep">VALID ✓</span>
@@ -482,7 +482,7 @@ function PluginMockup({ kind }) {
     );
   if (kind === 1)
     return (
-      <div className="rounded-md border border-graphite-600/12 bg-white p-3 text-[10.5px] text-graphite-600 font-mono">
+      <div className="rounded-md border border-graphite-600/12 bg-white p-3 text-[11px] text-graphite-600 font-mono">
         <div className="grid grid-cols-6 gap-1">
           {Array.from({ length: 18 }).map((_, i) => (
             <div key={i} className={`aspect-square rounded-sm ${i % 5 === 0 ? "bg-signal/70" : "bg-paper-200"}`} />
@@ -495,7 +495,7 @@ function PluginMockup({ kind }) {
       </div>
     );
   return (
-    <div className="rounded-md border border-graphite-600/12 bg-white p-3 text-[10.5px] text-graphite-600 font-mono relative h-[68px] overflow-hidden">
+    <div className="rounded-md border border-graphite-600/12 bg-white p-3 text-[11px] text-graphite-600 font-mono relative h-[68px] overflow-hidden">
       <div className="absolute inset-2 grid grid-cols-8 grid-rows-3 gap-0.5">
         {Array.from({ length: 24 }).map((_, i) => (
           <div key={i} className="rounded-[1px]" style={{ background: `rgba(${ACCENT_RGB},${(i % 7) / 9})` }} />
@@ -526,17 +526,17 @@ export function Plugins({ t }) {
             <Reveal key={c.name} delay={i * 100}>
               <article className="card-lift group relative overflow-hidden rounded-2xl border border-graphite-600/12 bg-white p-7 h-full flex flex-col">
                 {c.ribbon && (
-                  <span className="absolute top-5 right-5 text-[10px] font-mono uppercase tracking-[0.15em] text-signal-deep border border-signal-deep/30 bg-signal/10 rounded-full px-2.5 py-1">
+                  <span className="absolute top-5 right-5 text-[11px] font-mono uppercase tracking-[0.15em] text-signal-deep border border-signal-deep/30 bg-signal/10 rounded-full px-2.5 py-1">
                     {c.ribbon}
                   </span>
                 )}
                 <div className="text-ink-900">
                   <I />
                 </div>
-                <h3 className="mt-6 font-display text-[26px] tracking-tightish text-ink-900">{c.name}</h3>
-                <p className="mt-2 text-[14.5px] text-graphite-600 leading-relaxed">{c.tag}</p>
+                <h3 className="mt-6 font-display text-[22px] tracking-tightish text-ink-900">{c.name}</h3>
+                <p className="mt-2 text-[14px] text-graphite-600 leading-relaxed">{c.tag}</p>
 
-                <ul className="mt-6 space-y-2.5 text-[13.5px] text-ink-900/85 flex-1">
+                <ul className="mt-6 space-y-2.5 text-[14px] text-ink-900/85 flex-1">
                   {c.bullets.map((b) => (
                     <li key={b} className="flex items-start gap-2.5">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-ink-900/30 flex-shrink-0"></span>
@@ -547,7 +547,7 @@ export function Plugins({ t }) {
 
                 <div className="mt-6 -mx-7 -mb-7 px-7 pt-5 pb-7 bg-paper-100 border-t border-graphite-600/10 transition-colors group-hover:bg-paper-50">
                   <PluginMockup kind={i} />
-                  <a className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-ink-900 u-grow">
+                  <a className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink-900 u-grow">
                     {c.link} <Icon.Arrow />
                   </a>
                 </div>
@@ -590,7 +590,7 @@ export function Industries({ t }) {
                     <div className="mt-2 font-display text-[22px] leading-tight tracking-tightish text-paper-50">
                       {c.use}
                     </div>
-                    <div className="mt-4 inline-flex items-center gap-2 text-[13.5px] text-paper-50/70 font-mono tnum">
+                    <div className="mt-4 inline-flex items-center gap-2 text-[14px] text-paper-50/70 font-mono tnum">
                       {c.metric}
                     </div>
                   </div>
@@ -625,7 +625,7 @@ export function Partners({ t }) {
             <Eyebrow tone="light">{t.partners.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="display-h1 mt-5 text-[clamp(44px,5.4vw,76px)] text-ink-950 tracking-tight leading-[0.96]">
+            <h2 className="display-h1 mt-5 text-[clamp(44px,5.8vw,80px)] text-ink-950 tracking-tight leading-[0.96]">
               {t.partners.title1}
               <br />
               <span style={{ color: accent }}>
@@ -634,7 +634,7 @@ export function Partners({ t }) {
             </h2>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-7 text-[17px] leading-[1.55] text-graphite-700 max-w-[440px]">{t.partners.body}</p>
+            <p className="mt-7 text-[18px] leading-[1.55] text-graphite-700 max-w-[440px]">{t.partners.body}</p>
           </Reveal>
           <Reveal delay={220}>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -643,7 +643,7 @@ export function Partners({ t }) {
               </Button>
               <a
                 href="#cta"
-                className="inline-flex items-center gap-1.5 px-3 py-2.5 text-[13.5px] text-graphite-700 hover:text-ink-950"
+                className="inline-flex items-center gap-1.5 px-3 py-2.5 text-[14px] text-graphite-700 hover:text-ink-950"
               >
                 {t.partners.ctaSecondary} <Icon.Arrow />
               </a>
@@ -655,7 +655,7 @@ export function Partners({ t }) {
               {t.partners.stats.map((s, i) => (
                 <div key={i} className="border-l border-ink-950/15 pl-3">
                   <div className="font-display text-[28px] leading-none text-ink-950 tracking-tight tnum">{s.n}</div>
-                  <div className="mt-1.5 text-[11.5px] uppercase tracking-[0.12em] text-graphite-700/70 leading-snug">
+                  <div className="mt-1.5 text-[11px] uppercase tracking-[0.12em] text-graphite-700/70 leading-snug">
                     {s.l}
                   </div>
                 </div>
@@ -678,8 +678,8 @@ export function Partners({ t }) {
               <div className="grid grid-cols-2 gap-x-8 gap-y-6 mt-7">
                 {t.partners.tiers.map((tier, i) => (
                   <div key={i} className="group">
-                    <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-graphite-700/60">{tier.label}</div>
-                    <div className="mt-1.5 font-display text-[26px] leading-tight tracking-tightish text-ink-950">{tier.name}</div>
+                    <div className="font-mono text-[11px] tracking-[0.18em] uppercase text-graphite-700/60">{tier.label}</div>
+                    <div className="mt-1.5 font-display text-[22px] leading-tight tracking-tightish text-ink-950">{tier.name}</div>
                     <ul className="mt-3 space-y-1.5">
                       {tier.points.map((p, j) => (
                         <li key={j} className="flex items-start gap-2 text-[14px] text-graphite-700 leading-snug">
@@ -693,7 +693,7 @@ export function Partners({ t }) {
               </div>
 
               <div className="mt-9 pt-7 border-t border-ink-950/10">
-                <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-graphite-700/60 mb-5">
+                <div className="font-mono text-[11px] tracking-[0.18em] uppercase text-graphite-700/60 mb-5">
                   {t.partners.timelineTitle}
                 </div>
                 <div className="relative">
@@ -717,8 +717,8 @@ export function Partners({ t }) {
                             ></span>
                           )}
                         </div>
-                        <div className="mt-3 text-[13px] font-medium text-ink-950 leading-tight">{step.t}</div>
-                        <div className="mt-1 text-[11.5px] text-graphite-700/65 font-mono tnum">{step.d}</div>
+                        <div className="mt-3 text-[14px] font-medium text-ink-950 leading-tight">{step.t}</div>
+                        <div className="mt-1 text-[11px] text-graphite-700/65 font-mono tnum">{step.d}</div>
                       </div>
                     ))}
                   </div>
@@ -735,7 +735,7 @@ export function Partners({ t }) {
                   className="rounded-xl border border-ink-950/10 bg-white px-7 py-6 flex flex-col gap-4 min-h-[140px] justify-between"
                 >
                   <BrandWordmark slug={b.slug} />
-                  <div className="flex items-center justify-between text-[11.5px] font-mono">
+                  <div className="flex items-center justify-between text-[11px] font-mono">
                     <span className="uppercase tracking-[0.2em] text-graphite-700/55">{b.label}</span>
                     <span className="text-graphite-700/65 tracking-wide">{b.note}</span>
                   </div>
@@ -773,7 +773,7 @@ export function LiveDemo({ t }) {
           <h2 className="display-h2 mt-5 text-[clamp(40px,5vw,68px)] text-paper-50">{t.livedemo.title}</h2>
         </Reveal>
         <Reveal delay={140}>
-          <p className="mt-5 text-[17px] text-paper-50/65 max-w-[520px]">{t.livedemo.sub}</p>
+          <p className="mt-5 text-[18px] text-paper-50/65 max-w-[520px]">{t.livedemo.sub}</p>
         </Reveal>
       </div>
 
@@ -863,7 +863,7 @@ export function Why({ t }) {
         {t.why.items.map((it, i) => (
           <Reveal key={it.t} delay={i * 80}>
             <div className="card-lift rounded-2xl border border-graphite-600/12 bg-white p-7 h-full">
-              <div className="w-9 h-9 rounded-lg bg-ink-900 text-paper-50 flex items-center justify-center font-mono text-[12px] tnum">
+              <div className="w-9 h-9 rounded-lg bg-ink-900 text-paper-50 flex items-center justify-center font-mono text-[11px] tnum">
                 0{i + 1}
               </div>
               <h3 className="mt-6 font-display text-[22px] tracking-tightish text-ink-900">{it.t}</h3>
@@ -885,7 +885,7 @@ export function ArchIT({ t }) {
             <Eyebrow>{t.arch2.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="display-h2 mt-5 text-[clamp(34px,4vw,54px)] text-paper-50">{t.arch2.title}</h2>
+            <h2 className="display-h2 mt-5 text-[clamp(40px,5vw,68px)] text-paper-50">{t.arch2.title}</h2>
           </Reveal>
           <Reveal delay={140}>
             {/* <div className="mt-8 flex flex-wrap gap-2">
@@ -910,9 +910,9 @@ export function ArchIT({ t }) {
           {t.arch2.security.map((s, i) => (
             <Reveal key={s.t} delay={i * 100}>
               <div className="card-lift rounded-xl border border-white/10 bg-ink-900 p-6 h-full">
-                <div className="font-mono text-[10.5px] tracking-[0.15em] uppercase text-paper-50/55">SEC · 0{i + 1}</div>
-                <h4 className="mt-4 font-display text-[19px] tracking-tightish text-paper-50">{s.t}</h4>
-                <p className="mt-2 text-[13px] text-paper-50/60 leading-relaxed">{s.d}</p>
+                <div className="font-mono text-[11px] tracking-[0.15em] uppercase text-paper-50/55">SEC · 0{i + 1}</div>
+                <h4 className="mt-4 font-display text-[22px] tracking-tightish text-paper-50">{s.t}</h4>
+                <p className="mt-2 text-[14px] text-paper-50/60 leading-relaxed">{s.d}</p>
               </div>
             </Reveal>
           ))}
@@ -949,10 +949,10 @@ export function Testimonial({ t }) {
       <Reveal>
         <figure className="mx-auto max-w-[920px] text-center">
           <Eyebrow tone="light">Customers</Eyebrow>
-          <blockquote className="mt-8 font-display text-[clamp(28px,3.4vw,44px)] leading-[1.18] tracking-tightish text-ink-900 text-balance">
+          <blockquote className="mt-8 font-display text-[clamp(26px,3.2vw,40px)] leading-[1.18] tracking-tightish text-ink-900 text-balance">
             “{t.quote.text}”
           </blockquote>
-          <figcaption className="mt-8 flex items-center justify-center gap-4 text-[13.5px]">
+          <figcaption className="mt-8 flex items-center justify-center gap-4 text-[14px]">
             <div className="w-10 h-10 rounded-full bg-ink-900 text-paper-50 flex items-center justify-center font-mono">
               MG
             </div>
@@ -977,7 +977,7 @@ export function CTABand({ t, onDemo }) {
       />
       <div className="relative">
         <Reveal>
-          <h2 className="display-h2 text-[clamp(44px,6vw,84px)] mx-auto max-w-[16ch] text-paper-50">{t.cta.title}</h2>
+          <h2 className="display-h2 text-[clamp(44px,5.8vw,80px)] mx-auto max-w-[16ch] text-paper-50">{t.cta.title}</h2>
         </Reveal>
         <Reveal delay={120}>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -1012,7 +1012,7 @@ export function Footer({ t, lang, setLang }) {
         {t.footer.cols.map((c) => (
           <div key={c.h} className="md:col-span-2">
             <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper-50/40">{c.h}</div>
-            <ul className="mt-4 space-y-2.5 text-[13.5px]">
+            <ul className="mt-4 space-y-2.5 text-[14px]">
               {c.links.map((l) => (
                 <li key={l}>
                   <a className="hover:text-paper-50 u-grow" href="#">
@@ -1025,7 +1025,7 @@ export function Footer({ t, lang, setLang }) {
         ))}
       </div>
       <div className="border-t border-white/5">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-5 flex flex-wrap items-center justify-between gap-3 text-[12px] text-paper-50/45 font-mono">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-5 flex flex-wrap items-center justify-between gap-3 text-[11px] text-paper-50/45 font-mono">
           <span>
             © {year} Horizon Logix · {t.footer.rights}
           </span>
@@ -1044,7 +1044,7 @@ export function CookieStrip({ t, onClose, onManage }) {
     <div
       role="dialog"
       aria-label="cookies"
-      className="fixed bottom-4 inset-x-4 md:left-auto md:right-6 md:bottom-6 z-30 max-w-[520px] rounded-xl border border-white/10 bg-ink-900/90 backdrop-blur px-5 py-4 text-[13px] text-paper-50/80 flex flex-wrap items-center gap-3"
+      className="fixed bottom-4 inset-x-4 md:left-auto md:right-6 md:bottom-6 z-30 max-w-[520px] rounded-xl border border-white/10 bg-ink-900/90 backdrop-blur px-5 py-4 text-[14px] text-paper-50/80 flex flex-wrap items-center gap-3"
     >
       <span className="flex-1 min-w-[200px]">{t.cookies.body}</span>
       <button
@@ -1054,7 +1054,7 @@ export function CookieStrip({ t, onClose, onManage }) {
       >
         {t.cookies.manage}
       </button>
-      <button onClick={onClose} className="rounded-full bg-signal text-ink-950 px-3 py-1.5 text-[12px] font-medium">
+      <button onClick={onClose} className="rounded-full bg-signal text-ink-950 px-3 py-1.5 text-[14px] font-medium">
         {t.cookies.ok}
       </button>
     </div>

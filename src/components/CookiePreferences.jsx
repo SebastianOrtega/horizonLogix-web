@@ -7,7 +7,7 @@ function ToggleRow({ label, desc, value, locked, onChange }) {
     <div className="flex items-start justify-between gap-5 py-4 border-b border-graphite-600/15 last:border-b-0">
       <div className="flex-1 min-w-0">
         <div className="text-[14px] font-medium text-ink-900">{label}</div>
-        <div className="mt-1 text-[12.5px] text-graphite-600 leading-relaxed">{desc}</div>
+        <div className="mt-1 text-[14px] text-graphite-600 leading-relaxed">{desc}</div>
       </div>
       <button
         type="button"
@@ -77,19 +77,19 @@ export default function CookiePreferences({ t, open, onClose, onSave, closeLabel
         <div className="mt-6 flex flex-wrap justify-end gap-2.5">
           <button
             onClick={() => onSave({ analytics: false, marketing: false })}
-            className="rounded-full px-4 py-2.5 text-[13.5px] font-medium border border-graphite-600/25 text-graphite-700 hover:border-ink-900 hover:text-ink-900 transition-colors"
+            className="rounded-full px-4 py-2.5 text-[14px] font-medium border border-graphite-600/25 text-graphite-700 hover:border-ink-900 hover:text-ink-900 transition-colors"
           >
             {cp.rejectAll}
           </button>
           <button
             onClick={() => onSave(prefs)}
-            className="rounded-full px-4 py-2.5 text-[13.5px] font-medium border border-graphite-600/25 text-ink-900 hover:bg-paper-200 transition-colors"
+            className="rounded-full px-4 py-2.5 text-[14px] font-medium border border-graphite-600/25 text-ink-900 hover:bg-paper-200 transition-colors"
           >
             {cp.save}
           </button>
           <button
             onClick={() => onSave({ analytics: true, marketing: true })}
-            className="rounded-full px-5 py-2.5 text-[13.5px] font-medium bg-ink-900 text-paper-50 hover:bg-ink-800 transition-colors"
+            className="rounded-full px-5 py-2.5 text-[14px] font-medium bg-ink-900 text-paper-50 hover:bg-ink-800 transition-colors"
           >
             {cp.acceptAll}
           </button>
