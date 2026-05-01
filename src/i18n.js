@@ -150,7 +150,7 @@ export const I18N = {
         { t: "Go-live", d: "Día 10" },
       ],
       brands: [
-        { slug: "zebra", label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FX9600 · ATR7000" },
+        { slug: "zebra", label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FX7500 · ATR7000" },
         { slug: "impinj", label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
       ],
     },
@@ -403,7 +403,7 @@ export const I18N = {
         { t: "Go-live", d: "Day 10" },
       ],
       brands: [
-        { slug: "zebra", label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FXR90 · ATR7000" },
+        { slug: "zebra", label: "Hardware", name: "Zebra Technologies", note: "FX9600 · FX7500 · ATR7000" },
         { slug: "impinj", label: "Hardware", name: "Impinj", note: "R700 · xArray · xSpan" },
       ],
     },
