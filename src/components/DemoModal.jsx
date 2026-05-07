@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "./Primitives.jsx";
 import { track } from "../lib/track.js";
+import { captureLeadTracking, formatTrackingForMessage } from "../lib/attribution.js";
 
 const LEADS_ENDPOINT =
   import.meta.env.VITE_LEADS_ENDPOINT ||
@@ -47,6 +48,12 @@ export default function DemoModal({ t, open, onClose, kind = "demo" }) {
   const [state, setState] = useState("idle");
   const [submitErr, setSubmitErr] = useState(null);
 
+  const formLocation = `hlogix-${kind}`;
+
+  useEffect(() => {
+    if (open) captureLeadTracking(formLocation);
+  }, [open, formLocation]);
+
   if (!open) return null;
 
   const set = (k) => (e) => setData((d) => ({ ...d, [k]: e.target.value }));
@@ -82,7 +89,9 @@ export default function DemoModal({ t, open, onClose, kind = "demo" }) {
     const tail = trimmedRole
       ? `Cargo: ${trimmedRole}${trimmedMessage ? `\n\n${trimmedMessage}` : ""}`
       : trimmedMessage;
-    const message = tail ? `${intent}\n\n${tail}` : intent;
+    const baseMessage = tail ? `${intent}\n\n${tail}` : intent;
+    const tracking = captureLeadTracking(formLocation);
+    const message = `${baseMessage}${formatTrackingForMessage(tracking)}`;
 
     const payload = {
       recaptchaToken,
@@ -92,6 +101,7 @@ export default function DemoModal({ t, open, onClose, kind = "demo" }) {
       company: data.company.trim(),
       ...(data.phone.trim() && { phone: data.phone.trim() }),
       ...(message && { message }),
+      tracking,
     };
 
     try {
@@ -102,7 +112,12 @@ export default function DemoModal({ t, open, onClose, kind = "demo" }) {
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setState("done");
-      track("demo_request_submit", { form_type: kind, lang: document.documentElement.lang || undefined });
+      track("demo_request_submit", {
+        form_type: kind,
+        form_location: formLocation,
+        lang: document.documentElement.lang || undefined,
+        ...tracking,
+      });
     } catch (e) {
       setState("idle");
       setSubmitErr(t.errSubmit);
