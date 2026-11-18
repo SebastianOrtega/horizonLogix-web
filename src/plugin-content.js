@@ -8,12 +8,17 @@ import heatmapImg from "./assets/rtls/heatmap.png";
 import alertsImg from "./assets/rtls/alerts.png";
 import historyImg from "./assets/rtls/history.png";
 import reportDwellImg from "./assets/rtls/report-dwell.png";
+import { CONTAINERS } from "./plugin-containers.js";
 
 const SHARED = {
   es: {
     eyebrow: "Plugin",
     backToPlugins: "Ver todos los plugins",
     sections: {
+      problem: "El problema",
+      tour: "Dentro del producto",
+      steps: "Cómo funciona",
+      faq: "Preguntas frecuentes",
       metrics: "En números",
       capabilities: "Capacidades",
       inProduct: "Dentro del producto",
@@ -36,6 +41,10 @@ const SHARED = {
     eyebrow: "Plugin",
     backToPlugins: "See all plugins",
     sections: {
+      problem: "The problem",
+      tour: "Inside the product",
+      steps: "How it works",
+      faq: "Common questions",
       metrics: "By the numbers",
       capabilities: "Capabilities",
       inProduct: "Inside the product",
@@ -167,115 +176,7 @@ export const PLUGINS = {
     },
   },
 
-  containers: {
-    slug: "containers",
-    nameplate: "PL · 02",
-    routes: { es: "/contenedores", en: "/containers" },
-    es: {
-      title: "Horizon Containers",
-      tagline: "Trazabilidad de contenedores reutilizables a escala industrial.",
-      lead:
-        "Tarimas, charolas, racks, IBC, cajas reutilizables — cualquier activo que circule entre tus plantas o las de tus clientes. Sabes cuántos están dentro, dónde, y cuándo deberían volver.",
-      ribbon: null,
-      capabilities: [
-        {
-          h: "Movimientos entrada/salida automáticos",
-          d: "Lectores fijos en cada portón detectan los activos que pasan. No requiere intervención del operador para registrar el movimiento.",
-        },
-        {
-          h: "Dashboard multi-tenant",
-          d: "Cada cliente o socio ve solo su flota. Reglas de visibilidad por contrato, geografía o tipo de activo.",
-        },
-        {
-          h: "Alertas configurables",
-          d: "Activo no devuelto en N días, salida fuera de horario, lectura en una zona prohibida — define el umbral, recibe el ping por correo, webhook o Slack.",
-        },
-        {
-          h: "Roles por usuario y por planta",
-          d: "Operador de planta ve sus activos. Coordinador regional ve todas sus plantas. Cliente ve solo sus contenedores. Aislamiento por colección.",
-        },
-        {
-          h: "Reportería operativa",
-          d: "Rotación de activos por planta, tiempo promedio fuera, contenedores estancados. Exportable a Excel, BI tool o tu data warehouse.",
-        },
-        {
-          h: "Auditoría inmutable",
-          d: "Cada movimiento queda con timestamp, lector y zona. Útil para reclamos, auditorías o disputas con cliente — la evidencia es incontestable.",
-        },
-      ],
-      useCases: [
-        {
-          h: "Alimentos & Bebidas",
-          d: "Cajas reutilizables entre planta y centro de distribución. Saber cuáles están en tránsito, cuáles llevan días sin volver, cuál cliente las tiene.",
-        },
-        {
-          h: "Automotriz",
-          d: "Charolas y racks específicos para piezas críticas. Prevenir que se queden en la planta del cliente y bloqueen producción.",
-        },
-        {
-          h: "Logística reverse",
-          d: "Pallets retornables. Costos por pérdida y disputas con cliente reducidos al tener trazabilidad de cada activo.",
-        },
-      ],
-      integrations: {
-        erp: "Cualquier sistema con API REST. Conectores prebuilt para SAP S/4HANA, NetSuite, Manhattan WMOS.",
-        readers: "Zebra FX9600 fijo, FX7500 portátil, ATR7000 para zonas amplias.",
-        deployment: "Cloud (Azure, AWS, GCP), o edge para sitios offline con sincronización diferida.",
-      },
-    },
-    en: {
-      title: "Horizon Containers",
-      tagline: "Industrial-scale traceability for reusable containers.",
-      lead:
-        "Pallets, totes, racks, IBCs, reusable crates — any asset that circulates between your sites or your customers'. Know how many are out, where they are, and when they should be back.",
-      ribbon: null,
-      capabilities: [
-        {
-          h: "Automatic in/out movements",
-          d: "Fixed readers at each gate detect assets passing through. No operator intervention required to log the movement.",
-        },
-        {
-          h: "Multi-tenant dashboard",
-          d: "Each customer or partner sees only their fleet. Visibility rules by contract, geography, or asset type.",
-        },
-        {
-          h: "Configurable alerts",
-          d: "Asset not returned in N days, off-hours exit, read in a forbidden zone — set the threshold, get the ping via email, webhook, or Slack.",
-        },
-        {
-          h: "Per-user, per-site roles",
-          d: "Plant operator sees their assets. Regional coordinator sees all their plants. Customer sees only their containers. Isolation by collection.",
-        },
-        {
-          h: "Operational reporting",
-          d: "Asset turnover by plant, average time out, stuck containers. Exportable to Excel, BI tools, or your data warehouse.",
-        },
-        {
-          h: "Immutable audit trail",
-          d: "Every movement timestamped with reader and zone. Useful for claims, audits, or customer disputes — the evidence is incontestable.",
-        },
-      ],
-      useCases: [
-        {
-          h: "Food & Beverage",
-          d: "Reusable crates between plant and distribution center. Know which are in transit, which have been out too long, which customer has them.",
-        },
-        {
-          h: "Automotive",
-          d: "Custom trays and racks for critical parts. Prevent them from getting stuck at the customer's plant and blocking production.",
-        },
-        {
-          h: "Reverse logistics",
-          d: "Returnable pallets. Loss costs and customer disputes drop when every asset has a verifiable trail.",
-        },
-      ],
-      integrations: {
-        erp: "Any system with a REST API. Prebuilt connectors for SAP S/4HANA, NetSuite, Manhattan WMOS.",
-        readers: "Zebra FX9600 fixed, FX7500 handheld, ATR7000 for wide-area zones.",
-        deployment: "Cloud (Azure, AWS, GCP) or edge for offline sites with deferred sync.",
-      },
-    },
-  },
+  containers: CONTAINERS,
 
   rtls: {
     slug: "rtls",
