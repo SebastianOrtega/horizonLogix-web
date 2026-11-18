@@ -9,6 +9,12 @@ import locationsImg from "./assets/containers/locations.png";
 import movementsImg from "./assets/containers/movements.png";
 import alertsImg from "./assets/containers/alerts.png";
 import reportsImg from "./assets/containers/reports.png";
+// English captures come from a demo tenant with US plants and English data.
+import dashboardImgEn from "./assets/containers/en/dashboard.png";
+import locationsImgEn from "./assets/containers/en/locations.png";
+import movementsImgEn from "./assets/containers/en/movements.png";
+import alertsImgEn from "./assets/containers/en/alerts.png";
+import reportsImgEn from "./assets/containers/en/reports.png";
 
 // All captures share one viewport, so one size keeps layout from shifting.
 const SHOT = { width: 1600, height: 1122 };
@@ -203,11 +209,11 @@ export const CONTAINERS = {
       "Crates, pallets, racks and totes leave every day for your plants, customers and suppliers. Horizon Containers tells you how many you have, where each one is, and which have been out too long. No spreadsheets, no manual counts.",
     ribbon: null,
     heroImage: {
-      src: dashboardImg,
+      src: dashboardImgEn,
       ...SHOT,
       url: `${APP}/dashboard`,
       alt: "Horizon Containers dashboard: total containers, inventory per plant against capacity, and a map of locations.",
-      caption: "The dashboard, with demo data · interface shown in Spanish",
+      caption: "The dashboard, with demo data",
     },
     problem: {
       title: "You buy containers every year. Where did last year's go?",
@@ -245,7 +251,7 @@ export const CONTAINERS = {
           "Active and in-maintenance units, kept apart",
           "Plants, warehouses and customers on the map",
         ],
-        src: locationsImg,
+        src: locationsImgEn,
         ...SHOT,
         url: `${APP}/reports`,
         alt: "Locations report: one card per plant with its active and in-maintenance containers.",
@@ -259,7 +265,7 @@ export const CONTAINERS = {
           "Live mode you can pause to review",
           "Filters by type, location and date range",
         ],
-        src: movementsImg,
+        src: movementsImgEn,
         ...SHOT,
         url: `${APP}/movements`,
         alt: "Movement list in live mode: entries and exits with date, container, location and status.",
@@ -273,7 +279,7 @@ export const CONTAINERS = {
           "Notification by email and in the dashboard",
           "Every alert is assigned, commented and closed",
         ],
-        src: alertsImg,
+        src: alertsImgEn,
         ...SHOT,
         url: `${APP}/alerts`,
         alt: "Alerts screen with one alert open: severity, location, assignee and comments.",
@@ -287,7 +293,7 @@ export const CONTAINERS = {
           "CSV export for Excel or your BI tool",
           "Period summary for the operations review",
         ],
-        src: reportsImg,
+        src: reportsImgEn,
         ...SHOT,
         url: `${APP}/reports`,
         alt: "Movement report filtered by date, with the option to export to CSV.",
