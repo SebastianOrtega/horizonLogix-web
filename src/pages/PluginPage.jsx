@@ -12,11 +12,15 @@ export default function PluginPage({ slug, lang, onDemo, onSales }) {
   return (
     <main>
       <PluginHero plugin={plugin} data={data} shared={shared} onDemo={onDemo} />
+      <Problem data={data} shared={shared} />
       <Metrics data={data} shared={shared} />
+      <Tour plugin={plugin} data={data} shared={shared} onDemo={onDemo} />
+      <Steps data={data} shared={shared} />
       <Capabilities data={data} shared={shared} />
       <Screenshots data={data} shared={shared} />
       <UseCases data={data} shared={shared} />
       <Integrations data={data} shared={shared} />
+      <Faq data={data} shared={shared} />
       <ClosingCta plugin={plugin} shared={shared} onDemo={onDemo} onSales={onSales} />
     </main>
   );
@@ -84,7 +88,7 @@ function Screenshots({ data, shared }) {
 
 function PluginHero({ plugin, data, shared, onDemo }) {
   return (
-    <Section tone="dark" className="bg-grid-dark pt-32 pb-20">
+    <Section tone="dark" className="bg-grid-dark pt-32 pb-20 overflow-hidden">
       <div
         aria-hidden
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[600px] pointer-events-none"
@@ -130,6 +134,228 @@ function PluginHero({ plugin, data, shared, onDemo }) {
             </Link>
           </div>
         </Reveal>
+      </div>
+
+      {data.heroImage && (
+        <Reveal delay={360}>
+          <figure className="relative mt-16 max-w-[1180px]">
+            <BrowserFrame url={data.heroImage.url} tone="dark">
+              <img
+                src={data.heroImage.src}
+                alt={data.heroImage.alt}
+                width={data.heroImage.width}
+                height={data.heroImage.height}
+                decoding="async"
+                className="block w-full h-auto"
+              />
+            </BrowserFrame>
+            {data.heroImage.caption && (
+              <figcaption className="mt-4 font-mono text-[11px] tracking-[0.14em] uppercase text-paper-50/45">
+                {data.heroImage.caption}
+              </figcaption>
+            )}
+          </figure>
+        </Reveal>
+      )}
+    </Section>
+  );
+}
+
+// Window chrome around a product capture, so a screenshot reads as "the
+// product" and not as a pasted image.
+function BrowserFrame({ url, tone = "light", children }) {
+  const dark = tone === "dark";
+  return (
+    <div
+      className={
+        "overflow-hidden rounded-xl border " +
+        (dark
+          ? "border-white/12 bg-ink-900 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.9)]"
+          : "border-ink-950/12 bg-paper-50 shadow-[0_30px_70px_-30px_rgba(11,15,26,0.35)]")
+      }
+    >
+      <div
+        className={
+          "flex items-center gap-3 px-4 h-9 border-b " +
+          (dark ? "border-white/10 bg-ink-900" : "border-ink-950/10 bg-ink-950/[0.03]")
+        }
+      >
+        <span className="flex gap-1.5" aria-hidden>
+          {[0, 1, 2].map((i) => (
+            <span key={i} className={"w-2 h-2 rounded-full " + (dark ? "bg-paper-50/20" : "bg-ink-950/15")}></span>
+          ))}
+        </span>
+        {url && (
+          <span className={"font-mono text-[11px] truncate " + (dark ? "text-paper-50/45" : "text-graphite-700/60")}>
+            {url}
+          </span>
+        )}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function Problem({ data, shared }) {
+  if (!data.problem) return null;
+  const { title, body, points } = data.problem;
+  return (
+    <Section tone="light" className="py-28">
+      <div className="max-w-[1080px] grid md:grid-cols-12 gap-x-12 gap-y-12">
+        <div className="md:col-span-6">
+          <Reveal>
+            <Eyebrow tone="light">{shared.sections.problem}</Eyebrow>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="display-h2 mt-6 text-[clamp(30px,3.1vw,44px)] text-ink-900">{title}</h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-6 text-[18px] leading-relaxed text-graphite-600 max-w-[46ch]">{body}</p>
+          </Reveal>
+        </div>
+        <ul className="md:col-span-6 md:pt-12">
+          {points.map((pt, i) => (
+            <Reveal as="li" key={pt.h} delay={i * 60}>
+              <div className="py-6 border-t border-ink-950/12">
+                <h3 className="font-display text-[22px] tracking-tightish text-ink-900 leading-[1.2]">{pt.h}</h3>
+                <p className="mt-2 text-[15px] text-graphite-600 leading-relaxed">{pt.d}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </Section>
+  );
+}
+
+// The product told as the questions the buyer already asks, one screen each.
+function Tour({ plugin, data, shared, onDemo }) {
+  if (!data.tour?.length) return null;
+  return (
+    <Section tone="light" className="py-28">
+      <div className="max-w-[760px]">
+        <Reveal>
+          <Eyebrow tone="light">{shared.sections.tour}</Eyebrow>
+        </Reveal>
+        {data.tourTitle && (
+          <Reveal delay={80}>
+            <h2 className="display-h2 mt-6 text-[clamp(32px,3.6vw,50px)] text-ink-900">{data.tourTitle}</h2>
+          </Reveal>
+        )}
+      </div>
+
+      <div className="mt-20 max-w-[1180px] space-y-24 md:space-y-32">
+        {data.tour.map((row, i) => {
+          const flip = i % 2 === 1;
+          return (
+            <article key={row.h} className="grid md:grid-cols-12 gap-x-12 gap-y-8 items-center">
+              <Reveal className={"md:col-span-4 " + (flip ? "md:order-2" : "")}>
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-graphite-700/55 tnum">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-signal-deep">{row.q}</span>
+                </div>
+                <h3 className="mt-4 font-display text-[clamp(26px,2.4vw,34px)] tracking-tightish text-ink-900 leading-[1.12]">
+                  {row.h}
+                </h3>
+                <p className="mt-4 text-[16px] text-graphite-600 leading-relaxed">{row.d}</p>
+                <ul className="mt-6 space-y-3">
+                  {row.points.map((pt) => (
+                    <li key={pt} className="flex gap-3 text-[14px] text-ink-900 leading-relaxed">
+                      <span className="mt-[3px] text-signal-deep shrink-0">
+                        <Icon.Check />
+                      </span>
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+              <Reveal delay={80} className={"md:col-span-8 min-w-0 " + (flip ? "md:order-1" : "")}>
+                <BrowserFrame url={row.url}>
+                  <img
+                    src={row.src}
+                    alt={row.alt}
+                    width={row.width}
+                    height={row.height}
+                    loading="lazy"
+                    decoding="async"
+                    className="block w-full h-auto"
+                  />
+                </BrowserFrame>
+              </Reveal>
+            </article>
+          );
+        })}
+      </div>
+
+      {data.tourCta && (
+        <Reveal>
+          <div className="mt-24 max-w-[1180px] flex flex-wrap items-center justify-between gap-6 pt-8 border-t border-ink-950/12">
+            <p className="font-display text-[clamp(22px,2vw,28px)] tracking-tightish text-ink-900 max-w-[28ch] leading-[1.2]">
+              {data.tourCta}
+            </p>
+            <Button onClick={() => onDemo("plugin_" + plugin.slug + "_tour")}>
+              {shared.closingCtaPrimary} <Icon.Arrow />
+            </Button>
+          </div>
+        </Reveal>
+      )}
+    </Section>
+  );
+}
+
+function Steps({ data, shared }) {
+  if (!data.steps?.length) return null;
+  return (
+    <Section tone="ink" className="bg-grid-dark py-28">
+      <div className="max-w-[760px]">
+        <Reveal>
+          <Eyebrow>{shared.sections.steps}</Eyebrow>
+        </Reveal>
+        {data.stepsTitle && (
+          <Reveal delay={80}>
+            <h2 className="display-h2 mt-6 text-[clamp(32px,3.6vw,50px)] text-paper-50">{data.stepsTitle}</h2>
+          </Reveal>
+        )}
+      </div>
+      <ol className="mt-14 max-w-[1080px] grid md:grid-cols-3 gap-x-10 gap-y-10">
+        {data.steps.map((st, i) => (
+          <Reveal as="li" key={st.h} delay={i * 80}>
+            <div className="pt-6 border-t border-paper-50/20">
+              <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-signal tnum">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-display text-[24px] tracking-tightish text-paper-50 leading-[1.2]">{st.h}</h3>
+              <p className="mt-3 text-[15px] text-paper-50/65 leading-relaxed">{st.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </ol>
+    </Section>
+  );
+}
+
+function Faq({ data, shared }) {
+  if (!data.faq?.length) return null;
+  return (
+    <Section tone="ink" className="py-28">
+      <div className="max-w-[1080px] grid md:grid-cols-12 gap-x-12 gap-y-10">
+        <div className="md:col-span-4">
+          <Reveal>
+            <Eyebrow>{shared.sections.faq}</Eyebrow>
+          </Reveal>
+        </div>
+        <dl className="md:col-span-8">
+          {data.faq.map((f, i) => (
+            <Reveal key={f.q} delay={i * 40}>
+              <div className="py-7 border-t border-paper-50/15">
+                <dt className="font-display text-[22px] tracking-tightish text-paper-50 leading-[1.25]">{f.q}</dt>
+                <dd className="mt-3 text-[15px] text-paper-50/65 leading-relaxed max-w-[60ch]">{f.a}</dd>
+              </div>
+            </Reveal>
+          ))}
+        </dl>
       </div>
     </Section>
   );
