@@ -17,6 +17,7 @@ const RECAPTCHA_ACTION = "contact_form_submit";
 const INTENT_TEXT = {
   demo: "Quiere un demo.",
   sales: "Quiere hablar con ventas.",
+  partner: "Quiere ser partner (integrador o revendedor).",
 };
 
 let recaptchaLoader = null;
@@ -151,7 +152,7 @@ export default function DemoModal({ t, open, onClose, kind = "demo" }) {
           </div>
         ) : (
           <>
-            <h3 className="font-display text-[28px] tracking-tightish">{kind === "sales" ? (t.salesTitle || t.title) : t.title}</h3>
+            <h3 className="font-display text-[28px] tracking-tightish">{(kind === "sales" && t.salesTitle) || (kind === "partner" && t.partnerTitle) || t.title}</h3>
             <p className="mt-1.5 text-[14px] text-graphite-600">{t.sub}</p>
 
             <form className="mt-6 grid grid-cols-2 gap-3.5" onSubmit={submit} noValidate>

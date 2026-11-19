@@ -112,7 +112,7 @@ function LangSwitch({ lang, setLang }) {
   );
 }
 
-export function Nav({ t, lang, setLang, onDemo }) {
+export function Nav({ t, lang, setLang, onDemo, onPartner }) {
   const y = useScrollY();
   const location = useLocation();
   const onLanding = location.pathname === "/";
@@ -151,14 +151,19 @@ export function Nav({ t, lang, setLang, onDemo }) {
           >
             {t.nav.contact}
           </a>
-          <Button onClick={() => onDemo("nav")}>{t.nav.demo}</Button>
+          {/* The landing talks to integrators; every other page talks to end customers. */}
+          {onLanding ? (
+            <Button onClick={() => onPartner("nav")}>{t.nav.partner}</Button>
+          ) : (
+            <Button onClick={() => onDemo("nav")}>{t.nav.demo}</Button>
+          )}
         </div>
       </div>
     </header>
   );
 }
 
-export function Hero({ t, onDemo }) {
+export function Hero({ t, onPartner }) {
   const reduced = useReducedMotion();
   return (
     <Section id="top" tone="dark" className="bg-grid-dark pt-32 pb-20 md:pb-28 overflow-hidden">
@@ -187,7 +192,7 @@ export function Hero({ t, onDemo }) {
           </Reveal>
           <Reveal delay={240}>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Button onClick={() => onDemo("hero")}>
+              <Button onClick={() => onPartner("hero")}>
                 {t.hero.ctaPrimary} <Icon.Arrow />
               </Button>
               <Button variant="ghost" href="#how">
@@ -484,49 +489,70 @@ export function HowItWorks({ t }) {
   );
 }
 
-function PluginMockup({ kind }) {
+// Small labeled screens, one per plugin: each shows the one answer that plugin gives.
+function PluginMockup({ kind, m }) {
+  const box = "rounded-md bg-white border border-graphite-600/10 p-3.5 h-[148px] flex flex-col";
+  const title = "font-mono text-[10.5px] tracking-[0.08em] uppercase text-graphite-500";
+  const status = "mt-auto rounded bg-signal/10 px-2 py-1 text-[11.5px] font-medium text-signal-deep";
   if (kind === 0)
     return (
-      <div className="rounded-md bg-white p-3 font-mono text-[11px] text-graphite-600">
-        <div className="flex justify-between">
-          <span>SO-44812</span>
-          <span className="text-signal-deep">VALID ✓</span>
-        </div>
-        <div className="mt-1 flex justify-between">
-          <span>SKU-77103</span>
-          <span>3 / 3</span>
-        </div>
-        <div className="mt-1 flex justify-between text-graphite-400">
-          <span>SKU-90021</span>
-          <span>1 / 4</span>
-        </div>
-        <div className="mt-2 h-1 bg-paper-200 rounded">
-          <div className="h-1 bg-signal rounded" style={{ width: "72%" }} />
-        </div>
+      <div className={box}>
+        <div className={title}>{m.title}</div>
+        <ul className="mt-2 space-y-1 text-[12px]">
+          {m.rows.map(([sku, count, ok]) => (
+            <li key={sku} className={`flex justify-between font-mono tnum ${ok ? "text-graphite-600" : "text-signal-deep font-medium"}`}>
+              <span>
+                <span aria-hidden className="inline-block w-4">{ok ? "✓" : "✕"}</span>
+                {sku}
+              </span>
+              <span>{count}</span>
+            </li>
+          ))}
+        </ul>
+        <div className={status}>{m.status}</div>
       </div>
     );
   if (kind === 1)
     return (
-      <div className="rounded-md bg-white p-3 text-[11px] text-graphite-600 font-mono">
-        <div className="grid grid-cols-6 gap-1">
-          {Array.from({ length: 18 }).map((_, i) => (
-            <div key={i} className={`aspect-square rounded-sm ${i % 5 === 0 ? "bg-signal/70" : "bg-paper-200"}`} />
+      <div className={box}>
+        <div className={title}>{m.title}</div>
+        <ul className="mt-2 space-y-1.5 text-[12px] text-graphite-600">
+          {m.rows.map(([name, n, cap], i) => (
+            <li key={name} className="grid grid-cols-[minmax(0,1fr)_70px_28px] items-center gap-2">
+              <span className="truncate">{name}</span>
+              <span className="h-1.5 rounded bg-paper-200 overflow-hidden">
+                <span
+                  className={`block h-1.5 rounded ${i === m.rows.length - 1 ? "bg-signal" : "bg-ink-900/45"}`}
+                  style={{ width: `${Math.round((n / cap) * 100)}%` }}
+                />
+              </span>
+              <span className="font-mono tnum text-right text-ink-900">{n}</span>
+            </li>
           ))}
-        </div>
-        <div className="mt-2 flex justify-between">
-          <span>IN: 124</span>
-          <span>OUT: 88</span>
-        </div>
+        </ul>
+        <div className={status}>{m.status}</div>
       </div>
     );
   return (
-    <div className="rounded-md bg-white p-3 text-[11px] text-graphite-600 font-mono relative h-[68px] overflow-hidden">
-      <div className="absolute inset-2 grid grid-cols-8 grid-rows-3 gap-0.5">
-        {Array.from({ length: 24 }).map((_, i) => (
-          <div key={i} className="rounded-[1px]" style={{ background: `rgba(${ACCENT_RGB},${(i % 7) / 9})` }} />
+    <div className={box}>
+      <div className={title}>{m.title}</div>
+      <div className="mt-2 grid grid-cols-3 gap-1.5">
+        {m.zones.map(([name, n, time], i) => (
+          <div
+            key={name}
+            className={`rounded border px-2 py-1.5 ${i === m.hot ? "border-signal bg-signal/10" : "border-graphite-600/15"}`}
+          >
+            <div className="text-[11px] text-ink-900 truncate">{name}</div>
+            <div className="mt-1 flex flex-wrap gap-[3px] h-[14px] content-start">
+              {Array.from({ length: n }).map((_, j) => (
+                <span key={j} className={`w-[5px] h-[5px] rounded-full ${i === m.hot ? "bg-signal" : "bg-ink-900/40"}`} />
+              ))}
+            </div>
+            <div className="font-mono tnum text-[10.5px] text-graphite-600">{time}</div>
+          </div>
         ))}
       </div>
-      <div className="absolute bottom-1.5 right-2 text-graphite-500">station-04</div>
+      <div className={status}>{m.status}</div>
     </div>
   );
 }
@@ -584,7 +610,7 @@ export function Plugins({ t, lang }) {
                 </ul>
 
                 <div className="mt-6 -mx-7 -mb-7 px-7 pt-5 pb-7 bg-paper-100 border-t border-graphite-600/10 transition-colors group-hover:bg-paper-50">
-                  <PluginMockup kind={i} />
+                  <PluginMockup kind={i} m={c.mock} />
                   <Link
                     to={route}
                     onClick={() => track("plugin_card_click", { plugin: slug })}
@@ -603,7 +629,7 @@ export function Plugins({ t, lang }) {
 }
 
 export function Industries({ t }) {
-  const icons = [Icon.Mfg, Icon.Auto, Icon.Logistics, Icon.Retail, Icon.Pharma, Icon.Food];
+  const icons = { mfg: Icon.Mfg, auto: Icon.Auto, logistics: Icon.Logistics, health: Icon.Pharma };
   return (
     <Section id="industries" tone="dark" className="py-28">
       <div className="flex items-end justify-between flex-wrap gap-4">
@@ -620,7 +646,7 @@ export function Industries({ t }) {
       <div className="mt-12 -mx-6 md:-mx-10 px-6 md:px-10">
         <div className="snap-row no-bar overflow-x-auto flex gap-4 pb-2">
           {t.industries.cards.map((c, i) => {
-            const I = icons[i];
+            const I = icons[c.k] || Icon.Mfg;
             return (
               <Reveal key={c.name} delay={i * 60}>
                 <div className="card-lift min-w-[300px] md:min-w-[340px] rounded-2xl border border-white/10 bg-ink-900 p-7 flex flex-col">
@@ -632,9 +658,11 @@ export function Industries({ t }) {
                     <div className="mt-2 font-display text-[22px] leading-tight tracking-tightish text-paper-50 min-h-[2lh]">
                       {c.use}
                     </div>
-                    <div className="mt-4 inline-flex items-center gap-2 text-[14px] text-signal font-mono tnum">
-                      {c.metric}
-                    </div>
+                    {c.metric && (
+                      <div className="mt-4 inline-flex items-center gap-2 text-[14px] text-signal font-mono tnum">
+                        {c.metric}
+                      </div>
+                    )}
                   </div>
                 </div>
               </Reveal>
@@ -646,7 +674,7 @@ export function Industries({ t }) {
   );
 }
 
-export function Partners({ t }) {
+export function Partners({ t, onPartner, onSales }) {
   const reduced = useReducedMotion();
   const accent = ACCENT;
   return (
@@ -682,18 +710,23 @@ export function Partners({ t }) {
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 variant="filledLight"
-                href="#cta"
-                onClick={() => track("partners_apply_click", { source: "partners" })}
+                onClick={() => {
+                  track("partners_apply_click", { source: "partners" });
+                  onPartner("partners");
+                }}
               >
                 {t.partners.ctaPrimary} <Icon.Arrow />
               </Button>
-              <a
-                href="#cta"
-                onClick={() => track("partners_apply_click", { source: "partners_secondary" })}
+              <button
+                type="button"
+                onClick={() => {
+                  track("partners_apply_click", { source: "partners_secondary" });
+                  onSales("partners");
+                }}
                 className="inline-flex items-center gap-1.5 px-3 py-2.5 text-[14px] text-graphite-700 hover:text-ink-950"
               >
                 {t.partners.ctaSecondary} <Icon.Arrow />
-              </a>
+              </button>
             </div>
           </Reveal>
 
@@ -949,25 +982,14 @@ export function ArchIT({ t }) {
             </Reveal>
           ))}
 
-          <Reveal delay={300}>
-            <div className="sm:col-span-3 rounded-xl border border-white/10 bg-ink-950 p-5 font-mono text-[12px] text-paper-50/75 leading-6">
-              <div className="text-paper-50/35"># workflow · ejemplo</div>
-              <div>
-                <span className="text-paper-50/85">read</span>:{" "}
-                <span className="text-paper-50/55">lector → tag(id, hora, zona)</span>
-              </div>
-              <div>
-                <span className="text-paper-50/85">rule</span>:{" "}
-                <span className="text-paper-50/55">regla.de_negocio</span>
-              </div>
-              <div>
-                <span className="text-paper-50/85">enrich</span>:{" "}
-                <span className="text-paper-50/55">agregar(orden, operador)</span>
-              </div>
-              <div>
-                <span className="text-paper-50/85">route</span>:{" "}
-                <span className="text-paper-50/55">evento → tu_sistema</span>
-              </div>
+          <Reveal delay={300} className="sm:col-span-3">
+            <div className="rounded-xl border border-white/10 bg-ink-950 p-5 font-mono text-[12px] text-paper-50/75 leading-6">
+              <div className="text-paper-50/35">{t.arch2.sample.comment}</div>
+              {t.arch2.sample.lines.map(([k, v]) => (
+                <div key={k}>
+                  <span className="text-paper-50/85">{k}</span>: <span className="text-paper-50/55">{v}</span>
+                </div>
+              ))}
             </div>
           </Reveal>
         </div>
@@ -1000,7 +1022,7 @@ export function Testimonial({ t }) {
   );
 }
 
-export function CTABand({ t, onDemo, onSales }) {
+export function CTABand({ t, onPartner, onSales }) {
   return (
     <Section id="cta" tone="dark" className="bg-grid-dark py-28 text-center relative overflow-hidden">
       <div
@@ -1014,7 +1036,7 @@ export function CTABand({ t, onDemo, onSales }) {
         </Reveal>
         <Reveal delay={120}>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Button onClick={() => onDemo("cta_band")}>
+            <Button onClick={() => onPartner("cta_band")}>
               {t.cta.primary} <Icon.Arrow />
             </Button>
             <Button variant="ghost" onClick={() => onSales("cta_band")}>

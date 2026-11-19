@@ -33,9 +33,9 @@ const SHARED = {
       mes: "MES / API",
     },
     closingCtaTitle: "Hablemos de tu operación.",
-    closingCtaSub: "Una llamada con el equipo de ingeniería para ver si encaja.",
+    closingCtaSub: "Renta mensual según tus lectores, sin costo de desarrollo. La cotización incluye software, lectores, etiquetas e instalación.",
     closingCtaPrimary: "Solicitar demo",
-    closingCtaSecondary: "Hablar con ventas",
+    closingCtaSecondary: "Pedir cotización",
   },
   en: {
     eyebrow: "Plugin",
@@ -59,9 +59,9 @@ const SHARED = {
       mes: "MES / API",
     },
     closingCtaTitle: "Let's talk about your operation.",
-    closingCtaSub: "A call with the engineering team to see if it fits.",
+    closingCtaSub: "A monthly subscription based on your readers, with no development fee. The quote covers software, readers, tags and installation.",
     closingCtaPrimary: "Request demo",
-    closingCtaSecondary: "Talk to sales",
+    closingCtaSecondary: "Get a quote",
   },
 };
 
@@ -72,10 +72,69 @@ export const PLUGINS = {
     routes: { es: "/warehouse", en: "/warehouse" },
     es: {
       title: "Horizon Warehouse",
-      tagline: "Embarques y recepción RFID, validados contra tu ERP.",
+      tagline: "Que el embarque incompleto lo detecte el andén, no tu cliente.",
       lead:
-        "Cada SKU y serial leído en el dock se valida en tiempo real contra la orden de embarque o recepción de tu ERP. Si algo falta, sobra o no corresponde, el operador lo ve antes de que el camión salga.",
+        "Cada caja, tarima o pieza etiquetada se lee al pasar por el andén y se compara contra la orden de embarque o recepción de tu ERP. Si algo falta, sobra o no corresponde, el operador lo ve antes de que el camión salga.",
       ribbon: null,
+      problem: {
+        title: "Un embarque mal surtido se paga dos veces: en el reclamo y en el reenvío.",
+        body: "Casi siempre el error se descubre cuando el cliente abre la caja. Para entonces ya hay una penalización, una nota de crédito o un flete extra, y nadie puede decir en qué momento se cargó mal.",
+        points: [
+          {
+            h: "La revisión depende de que alguien escanee",
+            d: "Con código de barras, cada pieza que no se escanea es una pieza que no se revisó. En hora pico, eso pasa.",
+          },
+          {
+            h: "El ERP se entera después",
+            d: "La orden se cierra a mano al final del turno. Lo que el sistema dice que salió y lo que realmente salió no siempre coinciden.",
+          },
+          {
+            h: "Tus clientes ya lo están pidiendo",
+            d: "Cadenas comerciales y armadoras exigen producto etiquetado y entregas completas. Cumplir a mano cuesta gente y tiempo.",
+          },
+        ],
+      },
+      stepsTitle: "Tres pasos, en el mismo andén.",
+      steps: [
+        {
+          h: "Etiqueta",
+          d: "Cajas, tarimas o piezas reciben una etiqueta RFID al empacar o al recibir.",
+        },
+        {
+          h: "Lee",
+          d: "Un lector en el andén registra todo lo que pasa, sin que el operador se detenga a escanear.",
+        },
+        {
+          h: "Valida",
+          d: "La pantalla compara lo leído contra la orden del ERP y marca faltantes y sobrantes antes de cerrar.",
+        },
+      ],
+      faq: [
+        {
+          q: "¿Cuánto cuesta en total?",
+          a: "El software se cobra como renta mensual según el número de lectores, sin costo de desarrollo. La cotización que te entregamos incluye también lectores, antenas, etiquetas e instalación, para que veas la inversión completa antes de decidir.",
+        },
+        {
+          q: "Ya uso código de barras. ¿Para qué RFID?",
+          a: "El código de barras funciona mientras alguien escanee cada pieza. RFID lee todo lo que cruza el andén sin intervención, así que la validación no depende del ritmo del turno.",
+        },
+        {
+          q: "¿Quién pone la etiqueta?",
+          a: "Depende de tu operación: se etiqueta al empacar, al recibir, o la etiqueta ya viene de tu proveedor. Lo definimos contigo. Etiquetar por caja o por tarima suele bastar para validar un embarque.",
+        },
+        {
+          q: "¿Funciona con mi ERP?",
+          a: "Hay conectores para Oracle, NetSuite, Microsoft Dynamics y SAP. Para otros sistemas la conexión se hace por API.",
+        },
+        {
+          q: "¿Se puede empezar con un solo andén?",
+          a: "Sí. Lo habitual es arrancar con un andén y un tipo de embarque, medir, y extender después.",
+        },
+        {
+          q: "¿Quién lo instala?",
+          a: "Tu integrador de confianza o nuestro equipo. La configuración corre por nuestra cuenta.",
+        },
+      ],
       capabilities: [
         {
           h: "Validación SKU + serial en tiempo real",
@@ -94,8 +153,8 @@ export const PLUGINS = {
           d: "Cada lectura, validación y cierre queda registrado con timestamp, lector, operador y orden asociada. Exportable para auditoría o trazabilidad regulatoria.",
         },
         {
-          h: "Multi-dock, multi-planta",
-          d: "Una instancia maneja decenas de docks en una o varias plantas. Roles y aislamiento de datos por sitio, cliente o unidad de negocio.",
+          h: "Varios andenes y plantas",
+          d: "Decenas de andenes en una o varias plantas, con roles y permisos por usuario y por sitio.",
         },
         {
           h: "Excepciones manejadas por el operador",
@@ -108,12 +167,12 @@ export const PLUGINS = {
           d: "Validar embarques de producto terminado contra órdenes de venta. Integración con MES para cerrar la orden de producción al confirmar el embarque.",
         },
         {
-          h: "Logística & 3PL",
-          d: "Recepción de mercancía contra ASN del cliente. Cada cliente ve solo su inventario; operadores ven todos los embarques activos en su dock.",
+          h: "Distribución y 3PL",
+          d: "Recepción de mercancía contra el aviso de embarque del cliente. Los operadores ven todos los embarques activos en su andén.",
         },
         {
-          h: "Retail / DC",
-          d: "Recepción de pallets desde proveedores. Verifica conteo y SKU contra orden de compra antes de aceptar — los reclamos por faltantes desaparecen.",
+          h: "Proveedores de cadenas comerciales",
+          d: "Si tu cliente ya te exige etiqueta RFID, úsala también para validar tu propio embarque antes de que salga.",
         },
       ],
       integrations: {
@@ -124,10 +183,69 @@ export const PLUGINS = {
     },
     en: {
       title: "Horizon Warehouse",
-      tagline: "RFID shipping & receiving, validated against your ERP orders.",
+      tagline: "Let the dock catch the short shipment, not your customer.",
       lead:
-        "Every SKU and serial read at the dock is validated in real time against your ERP's shipping or receiving order. If something is missing, extra, or wrong, the operator sees it before the truck leaves.",
+        "Every tagged case, pallet or part is read as it crosses the dock and checked against your ERP's shipping or receiving order. If something is missing, extra, or wrong, the operator sees it before the truck leaves.",
       ribbon: null,
+      problem: {
+        title: "A wrong shipment costs you twice: once in the claim, once in the reshipment.",
+        body: "The error usually surfaces when the customer opens the box. By then there is a chargeback, a credit note or an extra freight bill, and nobody can say when it was loaded wrong.",
+        points: [
+          {
+            h: "The check depends on someone scanning",
+            d: "With barcodes, every item that isn't scanned is an item that wasn't checked. At peak hours, that happens.",
+          },
+          {
+            h: "The ERP finds out later",
+            d: "The order is closed by hand at the end of the shift. What the system says shipped and what actually shipped don't always match.",
+          },
+          {
+            h: "Your customers are already asking",
+            d: "Retailers and OEMs demand tagged product and complete deliveries. Complying by hand costs people and time.",
+          },
+        ],
+      },
+      stepsTitle: "Three steps, at the same dock.",
+      steps: [
+        {
+          h: "Tag",
+          d: "Cases, pallets or parts get an RFID tag at packing or at receiving.",
+        },
+        {
+          h: "Read",
+          d: "A reader at the dock records everything that passes, without the operator stopping to scan.",
+        },
+        {
+          h: "Validate",
+          d: "The screen compares what was read against the ERP order and flags shortages and extras before closing.",
+        },
+      ],
+      faq: [
+        {
+          q: "What does it cost in total?",
+          a: "The software is a monthly subscription based on the number of readers, with no development fee. The quote we give you also covers readers, antennas, tags and installation, so you see the full investment before you decide.",
+        },
+        {
+          q: "I already use barcodes. Why RFID?",
+          a: "Barcodes work as long as someone scans every item. RFID reads everything that crosses the dock with no one involved, so validation doesn't depend on how busy the shift is.",
+        },
+        {
+          q: "Who applies the tag?",
+          a: "It depends on your operation: tagging at packing, at receiving, or the tag already comes from your supplier. We define it with you. Tagging by case or by pallet is usually enough to validate a shipment.",
+        },
+        {
+          q: "Does it work with my ERP?",
+          a: "There are connectors for Oracle, NetSuite, Microsoft Dynamics and SAP. Other systems connect through the API.",
+        },
+        {
+          q: "Can I start with a single dock?",
+          a: "Yes. The usual path is to start with one dock and one type of shipment, measure, and expand from there.",
+        },
+        {
+          q: "Who installs it?",
+          a: "Your integrator of choice or our own team. We take care of the configuration.",
+        },
+      ],
       capabilities: [
         {
           h: "Real-time SKU + serial validation",
@@ -146,8 +264,8 @@ export const PLUGINS = {
           d: "Every read, validation, and close is recorded with timestamp, reader, operator, and associated order. Exportable for audit or regulatory traceability.",
         },
         {
-          h: "Multi-dock, multi-site",
-          d: "One instance handles dozens of docks across one or many plants. Role-based access and data isolation by site, customer, or business unit.",
+          h: "Many docks, many plants",
+          d: "Dozens of docks across one or many plants, with roles and permissions per user and per site.",
         },
         {
           h: "Operator-handled exceptions",
@@ -160,12 +278,12 @@ export const PLUGINS = {
           d: "Validate finished-goods shipments against sales orders. MES integration to close production orders when shipment confirms.",
         },
         {
-          h: "Logistics & 3PL",
-          d: "Receiving against the customer's ASN. Each customer sees only their inventory; operators see all active shipments at their dock.",
+          h: "Distribution & 3PL",
+          d: "Receiving against the customer's advance ship notice. Operators see all active shipments at their dock.",
         },
         {
-          h: "Retail / DC",
-          d: "Pallet receiving from suppliers. Verifies count and SKU against the purchase order before acceptance — short-shipment claims disappear.",
+          h: "Suppliers to large retailers",
+          d: "If your customer already requires an RFID tag, use it to validate your own shipment before it leaves.",
         },
       ],
       integrations: {
@@ -181,17 +299,76 @@ export const PLUGINS = {
   rtls: {
     slug: "rtls",
     nameplate: "PL · 03",
-    routes: { es: "/rtls", en: "/rtls" },
+    routes: { es: "/trace", en: "/trace" },
     es: {
-      title: "LogixIQ",
+      title: "Horizon Trace",
       tagline:
-        "Saber dónde está cada activo, cuánto lleva ahí, y cuándo se sale de lugar.",
+        "Dónde está cada cosa y cuánto lleva ahí, sin que nadie escanee.",
       lead:
-        "Localización en tiempo real sobre el plano real de tu instalación: piso de planta, hospital, taller o bodega. Mientras el WMS ve inventario terminado, LogixIQ ve lo que está pasando ahora — piezas en estación, equipos médicos, vehículos en servicio, contenedores en bahía.",
+        "Ubicación por zonas y tiempo por etapa sobre el plano de tu instalación: piso de planta, taller, hospital o bodega. Lectores RFID fijos detectan cada activo al entrar a una zona, y Horizon Trace te dice en cuál está y cuánto lleva ahí. Ubica por zona, no al centímetro.",
       ribbon: null,
+      problem: {
+        title: "Nadie sabe cuánto tarda cada etapa hasta que la entrega ya se atrasó.",
+        body: "Los tiempos por etapa se estiman, y lo que se pierde se busca caminando. Donde se intentó medir con puntos de escaneo, el dato dejó de llegar en cuanto subió la carga de trabajo.",
+        points: [
+          {
+            h: "El punto de escaneo depende de la gente",
+            d: "Si hay que detenerse a escanear, en hora pico no se escanea. El reporte queda con huecos justo cuando más importa.",
+          },
+          {
+            h: "Lo que no se encuentra, se busca a pie",
+            d: "Moldes, herramentales, equipos médicos, vehículos: alguien recorre el edificio preguntando.",
+          },
+          {
+            h: "El cuello de botella se discute, no se mide",
+            d: "Sin tiempos reales por estación, cada junta termina en opiniones.",
+          },
+        ],
+      },
+      stepsTitle: "Tres pasos sobre tu propio plano.",
+      steps: [
+        {
+          h: "Etiqueta",
+          d: "Cada pieza, orden, equipo o vehículo lleva una etiqueta RFID.",
+        },
+        {
+          h: "Define zonas",
+          d: "Subes el plano, dibujas las zonas y colocas las antenas donde van. Un lector puede cubrir varias zonas cercanas.",
+        },
+        {
+          h: "Mide",
+          d: "Cada cambio de zona queda registrado: ubicación actual, tiempo por etapa, alertas y reportes.",
+        },
+      ],
+      faq: [
+        {
+          q: "¿Qué tan precisa es la ubicación?",
+          a: "Por zona: te dice en qué área, estación o bahía está el activo, no su posición exacta. Para medir tiempos por etapa y encontrar equipo es suficiente. Si necesitas precisión de centímetros hace falta otra tecnología, y te lo diremos.",
+        },
+        {
+          q: "¿Cuántos lectores necesito?",
+          a: "Depende de cuántas zonas quieras distinguir y qué tan cerca estén. Un lector cubre varias zonas contiguas con sus antenas. Lo dimensionamos sobre tu plano antes de cotizar.",
+        },
+        {
+          q: "¿Funciona con metal o líquidos?",
+          a: "Sí, con la etiqueta y la posición de antena correctas. Por eso se hace una prueba de lectura en tu instalación antes de etiquetar todo.",
+        },
+        {
+          q: "¿Sirve para rastrear personas?",
+          a: "Está pensado para activos, piezas y vehículos. No lo recomendamos para seguir al personal.",
+        },
+        {
+          q: "¿Cuánto cuesta cubrir toda la planta?",
+          a: "El software se cobra como renta mensual según el número de lectores, sin costo de desarrollo. La cotización que te entregamos incluye también lectores, antenas, etiquetas e instalación, para que veas la inversión completa antes de decidir. Lo habitual es empezar por un flujo de dos o tres zonas y crecer desde ahí.",
+        },
+        {
+          q: "¿Quién lo instala?",
+          a: "Tu integrador de confianza o nuestro equipo. La configuración corre por nuestra cuenta.",
+        },
+      ],
       metrics: [
         { label: "Latencia tiempo real", value: "< 1 s", note: "streaming en vivo" },
-        { label: "Throughput probado", value: "M / día", note: "lecturas por planta" },
+        { label: "Captura", value: "Sin escaneo", note: "lectores fijos por zona" },
         { label: "Retención de historial", value: "365 días", note: "compresión > 7 d" },
         { label: "Reportes preconstruidos", value: "12+", note: "+ constructor personalizado" },
       ],
@@ -205,8 +382,8 @@ export const PLUGINS = {
           d: "Sube el plano de tu instalación, dibuja zonas (rectangulares, circulares o poligonales), arrastra antenas a su posición real. Sin código, sin GIS especializado.",
         },
         {
-          h: "Detección por RSSI observable",
-          d: "Cada lectura se asigna a la zona con mayor señal. Regla pública, debuggeable, sin ML opaco — puedes auditarla y entender por qué un activo cayó en una zona u otra.",
+          h: "Regla de ubicación clara",
+          d: "Cada lectura se asigna a la zona donde la señal es más fuerte. Sin cajas negras: puedes revisar por qué un activo aparece en una zona u otra.",
         },
         {
           h: "Alertas en tiempo real",
@@ -261,16 +438,16 @@ export const PLUGINS = {
           d: "Líneas con múltiples estaciones donde el cuello de botella varía con el mix. Detecta dónde se atora cada unidad y por cuánto tiempo.",
         },
         {
-          h: "Hospitales y clínicas",
-          d: "Sillas de ruedas, bombas de infusión, monitores. Saber dónde está cada uno y recibir alerta si sale del piso, sin recorrer el edificio.",
-        },
-        {
           h: "Talleres automotrices y de servicio",
           d: "Flujo del vehículo por etapas: recepción, mecánica, hojalatería, pintura, lavado. Tiempo en cada bahía, sin checador humano.",
         },
         {
-          h: "Bodegas y centros de distribución",
-          d: "Pallets, racks, contenedores reutilizables. Ubicación correcta, alertas si algo se mueve fuera de horario, auditoría de cada movimiento.",
+          h: "Hospitales y laboratorios",
+          d: "Sillas de ruedas, bombas de infusión, monitores, muestras. Saber en qué área está cada uno y recibir alerta si sale del piso, sin recorrer el edificio.",
+        },
+        {
+          h: "Renta de equipo y patios",
+          d: "Equipo que sale y regresa: en qué zona del patio está, cuánto lleva en revisión y qué está listo para entregar.",
         },
       ],
       integrations: {
@@ -283,15 +460,74 @@ export const PLUGINS = {
       },
     },
     en: {
-      title: "LogixIQ",
+      title: "Horizon Trace",
       tagline:
-        "Know where every asset is, how long it's been there, and when it leaves where it should be.",
+        "Where everything is and how long it's been there, with nobody scanning.",
       lead:
-        "Real-time location on the actual floor plan of your facility: shop floor, hospital, service bay, or warehouse. While the WMS watches finished inventory, LogixIQ watches what's happening right now — parts at a station, medical equipment, vehicles in service, containers in a bay.",
+        "Zone-level location and time per stage on your facility's floor plan: shop floor, service bay, hospital, or warehouse. Fixed RFID readers detect each asset as it enters a zone, and Horizon Trace tells you which zone it is in and how long it has been there. It locates by zone, not to the centimeter.",
       ribbon: null,
+      problem: {
+        title: "Nobody knows how long each stage takes until the delivery is already late.",
+        body: "Stage times are estimated, and whatever goes missing is found on foot. Where scan checkpoints were tried, the data stopped arriving as soon as the workload went up.",
+        points: [
+          {
+            h: "A scan point depends on people",
+            d: "If someone has to stop and scan, at peak hours nobody scans. The report has gaps exactly when it matters most.",
+          },
+          {
+            h: "What can't be found is searched for on foot",
+            d: "Molds, tooling, medical equipment, vehicles: someone walks the building asking around.",
+          },
+          {
+            h: "The bottleneck is argued, not measured",
+            d: "Without real times per station, every meeting ends in opinions.",
+          },
+        ],
+      },
+      stepsTitle: "Three steps on your own floor plan.",
+      steps: [
+        {
+          h: "Tag",
+          d: "Every part, work order, piece of equipment or vehicle carries an RFID tag.",
+        },
+        {
+          h: "Define zones",
+          d: "Upload the floor plan, draw the zones and place the antennas where they go. One reader can cover several nearby zones.",
+        },
+        {
+          h: "Measure",
+          d: "Every zone change is recorded: current location, time per stage, alerts and reports.",
+        },
+      ],
+      faq: [
+        {
+          q: "How precise is the location?",
+          a: "Zone level: it tells you which area, station or bay the asset is in, not its exact position. That is enough to measure time per stage and to find equipment. If you need centimeter precision you need a different technology, and we will tell you so.",
+        },
+        {
+          q: "How many readers do I need?",
+          a: "It depends on how many zones you want to tell apart and how close together they are. One reader covers several adjacent zones with its antennas. We size it on your floor plan before quoting.",
+        },
+        {
+          q: "Does it work around metal or liquids?",
+          a: "Yes, with the right tag and antenna placement. That is why we run a read test at your facility before tagging everything.",
+        },
+        {
+          q: "Can it track people?",
+          a: "It is built for assets, parts and vehicles. We don't recommend it for following staff.",
+        },
+        {
+          q: "What does it cost to cover the whole plant?",
+          a: "The software is a monthly subscription based on the number of readers, with no development fee. The quote we give you also covers readers, antennas, tags and installation, so you see the full investment before you decide. The usual path is to start with one flow of two or three zones and grow from there.",
+        },
+        {
+          q: "Who installs it?",
+          a: "Your integrator of choice or our own team. We take care of the configuration.",
+        },
+      ],
       metrics: [
         { label: "Real-time latency", value: "< 1 s", note: "live streaming" },
-        { label: "Proven throughput", value: "M / day", note: "reads per plant" },
+        { label: "Capture", value: "No scanning", note: "fixed readers per zone" },
         { label: "History retention", value: "365 days", note: "compression after 7 d" },
         { label: "Prebuilt reports", value: "12+", note: "+ custom builder" },
       ],
@@ -305,8 +541,8 @@ export const PLUGINS = {
           d: "Upload your facility's plan, draw zones (rectangular, circular, or polygonal), drag antennas to their real position. No code, no specialized GIS.",
         },
         {
-          h: "Observable RSSI detection",
-          d: "Each read maps to the zone with the strongest signal. The rule is public and debuggable — no opaque ML. You can audit why an asset landed in a given zone.",
+          h: "A location rule you can check",
+          d: "Each read maps to the zone where the signal is strongest. No black boxes: you can review why an asset shows up in one zone or another.",
         },
         {
           h: "Real-time alerts",
@@ -361,16 +597,16 @@ export const PLUGINS = {
           d: "Lines with multiple stations where the bottleneck moves with product mix. Spot where each unit is stuck and for how long.",
         },
         {
-          h: "Hospitals and clinics",
-          d: "Wheelchairs, infusion pumps, monitors. Know where each one is and get alerted if it leaves the floor — without walking the building.",
-        },
-        {
           h: "Automotive and service workshops",
           d: "Vehicle flow by stage: intake, mechanical, body, paint, wash. Time at each bay, no human stopwatch.",
         },
         {
-          h: "Warehouses and distribution centers",
-          d: "Pallets, racks, returnable containers. Correct location, off-hours movement alerts, audit trail for every move.",
+          h: "Hospitals and laboratories",
+          d: "Wheelchairs, infusion pumps, monitors, samples. Know which area each one is in and get alerted if it leaves the floor, without walking the building.",
+        },
+        {
+          h: "Equipment rental and yards",
+          d: "Equipment that goes out and comes back: which zone of the yard it is in, how long it has been in inspection, and what is ready to deliver.",
         },
       ],
       integrations: {

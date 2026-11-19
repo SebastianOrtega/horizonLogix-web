@@ -93,13 +93,14 @@ function Shell() {
   };
   const onDemo = (source) => openContact("demo", source);
   const onSales = (source) => openContact("sales", source);
+  const onPartner = (source) => openContact("partner", source);
 
   return (
     <>
       <RouteSync lang={lang} setLangState={setLangState} />
-      <Nav t={t} lang={lang} setLang={setLang} onDemo={onDemo} />
+      <Nav t={t} lang={lang} setLang={setLang} onDemo={onDemo} onPartner={onPartner} />
       <Routes>
-        <Route path="/" element={<Landing t={t} lang={lang} onDemo={onDemo} onSales={onSales} />} />
+        <Route path="/" element={<Landing t={t} lang={lang} onPartner={onPartner} onSales={onSales} />} />
         <Route path="/privacidad" element={<LegalPage t={t} lang="es" kind="privacy" />} />
         <Route path="/privacy" element={<LegalPage t={t} lang="en" kind="privacy" />} />
         <Route path="/terminos" element={<LegalPage t={t} lang="es" kind="terms" />} />
@@ -107,6 +108,8 @@ function Shell() {
         <Route path="/warehouse" element={<PluginPage slug="warehouse" lang={lang} onDemo={onDemo} onSales={onSales} />} />
         <Route path="/contenedores" element={<PluginPage slug="containers" lang="es" onDemo={onDemo} onSales={onSales} />} />
         <Route path="/containers" element={<PluginPage slug="containers" lang="en" onDemo={onDemo} onSales={onSales} />} />
+        <Route path="/trace" element={<PluginPage slug="rtls" lang={lang} onDemo={onDemo} onSales={onSales} />} />
+        {/* /rtls was the original route; kept so existing links keep working. */}
         <Route path="/rtls" element={<PluginPage slug="rtls" lang={lang} onDemo={onDemo} onSales={onSales} />} />
       </Routes>
       <Footer t={t} lang={lang} setLang={setLang} />

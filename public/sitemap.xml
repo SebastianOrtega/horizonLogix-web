@@ -36,10 +36,10 @@
   </url>
 
   <url>
-    <loc>https://hlogix.app/rtls</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/rtls?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/rtls?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://hlogix.app/rtls"/>
+    <loc>https://hlogix.app/trace</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/trace?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/trace?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hlogix.app/trace"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

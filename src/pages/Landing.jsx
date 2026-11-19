@@ -9,26 +9,25 @@ import {
   LiveDemo,
   Plugins,
   Problem,
-  Testimonial,
   Why,
 } from "../components/Sections.jsx";
 import WorkflowDesigner from "../components/WorkflowDesigner.jsx";
 
-export default function Landing({ t, lang, onDemo, onSales }) {
+// The landing talks to RFID integrators; end customers land on the plugin pages.
+export default function Landing({ t, lang, onPartner, onSales }) {
   return (
     <main>
-      <Hero t={t} onDemo={onDemo} />
+      <Hero t={t} onPartner={onPartner} />
       <Problem t={t} />
       <HowItWorks t={t} />
       <WorkflowDesigner lang={lang} accent={ACCENT} />
-      <Plugins t={t} lang={lang} />
+      <Partners t={t} onPartner={onPartner} onSales={onSales} />
       <Industries t={t} />
-      <Partners t={t} />
-      <LiveDemo t={t} />
-      <Why t={t} />
+      <Plugins t={t} lang={lang} />
       <ArchIT t={t} />
-      <Testimonial t={t} />
-      <CTABand t={t} onDemo={onDemo} onSales={onSales} />
+      <Why t={t} />
+      <LiveDemo t={t} />
+      <CTABand t={t} onPartner={onPartner} onSales={onSales} />
     </main>
   );
 }

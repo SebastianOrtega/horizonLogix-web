@@ -151,8 +151,8 @@ export const CONTAINERS = {
         d: "Movimientos, contenedores, alertas, ubicaciones y resumen. Filtros por fecha, contenedor o planta, y exportación a CSV.",
       },
       {
-        h: "Una flota por empresa",
-        d: "Cada empresa ve únicamente sus contenedores y sus ubicaciones. Administrador, operador y solo lectura dentro de cada una.",
+        h: "Permisos por usuario y por planta",
+        d: "Administrador, operador y solo lectura. Cada quien ve las plantas y ubicaciones que le corresponden.",
       },
       {
         h: "Ubicaciones en el mapa",
@@ -165,16 +165,20 @@ export const CONTAINERS = {
     ],
     useCases: [
       {
-        h: "Alimentos y bebidas",
-        d: "Cajas reutilizables entre planta, centro de distribución y punto de entrega. Saber cuáles están fuera, cuáles llevan días sin volver y dónde quedaron.",
-      },
-      {
         h: "Automotriz",
         d: "Charolas y racks hechos para una pieza. Si se quedan en la planta del cliente, la siguiente entrega no tiene en qué viajar.",
       },
       {
+        h: "Cuando el activo es el negocio",
+        d: "Cilindros de gas, carretes de cable, contenedores químicos, empaque en renta. Saber quién lo tiene y desde cuándo es la base para reclamarlo.",
+      },
+      {
         h: "Logística de retorno",
         d: "Tarimas y contenedores retornables entre varios sitios. La pérdida y las disputas bajan cuando cada activo tiene su historial.",
+      },
+      {
+        h: "Alimentos y bebidas",
+        d: "Cajas reutilizables entre planta, centro de distribución y punto de entrega. Saber cuáles están fuera, cuáles llevan días sin volver y dónde quedaron.",
       },
     ],
     integrations: {
@@ -184,6 +188,14 @@ export const CONTAINERS = {
       deployment: "Portal web en la nube. No se instala nada en las computadoras de planta.",
     },
     faq: [
+      {
+        q: "¿Cuánto cuesta en total?",
+        a: "El software se cobra como renta mensual según el número de lectores, sin costo de desarrollo. La cotización que te entregamos incluye también lectores, antenas, etiquetas e instalación, para que veas la inversión completa antes de decidir.",
+      },
+      {
+        q: "¿Y si mis contenedores van a clientes que no tienen lectores?",
+        a: "Un lector en tu propio portón registra cada salida y cada regreso. Con eso ya sabes qué se fue, a dónde y cuánto lleva fuera, aunque del otro lado no haya lectores.",
+      },
       {
         q: "¿Tengo que cambiar mi ERP?",
         a: "No. Horizon Containers funciona por su cuenta desde el primer día. Cuando quieras llevar los datos a tu ERP o WMS, se conectan por API.",
@@ -329,8 +341,8 @@ export const CONTAINERS = {
         d: "Movements, containers, alerts, locations and summary. Filter by date, container or plant, and export to CSV.",
       },
       {
-        h: "One fleet per company",
-        d: "Each company sees only its own containers and locations. Administrator, operator and read-only roles inside each one.",
+        h: "Permissions per user and per plant",
+        d: "Administrator, operator and read-only roles. Everyone sees the plants and locations that belong to them.",
       },
       {
         h: "Locations on the map",
@@ -343,16 +355,20 @@ export const CONTAINERS = {
     ],
     useCases: [
       {
-        h: "Food & beverage",
-        d: "Reusable crates between plant, distribution center and delivery point. Know which are out, which have gone days without returning, and where they ended up.",
-      },
-      {
         h: "Automotive",
         d: "Trays and racks built for one part. If they stay at the customer's plant, the next delivery has nothing to travel in.",
       },
       {
+        h: "When the asset is the business",
+        d: "Gas cylinders, cable reels, chemical containers, rented packaging. Knowing who has it and since when is the basis for claiming it back.",
+      },
+      {
         h: "Return logistics",
         d: "Returnable pallets and containers across several sites. Loss and disputes drop when every asset has its history.",
+      },
+      {
+        h: "Food & beverage",
+        d: "Reusable crates between plant, distribution center and delivery point. Know which are out, which have gone days without returning, and where they ended up.",
       },
     ],
     integrations: {
@@ -362,6 +378,14 @@ export const CONTAINERS = {
       deployment: "Cloud web portal. Nothing to install on plant computers.",
     },
     faq: [
+      {
+        q: "What does it cost in total?",
+        a: "The software is a monthly subscription based on the number of readers, with no development fee. The quote we give you also covers readers, antennas, tags and installation, so you see the full investment before you decide.",
+      },
+      {
+        q: "What if my containers go to customers who have no readers?",
+        a: "A reader at your own gate records every exit and every return. That already tells you what left, where it went and how long it has been out, even with no readers on the other side.",
+      },
       {
         q: "Do I have to change my ERP?",
         a: "No. Horizon Containers runs on its own from day one. When you want the data in your ERP or WMS, they connect through the API.",
