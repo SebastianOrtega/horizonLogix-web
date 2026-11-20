@@ -127,30 +127,51 @@ export function Nav({ t, lang, setLang, onDemo, onPartner }) {
   // From the landing, anchor links resolve in-page (smooth-scroll). From any
   // other route, prefix with "/" so the browser navigates back to "/" first.
   const anchorPrefix = onLanding ? "" : "/";
+  // Outside "/" the reader is an end customer: the menu lists the plugins and
+  // the logo leads to /plugins instead of the integrator page.
+  const pluginItems = PLUGIN_LIST.map((slug) => {
+    const p = PLUGINS[slug];
+    const to = p.routes[lang] || p.routes.es;
+    const active = location.pathname === to || (slug === "rtls" && location.pathname === "/rtls");
+    return { slug, to, active, label: (p[lang] || p.es).title.replace(/^Horizon /, "") };
+  });
   return (
     <header
       className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${scrolled || !onLanding ? "bg-ink-950/70 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
         }`}
     >
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5 text-paper-50">
+        <Link to={onLanding ? "/" : "/plugins"} className="flex items-center gap-2.5 text-paper-50">
           <Logo size={80} />
         </Link>
         <nav className="hidden lg:flex items-center gap-7 text-[14px] text-paper-50/75">
-          {items.map((i) => (
-            <a key={i.k} href={`${anchorPrefix}#${i.id}`} className="u-grow hover:text-paper-50 transition-colors">
-              {t.nav[i.k]}
-            </a>
-          ))}
+          {onLanding
+            ? items.map((i) => (
+                <a key={i.k} href={`${anchorPrefix}#${i.id}`} className="u-grow hover:text-paper-50 transition-colors">
+                  {t.nav[i.k]}
+                </a>
+              ))
+            : pluginItems.map((i) => (
+                <Link
+                  key={i.slug}
+                  to={i.to}
+                  aria-current={i.active ? "page" : undefined}
+                  className={`u-grow hover:text-paper-50 transition-colors ${i.active ? "text-paper-50 is-active" : ""}`}
+                >
+                  {i.label}
+                </Link>
+              ))}
         </nav>
         <div className="flex items-center gap-2">
           <LangSwitch lang={lang} setLang={setLang} />
-          <a
-            href={`${anchorPrefix}#cta`}
-            className="hidden md:inline-flex text-[14px] text-paper-50/75 hover:text-paper-50 px-3 py-2"
-          >
-            {t.nav.contact}
-          </a>
+          {onLanding && (
+            <a
+              href="#cta"
+              className="hidden md:inline-flex text-[14px] text-paper-50/75 hover:text-paper-50 px-3 py-2"
+            >
+              {t.nav.contact}
+            </a>
+          )}
           {/* The landing talks to integrators; every other page talks to end customers. */}
           {onLanding ? (
             <Button onClick={() => onPartner("nav")}>{t.nav.partner}</Button>
@@ -1051,6 +1072,10 @@ export function CTABand({ t, onPartner, onSales }) {
 
 export function Footer({ t, lang, setLang }) {
   const year = new Intl.DateTimeFormat(lang === "es" ? "es-MX" : "en-US", { year: "numeric" }).format(new Date());
+  // "/" talks to integrators; every other route talks to end customers, whose
+  // footer drops the integrator anchors and offers a way back to "/".
+  const onLanding = useLocation().pathname === "/";
+  const f = onLanding ? t.footer : { ...t.footer, ...t.footer.customer };
   return (
     <footer className="bg-ink-950 border-t border-white/5 text-paper-50/70">
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-16 grid md:grid-cols-12 gap-10">
@@ -1059,12 +1084,12 @@ export function Footer({ t, lang, setLang }) {
             <Logo size={80} />
 
           </div>
-          <p className="mt-4 text-[14px] max-w-[300px] leading-relaxed">{t.footer.tagline}</p>
+          <p className="mt-4 text-[14px] max-w-[300px] leading-relaxed">{f.tagline}</p>
           <div className="mt-6 flex items-center gap-2">
             <LangSwitch lang={lang} setLang={setLang} />
           </div>
         </div>
-        {t.footer.cols.map((c) => (
+        {f.cols.map((c) => (
           <div key={c.h} className="md:col-span-2">
             <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper-50/40">{c.h}</div>
             <ul className="mt-4 space-y-2.5 text-[14px]">
@@ -1076,6 +1101,19 @@ export function Footer({ t, lang, setLang }) {
             </ul>
           </div>
         ))}
+        {!onLanding && f.integrator && (
+          <div className="md:col-span-4">
+            <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper-50/40">{f.integrator.h}</div>
+            <p className="mt-4 text-[14px] leading-relaxed max-w-[320px]">{f.integrator.body}</p>
+            <Link
+              to="/"
+              onClick={() => track("integrator_link_click", { source: "footer" })}
+              className="mt-3 inline-flex items-center gap-1.5 text-[14px] font-medium text-paper-50 hover:text-signal u-grow"
+            >
+              {f.integrator.link} <Icon.Arrow aria-hidden="true" />
+            </Link>
+          </div>
+        )}
       </div>
       <div className="border-t border-white/5">
         <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-5 flex flex-wrap items-center justify-between gap-3 text-[11px] text-paper-50/45 font-mono">
@@ -1089,22 +1127,28 @@ export function Footer({ t, lang, setLang }) {
   );
 }
 
+// Phones get a one-line bar flush to the bottom edge so it never covers the
+// content; from md up it stays the floating card.
 export function CookieStrip({ t, onClose, onManage }) {
   return (
     <div
       role="dialog"
       aria-label="cookies"
-      className="fixed bottom-4 inset-x-4 md:left-auto md:right-6 md:bottom-6 z-30 max-w-[520px] rounded-xl border border-white/10 bg-ink-900/90 backdrop-blur px-5 py-4 text-[14px] text-paper-50/80 flex flex-wrap items-center gap-3"
+      className="fixed z-30 inset-x-0 bottom-0 border-t border-white/10 bg-ink-900/95 backdrop-blur px-4 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] text-[13px] text-paper-50/80 flex items-center gap-3 md:inset-x-auto md:right-6 md:bottom-6 md:max-w-[520px] md:rounded-xl md:border md:px-5 md:py-4 md:text-[14px] md:flex-wrap"
     >
-      <span className="flex-1 min-w-[200px]">{t.cookies.body}</span>
+      <span className="flex-1 min-w-0 md:min-w-[200px]">
+        <span className="md:hidden">{t.cookies.bodyShort}</span>
+        <span className="hidden md:inline">{t.cookies.body}</span>
+      </span>
       <button
         type="button"
         onClick={onManage}
-        className="underline underline-offset-2 hover:text-paper-50"
+        className="shrink-0 underline underline-offset-2 hover:text-paper-50"
       >
-        {t.cookies.manage}
+        <span className="md:hidden">{t.cookies.manageShort}</span>
+        <span className="hidden md:inline">{t.cookies.manage}</span>
       </button>
-      <button onClick={onClose} className="rounded-full bg-signal text-ink-950 px-3 py-1.5 text-[14px] font-medium">
+      <button onClick={onClose} className="shrink-0 rounded-full bg-signal text-ink-950 px-3 py-1.5 text-[13px] md:text-[14px] font-medium">
         {t.cookies.ok}
       </button>
     </div>

@@ -268,6 +268,7 @@ export const I18N = {
         {
           h: "Plugins",
           links: [
+            { label: "Todos los plugins", to: "/plugins" },
             { label: "Warehouse", to: "/warehouse" },
             { label: "Containers", to: "/contenedores" },
             { label: "Trace", to: "/trace" },
@@ -290,10 +291,39 @@ export const I18N = {
       ],
       made: "Hecho en México",
       rights: "Todos los derechos reservados.",
+      // Footer outside "/": end-customer pages (plugins, hub, legal).
+      customer: {
+        tagline: "Aplicaciones para embarques, contenedores y activos.",
+        cols: [
+          {
+            h: "Plugins",
+            links: [
+              { label: "Todos los plugins", to: "/plugins" },
+              { label: "Warehouse", to: "/warehouse" },
+              { label: "Containers", to: "/contenedores" },
+              { label: "Trace", to: "/trace" },
+            ],
+          },
+          {
+            h: "Legal",
+            links: [
+              { label: "Aviso de privacidad", to: "/privacidad" },
+              { label: "Términos de uso", to: "/terminos" },
+            ],
+          },
+        ],
+        integrator: {
+          h: "¿Eres integrador?",
+          body: "Middleware, plugins y programa de partners para integradores RFID.",
+          link: "Ir a la página para integradores",
+        },
+      },
     },
     cookies: {
       body: "Usamos cookies esenciales y analítica anónima para mejorar el sitio.",
       manage: "Administrar preferencias",
+      bodyShort: "Usamos cookies.",
+      manageShort: "Preferencias",
       ok: "Aceptar",
       preferences: {
         title: "Preferencias de cookies",
@@ -584,6 +614,7 @@ export const I18N = {
         {
           h: "Plugins",
           links: [
+            { label: "All plugins", to: "/plugins" },
             { label: "Warehouse", to: "/warehouse" },
             { label: "Containers", to: "/containers" },
             { label: "Trace", to: "/trace" },
@@ -606,10 +637,39 @@ export const I18N = {
       ],
       made: "Made in Mexico",
       rights: "All rights reserved.",
+      // Footer outside "/": end-customer pages (plugins, hub, legal).
+      customer: {
+        tagline: "Apps for shipments, containers and assets.",
+        cols: [
+          {
+            h: "Plugins",
+            links: [
+              { label: "All plugins", to: "/plugins" },
+              { label: "Warehouse", to: "/warehouse" },
+              { label: "Containers", to: "/containers" },
+              { label: "Trace", to: "/trace" },
+            ],
+          },
+          {
+            h: "Legal",
+            links: [
+              { label: "Privacy notice", to: "/privacy" },
+              { label: "Terms of use", to: "/terms" },
+            ],
+          },
+        ],
+        integrator: {
+          h: "Are you an integrator?",
+          body: "Middleware, plugins and a partner program for RFID integrators.",
+          link: "Go to the integrator page",
+        },
+      },
     },
     cookies: {
       body: "We use essential cookies and anonymous analytics to improve the site.",
       manage: "Manage preferences",
+      bodyShort: "We use cookies.",
+      manageShort: "Preferences",
       ok: "Accept",
       preferences: {
         title: "Cookie preferences",

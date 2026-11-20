@@ -11,6 +11,15 @@
   </url>
 
   <url>
+    <loc>https://hlogix.app/plugins</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/plugins?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/plugins?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hlogix.app/plugins"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
     <loc>https://hlogix.app/warehouse</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://hlogix.app/warehouse?lang=es"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://hlogix.app/warehouse?lang=en"/>

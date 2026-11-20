@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Button, Eyebrow, Icon, Reveal, Section } from "../components/Primitives.jsx";
 import { ACCENT_RGB } from "../theme.js";
 import { PLUGINS, getPluginShared } from "../plugin-content.js";
+import { getPluginVideo } from "../plugins-hub.js";
+import PluginVideo from "../components/PluginVideo.jsx";
 
 export default function PluginPage({ slug, lang, onDemo, onSales }) {
   const plugin = PLUGINS[slug];
@@ -11,7 +13,7 @@ export default function PluginPage({ slug, lang, onDemo, onSales }) {
 
   return (
     <main>
-      <PluginHero plugin={plugin} data={data} shared={shared} onDemo={onDemo} />
+      <PluginHero plugin={plugin} data={data} shared={shared} onDemo={onDemo} video={getPluginVideo(slug, lang)} />
       <Problem data={data} shared={shared} />
       <Metrics data={data} shared={shared} />
       <Tour plugin={plugin} data={data} shared={shared} onDemo={onDemo} />
@@ -86,7 +88,7 @@ function Screenshots({ data, shared }) {
   );
 }
 
-function PluginHero({ plugin, data, shared, onDemo }) {
+function PluginHero({ plugin, data, shared, onDemo, video }) {
   return (
     <Section tone="dark" className="bg-grid-dark pt-32 pb-20 overflow-hidden">
       <div
@@ -127,7 +129,7 @@ function PluginHero({ plugin, data, shared, onDemo }) {
               {shared.closingCtaPrimary} <Icon.Arrow />
             </Button>
             <Link
-              to="/#plugins"
+              to="/plugins"
               className="inline-flex items-center gap-1.5 px-3 py-3 text-[14px] text-paper-50/75 hover:text-paper-50 u-grow"
             >
               {shared.backToPlugins}
@@ -136,18 +138,19 @@ function PluginHero({ plugin, data, shared, onDemo }) {
         </Reveal>
       </div>
 
-      {data.heroImage && (
+      {/* The plugin's short film when it is encoded (same component and rules
+          as /plugins); otherwise the product capture. */}
+      {video ? (
+        <Reveal delay={360}>
+          <div className="relative mt-16 max-w-[1180px] overflow-hidden rounded-xl border border-white/12 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.9)]">
+            <PluginVideo media={video.media} labels={video.labels} plugin={plugin.slug} source="plugin_page" />
+          </div>
+        </Reveal>
+      ) : data.heroImage && (
         <Reveal delay={360}>
           <figure className="relative mt-16 max-w-[1180px]">
             <BrowserFrame url={data.heroImage.url} tone="dark">
-              <img
-                src={data.heroImage.src}
-                alt={data.heroImage.alt}
-                width={data.heroImage.width}
-                height={data.heroImage.height}
-                decoding="async"
-                className="block w-full h-auto"
-              />
+              <Shot shot={data.heroImage} eager />
             </BrowserFrame>
             {data.heroImage.caption && (
               <figcaption className="mt-4 font-mono text-[11px] tracking-[0.14em] uppercase text-paper-50/45">
@@ -158,6 +161,29 @@ function PluginHero({ plugin, data, shared, onDemo }) {
         </Reveal>
       )}
     </Section>
+  );
+}
+
+// A product capture. When the entry carries a phone crop (srcMobile), small
+// screens get it instead of the full desktop screen, which is unreadable there.
+function Shot({ shot, eager = false }) {
+  const img = (
+    <img
+      src={shot.src}
+      alt={shot.alt}
+      width={shot.width}
+      height={shot.height}
+      loading={eager ? undefined : "lazy"}
+      decoding="async"
+      className="block w-full h-auto"
+    />
+  );
+  if (!shot.srcMobile) return img;
+  return (
+    <picture>
+      <source media="(max-width: 767px)" srcSet={shot.srcMobile} width={1080} height={1350} />
+      {img}
+    </picture>
   );
 }
 
@@ -273,15 +299,7 @@ function Tour({ plugin, data, shared, onDemo }) {
               </Reveal>
               <Reveal delay={80} className={"md:col-span-8 min-w-0 " + (flip ? "md:order-1" : "")}>
                 <BrowserFrame url={row.url}>
-                  <img
-                    src={row.src}
-                    alt={row.alt}
-                    width={row.width}
-                    height={row.height}
-                    loading="lazy"
-                    decoding="async"
-                    className="block w-full h-auto"
-                  />
+                  <Shot shot={row} />
                 </BrowserFrame>
               </Reveal>
             </article>

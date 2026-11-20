@@ -119,8 +119,27 @@ body {
   background: var(--signal);
   transition: width 280ms var(--ease-out);
 }
-.u-grow:hover::after {
+.u-grow:hover::after,
+.u-grow.is-active::after {
   width: 100%;
+}
+
+/* /plugins gallery (below lg): one-shot swipe hint over the first card's
+   media. Never rendered under prefers-reduced-motion (a static line replaces
+   it); the media query below is a second guard. */
+.hub-swipe-hint {
+  animation: hub-swipe 2.4s var(--ease-out, ease-out) both;
+}
+@keyframes hub-swipe {
+  0% { opacity: 0; transform: translateX(0); }
+  12% { opacity: 1; transform: translateX(0); }
+  32% { transform: translateX(-28px); }
+  56% { transform: translateX(28px); }
+  76% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hub-swipe-hint { animation: none; display: none; }
 }
 
 @keyframes scroll-up {

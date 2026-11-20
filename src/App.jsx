@@ -9,6 +9,7 @@ import CookiePreferences from "./components/CookiePreferences.jsx";
 import Landing from "./pages/Landing.jsx";
 import LegalPage from "./pages/LegalPage.jsx";
 import PluginPage from "./pages/PluginPage.jsx";
+import PluginsHub from "./pages/PluginsHub.jsx";
 import { applyConsent, readConsent, writeConsent } from "./lib/consent.js";
 import { track, trackPageview } from "./lib/track.js";
 
@@ -105,6 +106,7 @@ function Shell() {
         <Route path="/privacy" element={<LegalPage t={t} lang="en" kind="privacy" />} />
         <Route path="/terminos" element={<LegalPage t={t} lang="es" kind="terms" />} />
         <Route path="/terms" element={<LegalPage t={t} lang="en" kind="terms" />} />
+        <Route path="/plugins" element={<PluginsHub lang={lang} onDemo={onDemo} onSales={onSales} />} />
         <Route path="/warehouse" element={<PluginPage slug="warehouse" lang={lang} onDemo={onDemo} onSales={onSales} />} />
         <Route path="/contenedores" element={<PluginPage slug="containers" lang="es" onDemo={onDemo} onSales={onSales} />} />
         <Route path="/containers" element={<PluginPage slug="containers" lang="en" onDemo={onDemo} onSales={onSales} />} />

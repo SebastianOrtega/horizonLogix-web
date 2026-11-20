@@ -4,7 +4,8 @@
     "exclude": ["/assets/*", "/*.{css,js,svg,png,jpg,jpeg,webp,ico,woff,woff2,txt,xml}"]
   },
   "mimeTypes": {
-    ".json": "application/json"
+    ".json": "application/json",
+    ".vtt": "text/vtt"
   },
   "globalHeaders": {
     "X-Frame-Options": "DENY",

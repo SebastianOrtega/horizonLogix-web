@@ -8,7 +8,43 @@ import heatmapImg from "./assets/rtls/heatmap.png";
 import alertsImg from "./assets/rtls/alerts.png";
 import historyImg from "./assets/rtls/history.png";
 import reportDwellImg from "./assets/rtls/report-dwell.png";
+// English captures (UI and demo data in English) — same six views.
+import dashboardImgEn from "./assets/rtls/en/dashboard.png";
+import editorImgEn from "./assets/rtls/en/editor.png";
+import heatmapImgEn from "./assets/rtls/en/heatmap.png";
+import alertsImgEn from "./assets/rtls/en/alerts.png";
+import historyImgEn from "./assets/rtls/en/history.png";
+import reportDwellImgEn from "./assets/rtls/en/report-dwell.png";
+// Horizon Warehouse captures, taken from a local demo (fictitious company).
+import whLiveMissingTop from "./assets/warehouse/live-missing-top.png";
+import whLiveOk from "./assets/warehouse/live-ok.png";
+import whLiveForeign from "./assets/warehouse/live-foreign.png";
+import whLiveClosed from "./assets/warehouse/live-closed.png";
+import whOperationDetail from "./assets/warehouse/operation-detail.png";
+import whDashboard from "./assets/warehouse/dashboard.png";
+import whLiveMissingTopEn from "./assets/warehouse/en/live-missing-top.png";
+import whLiveOkEn from "./assets/warehouse/en/live-ok.png";
+import whLiveForeignEn from "./assets/warehouse/en/live-foreign.png";
+import whLiveClosedEn from "./assets/warehouse/en/live-closed.png";
+import whOperationDetailEn from "./assets/warehouse/en/operation-detail.png";
+import whDashboardEn from "./assets/warehouse/en/dashboard.png";
+// Phone crops of the same screens (4:5).
+import whMLiveMissing from "./assets/warehouse/mobile/live-missing.png";
+import whMLiveOk from "./assets/warehouse/mobile/live-ok.png";
+import whMLiveForeign from "./assets/warehouse/mobile/live-foreign.png";
+import whMLiveClosed from "./assets/warehouse/mobile/live-closed.png";
+import whMOperationDetail from "./assets/warehouse/mobile/operation-detail.png";
+import whMDashboard from "./assets/warehouse/mobile/dashboard.png";
+import whMLiveMissingEn from "./assets/warehouse/mobile/en/live-missing.png";
+import whMLiveOkEn from "./assets/warehouse/mobile/en/live-ok.png";
+import whMLiveForeignEn from "./assets/warehouse/mobile/en/live-foreign.png";
+import whMLiveClosedEn from "./assets/warehouse/mobile/en/live-closed.png";
+import whMOperationDetailEn from "./assets/warehouse/mobile/en/operation-detail.png";
+import whMDashboardEn from "./assets/warehouse/mobile/en/dashboard.png";
 import { CONTAINERS } from "./plugin-containers.js";
+
+const WH_SHOT = { width: 1600, height: 1122 };
+const WH_APP = "warehouse.hlogix.app";
 
 const SHARED = {
   es: {
@@ -76,6 +112,14 @@ export const PLUGINS = {
       lead:
         "Cada caja, tarima o pieza etiquetada se lee al pasar por el andén y se compara contra la orden de embarque o recepción de tu ERP. Si algo falta, sobra o no corresponde, el operador lo ve antes de que el camión salga.",
       ribbon: null,
+      heroImage: {
+        src: whLiveMissingTop,
+        srcMobile: whMLiveMissing,
+        ...WH_SHOT,
+        url: `${WH_APP}/operations`,
+        alt: "Pantalla del operador en Horizon Warehouse: orden OV-24871 en proceso, 9 de 12 piezas leídas y 3 faltantes.",
+        caption: "La pantalla del operador, con datos de demostración",
+      },
       problem: {
         title: "Un embarque mal surtido se paga dos veces: en el reclamo y en el reenvío.",
         body: "Casi siempre el error se descubre cuando el cliente abre la caja. Para entonces ya hay una penalización, una nota de crédito o un flete extra, y nadie puede decir en qué momento se cargó mal.",
@@ -94,6 +138,65 @@ export const PLUGINS = {
           },
         ],
       },
+      tourTitle: "Lo que ve tu operador mientras el montacargas cruza el andén.",
+      tour: [
+        {
+          q: "¿Va completo?",
+          h: "Cada pieza se palomea sola al pasar.",
+          d: "El operador elige la orden y empieza la lectura. La pantalla compara lo que cruza el andén contra lo que pidió el cliente, renglón por renglón.",
+          points: ["Esperados, encontrados y faltantes, siempre a la vista", "Resumen por producto que se pone en verde al completarse", "Número de serie de cada pieza leída"],
+          src: whLiveOk,
+          srcMobile: whMLiveOk,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations`,
+          alt: "Operación con 12 de 12 piezas encontradas y los tres productos de la orden en verde.",
+        },
+        {
+          q: "¿Se subió algo de más?",
+          h: "Lo que no es de esta orden se ve de inmediato.",
+          d: "Si en la tarima viene un producto que no corresponde o una pieza de más, aparece marcado aparte. El operador lo baja antes de que el camión se vaya.",
+          points: ["Producto ajeno a la orden, resaltado", "Piezas de más sobre un producto que sí se pidió", "Faltantes por producto, no solo el total"],
+          src: whLiveForeign,
+          srcMobile: whMLiveForeign,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations`,
+          alt: "Operación con un producto que no pertenece a la orden resaltado y contado como agregado.",
+        },
+        {
+          q: "¿Ya lo sabe el ERP?",
+          h: "Al cerrar, el resultado viaja solo al ERP.",
+          d: "El operador envía el resultado y la orden queda registrada en tu ERP con lo que realmente salió. Nadie captura nada al final del turno.",
+          points: ["Cada renglón con producto, número de serie y hora", "Conectores para los ERP más usados", "El operador confirma antes de enviar"],
+          src: whLiveClosed,
+          srcMobile: whMLiveClosed,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations`,
+          alt: "Operación finalizada con el aviso de que los resultados se enviaron al ERP.",
+        },
+        {
+          q: "¿Cómo lo compruebo?",
+          h: "Cada embarque queda guardado, pieza por pieza.",
+          d: "Cuando un cliente reclama, abres la operación: quién la hizo, en qué andén, a qué hora y qué números de serie salieron.",
+          points: ["Operador, andén, hora de inicio y de cierre", "Lista de series por renglón de la orden", "Búsqueda por número de orden"],
+          src: whOperationDetail,
+          srcMobile: whMOperationDetail,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations/list`,
+          alt: "Detalle de una operación cerrada con operador, andén, horarios y la lista de números de serie.",
+        },
+        {
+          q: "¿Cómo va el almacén?",
+          h: "El tablero resume la operación sin pedirle un reporte a nadie.",
+          d: "Cuántas órdenes se han movido, cuánto tarda cada una y qué productos, clientes y andenes concentran el trabajo.",
+          points: ["Órdenes, minutos y piezas promedio por orden", "Productos, clientes, operadores y andenes con más movimiento", "Órdenes por día"],
+          src: whDashboard,
+          srcMobile: whMDashboard,
+          ...WH_SHOT,
+          url: `${WH_APP}/dashboard`,
+          alt: "Tablero con total de órdenes, minutos promedio por orden y los productos, clientes y andenes con más movimiento.",
+        },
+      ],
+      tourCta: "Verlo con tus órdenes y tu andén toma una llamada.",
       stepsTitle: "Tres pasos, en el mismo andén.",
       steps: [
         {
@@ -187,6 +290,14 @@ export const PLUGINS = {
       lead:
         "Every tagged case, pallet or part is read as it crosses the dock and checked against your ERP's shipping or receiving order. If something is missing, extra, or wrong, the operator sees it before the truck leaves.",
       ribbon: null,
+      heroImage: {
+        src: whLiveMissingTopEn,
+        srcMobile: whMLiveMissingEn,
+        ...WH_SHOT,
+        url: `${WH_APP}/operations`,
+        alt: "Operator screen in Horizon Warehouse: order SO-24871 in progress, 9 of 12 items read and 3 missing.",
+        caption: "The operator screen, with demo data",
+      },
       problem: {
         title: "A wrong shipment costs you twice: once in the claim, once in the reshipment.",
         body: "The error usually surfaces when the customer opens the box. By then there is a chargeback, a credit note or an extra freight bill, and nobody can say when it was loaded wrong.",
@@ -205,6 +316,65 @@ export const PLUGINS = {
           },
         ],
       },
+      tourTitle: "What your operator sees while the forklift crosses the dock.",
+      tour: [
+        {
+          q: "Is it complete?",
+          h: "Every item checks itself off as it passes.",
+          d: "The operator picks the order and starts reading. The screen compares what crosses the dock with what the customer ordered, line by line.",
+          points: ["Expected, found and missing, always in view", "Per-product summary that turns green when complete", "Serial number of every item read"],
+          src: whLiveOkEn,
+          srcMobile: whMLiveOkEn,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations`,
+          alt: "Operation with 12 of 12 items found and all three products on the order in green.",
+        },
+        {
+          q: "Did something extra get loaded?",
+          h: "Anything that isn't on this order shows up right away.",
+          d: "If the pallet carries a product that doesn't belong, or one item too many, it is flagged separately. The operator pulls it before the truck leaves.",
+          points: ["Product not on the order, highlighted", "Extra units of a product that was ordered", "Missing items per product, not just a total"],
+          src: whLiveForeignEn,
+          srcMobile: whMLiveForeignEn,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations`,
+          alt: "Operation with a product that is not on the order highlighted and counted as added.",
+        },
+        {
+          q: "Does the ERP know yet?",
+          h: "On close, the result goes to the ERP by itself.",
+          d: "The operator submits the result and the order is recorded in your ERP with what actually shipped. Nobody keys anything in at the end of the shift.",
+          points: ["Each line with product, serial number and time", "Connectors for the most common ERPs", "The operator confirms before submitting"],
+          src: whLiveClosedEn,
+          srcMobile: whMLiveClosedEn,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations`,
+          alt: "Finished operation with the notice that results were sent to the ERP.",
+        },
+        {
+          q: "How do I prove it?",
+          h: "Every shipment is kept, item by item.",
+          d: "When a customer disputes a delivery, you open the operation: who ran it, at which dock, at what time, and which serial numbers shipped.",
+          points: ["Operator, dock, start and end time", "Serial list per order line", "Search by order number"],
+          src: whOperationDetailEn,
+          srcMobile: whMOperationDetailEn,
+          ...WH_SHOT,
+          url: `${WH_APP}/operations/list`,
+          alt: "Detail of a closed operation with operator, dock, times and the list of serial numbers.",
+        },
+        {
+          q: "How is the warehouse doing?",
+          h: "The dashboard sums up the operation without asking anyone for a report.",
+          d: "How many orders moved, how long each takes, and which products, customers and docks carry the work.",
+          points: ["Orders, average minutes and items per order", "Busiest products, customers, operators and docks", "Orders per day"],
+          src: whDashboardEn,
+          srcMobile: whMDashboardEn,
+          ...WH_SHOT,
+          url: `${WH_APP}/dashboard`,
+          alt: "Dashboard with total orders, average minutes per order and the busiest products, customers and docks.",
+        },
+      ],
+      tourCta: "Seeing it with your orders and your dock takes one call.",
       stepsTitle: "Three steps, at the same dock.",
       steps: [
         {
@@ -567,27 +737,27 @@ export const PLUGINS = {
       ],
       screenshots: [
         {
-          src: dashboardImg,
+          src: dashboardImgEn,
           caption: "Control panel: floor plan + zones + live activity feed.",
         },
         {
-          src: editorImg,
+          src: editorImgEn,
           caption: "Visual floor-plan editor: draw zones, place antennas, calibrate scale.",
         },
         {
-          src: heatmapImg,
+          src: heatmapImgEn,
           caption: "Heatmap report: detection density by zone over any date range.",
         },
         {
-          src: alertsImg,
+          src: alertsImgEn,
           caption: "Configurable alerts: active, acknowledged, and resolved, with reason and operator.",
         },
         {
-          src: historyImg,
+          src: historyImgEn,
           caption: "Per-asset history: route, zone transitions, and dwell time, step by step.",
         },
         {
-          src: reportDwellImg,
+          src: reportDwellImgEn,
           caption: "Dwell-time report: hours per zone, exportable to CSV or PDF.",
         },
       ],
