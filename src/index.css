@@ -61,6 +61,14 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+/* Prerendered HTML read without the app (no JS, or the bundle failed to
+   load): the inline script in index.html adds .js only while the app is
+   expected to mount, so without it every .reveal is shown as-is. */
+html:not(.js) .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 
 @keyframes pulse-ring {
   0% {

@@ -16,14 +16,14 @@ import PluginVideo, { useMedia } from "../components/PluginVideo.jsx";
 
 const DESKTOP = "(min-width: 1024px)";
 const HINT_KEY = "hlogix.hubSwipeHint";
-const SITE = "https://hlogix.app";
 
 export default function PluginsHub({ lang, onDemo, onSales }) {
   const hub = getHub(lang);
   const shared = getPluginShared(lang);
-  usePageMeta(hub.meta, `${SITE}/plugins`);
   // One structure mounted at a time, so there is never a second <video>.
-  const desktop = useMedia(DESKTOP);
+  // The prerendered HTML gets the grid (all three cards readable without JS);
+  // the browser picks by viewport on its first render, as before.
+  const desktop = useMedia(DESKTOP, true);
 
   const plugins = HUB_ORDER.map((slug) => {
     const p = PLUGINS[slug];
@@ -89,33 +89,13 @@ export default function PluginsHub({ lang, onDemo, onSales }) {
   );
 }
 
-// Title, description and canonical for this route. index.html carries the
-// landing's values for every route (SPA fallback), so without this the hub
-// would declare "/" as its canonical. Restored on leave.
-function usePageMeta(meta, canonical) {
-  useEffect(() => {
-    const prevTitle = document.title;
-    const desc = document.querySelector('meta[name="description"]');
-    const link = document.querySelector('link[rel="canonical"]');
-    const prevDesc = desc?.getAttribute("content");
-    const prevCanonical = link?.getAttribute("href");
-    document.title = meta.title;
-    desc?.setAttribute("content", meta.description);
-    link?.setAttribute("href", canonical);
-    return () => {
-      document.title = prevTitle;
-      if (desc && prevDesc != null) desc.setAttribute("content", prevDesc);
-      if (link && prevCanonical != null) link.setAttribute("href", prevCanonical);
-    };
-  }, [meta.title, meta.description, canonical]);
-}
-
-
 // Desktop (lg+): the three cards side by side; nothing to discover.
 function Grid({ plugins, hub }) {
   const total = plugins.length;
   return (
-    <div role="list" aria-label={hub.carousel.label} className="grid grid-cols-3 gap-5">
+    // grid-cols-1 below lg only matters for the static HTML read on a phone
+    // without JS: in the browser Grid mounts from lg (DESKTOP) up.
+    <div role="list" aria-label={hub.carousel.label} className="grid grid-cols-1 lg:grid-cols-3 gap-5">
       {plugins.map((p, i) => (
         <div role="listitem" key={p.slug} className="flex">
           <PluginCard plugin={p} i={i} total={total} hub={hub} />

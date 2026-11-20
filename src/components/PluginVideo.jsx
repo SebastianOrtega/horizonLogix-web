@@ -7,8 +7,9 @@ import { track } from "../lib/track.js";
 
 const PHONE = "(max-width: 767px)";
 
-export function useMedia(query) {
-  const get = () => typeof window !== "undefined" && window.matchMedia(query).matches;
+// ssrDefault: the value used when rendering without a window (prerender).
+export function useMedia(query, ssrDefault = false) {
+  const get = () => (typeof window === "undefined" ? ssrDefault : window.matchMedia(query).matches);
   const [matches, setMatches] = useState(get);
   useEffect(() => {
     const mq = window.matchMedia(query);

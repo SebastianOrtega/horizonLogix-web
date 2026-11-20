@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { I18N } from "./i18n.js";
 import { ACCENT, ACCENT_DEEP, ACCENT_RGB } from "./theme.js";
-import { ROUTE_LANG } from "./lib/routes.js";
+import { ROUTE_LANG, normalizePath } from "./lib/routes.js";
+import { applyRouteHead } from "./seo/useRouteHead.js";
 import { CookieStrip, Footer, Nav } from "./components/Sections.jsx";
 import DemoModal from "./components/DemoModal.jsx";
 import CookiePreferences from "./components/CookiePreferences.jsx";
@@ -13,31 +14,49 @@ import PluginsHub from "./pages/PluginsHub.jsx";
 import { applyConsent, readConsent, writeConsent } from "./lib/consent.js";
 import { track, trackPageview } from "./lib/track.js";
 
+// Keep in sync with the inline language script in index.html, which repeats
+// this order before first paint so a prerendered page never flashes the
+// wrong language.
 function detectLang() {
   if (typeof window === "undefined") return "es";
-  const path = window.location.pathname;
+  const path = normalizePath(window.location.pathname);
   if (ROUTE_LANG[path]) return ROUTE_LANG[path];
   const url = new URL(window.location.href);
   const q = url.searchParams.get("lang");
   if (q === "en" || q === "es") return q;
-  const stored = localStorage.getItem("hlogix.lang");
-  if (stored === "en" || stored === "es") return stored;
+  try {
+    const stored = localStorage.getItem("hlogix.lang");
+    if (stored === "en" || stored === "es") return stored;
+  } catch (e) {}
   const nav = (navigator.language || "es").slice(0, 2);
   return nav === "en" ? "en" : "es";
 }
 
-// Keeps lang state in sync with the URL on legal-page routes (where the path
-// itself implies the language), scrolls back to top on route change, and
-// fires a virtual pageview to GTM on every navigation after the first load.
+// On every location change (push, replace, back/forward): resolve one
+// language from the URL (path-implied, else ?lang=, else the current one),
+// apply it to state and head tags, scroll to top, and fire a virtual
+// pageview after the first load. A language switch without navigation
+// refreshes the head tags here; its pageview is fired by Shell's setLang.
 function RouteSync({ lang, setLangState }) {
   const location = useLocation();
   const isFirstNav = useRef(true);
+  const isFirstLang = useRef(true);
+  const langRef = useRef(lang);
+  langRef.current = lang;
+
   useEffect(() => {
-    const forced = ROUTE_LANG[location.pathname];
-    if (forced && forced !== lang) {
-      setLangState(forced);
-      try { localStorage.setItem("hlogix.lang", forced); } catch (e) {}
+    const forced = ROUTE_LANG[normalizePath(location.pathname)];
+    const q = new URLSearchParams(location.search).get("lang");
+    const target = forced || (q === "en" || q === "es" ? q : langRef.current);
+    if (target !== langRef.current) {
+      langRef.current = target;
+      setLangState(target);
+      if (forced) {
+        try { localStorage.setItem("hlogix.lang", forced); } catch (e) {}
+      }
     }
+    // Head first, so the pageview below carries the new page's title.
+    applyRouteHead(target);
     // Scroll to top on plain navigations; preserve hash-driven anchor scrolls.
     if (!location.hash) window.scrollTo({ top: 0, behavior: "instant" });
     // GTM auto-fires the first pageview on DOM ready — only push for SPA navs.
@@ -46,20 +65,41 @@ function RouteSync({ lang, setLangState }) {
     } else {
       trackPageview();
     }
-  }, [location.pathname, location.search, location.hash, lang, setLangState]);
+  }, [location.pathname, location.search, location.hash, setLangState]);
+
+  useEffect(() => {
+    if (isFirstLang.current) {
+      isFirstLang.current = false;
+      return;
+    }
+    applyRouteHead(lang);
+    // Same as before this hook was split: a language switch returns to top.
+    if (!window.location.hash) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [lang]);
   return null;
 }
 
-function Shell() {
-  const [lang, setLangState] = useState(detectLang);
+// initialLang is only passed by the prerender (src/entry-server.jsx); in the
+// browser the language is always resolved from the URL and the visitor.
+export function Shell({ initialLang } = {}) {
+  const [lang, setLangState] = useState(() => initialLang || detectLang());
   const [demoOpen, setDemoOpen] = useState(false);
   const [demoKind, setDemoKind] = useState("demo");
-  const [cookies, setCookies] = useState(() => !readConsent());
+  // Never in the prerendered HTML: a returning visitor who already chose
+  // would otherwise see the strip flash until the app takes over.
+  const [cookies, setCookies] = useState(() => typeof window !== "undefined" && !readConsent());
   const [prefsOpen, setPrefsOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
+
+  // The app has taken over the prerendered DOM: lift the pre-paint hiding set
+  // by the inline language script in index.html (and stop its recovery).
+  useEffect(() => {
+    window.__HLX_MOUNTED__ = true;
+    document.documentElement.classList.remove("lang-pending");
+  }, []);
 
   useEffect(() => {
     const s = document.documentElement.style;
@@ -68,12 +108,23 @@ function Shell() {
     s.setProperty("--signal-rgb", ACCENT_RGB);
   }, []);
 
-  const setLang = (l) => {
+  // navigating: the caller follows up with a route navigation (language
+  // twin), so RouteSync fires the single pageview for that switch.
+  const setLang = (l, { navigating = false } = {}) => {
+    const changed = l !== lang;
     setLangState(l);
-    localStorage.setItem("hlogix.lang", l);
+    try { localStorage.setItem("hlogix.lang", l); } catch (e) {}
     const url = new URL(window.location.href);
     url.searchParams.set("lang", l);
-    window.history.replaceState({}, "", url.toString());
+    // Keep React Router's history.state (idx/key) so back/forward still work.
+    window.history.replaceState(window.history.state, "", url.toString());
+    // A switch in place shows another language version of the page: one
+    // pageview, with the head already updated so it carries the new title.
+    // The router does not see replaceState, so RouteSync will not fire it.
+    if (changed && !navigating) {
+      applyRouteHead(l);
+      trackPageview();
+    }
   };
 
   const savePrefs = (prefs) => {

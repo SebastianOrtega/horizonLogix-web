@@ -4,7 +4,7 @@ import logoUrl from "../assets/logo-horizonlogix.svg";
 import zebraLogoUrl from "../assets/zebra-logo.svg";
 import impinjLogoUrl from "../assets/impinj-logo.png";
 import { ACCENT, ACCENT_RGB } from "../theme.js";
-import { ROUTE_TWINS } from "../lib/routes.js";
+import { ROUTE_TWINS, normalizePath } from "../lib/routes.js";
 import { track } from "../lib/track.js";
 import { PLUGINS, PLUGIN_LIST } from "../plugin-content.js";
 import {
@@ -89,9 +89,9 @@ function LangSwitch({ lang, setLang }) {
 
   const onSwitch = (l) => {
     if (l === lang) return;
-    setLang(l);
+    const twin = ROUTE_TWINS[normalizePath(location.pathname)];
+    setLang(l, { navigating: !!twin });
     track("lang_switch", { to: l });
-    const twin = ROUTE_TWINS[location.pathname];
     if (twin) navigate(twin);
   };
 
@@ -115,7 +115,8 @@ function LangSwitch({ lang, setLang }) {
 export function Nav({ t, lang, setLang, onDemo, onPartner }) {
   const y = useScrollY();
   const location = useLocation();
-  const onLanding = location.pathname === "/";
+  const path = normalizePath(location.pathname);
+  const onLanding = path === "/";
   const scrolled = y > 80;
   const items = [
     { k: "platform", id: "how" },
@@ -132,7 +133,7 @@ export function Nav({ t, lang, setLang, onDemo, onPartner }) {
   const pluginItems = PLUGIN_LIST.map((slug) => {
     const p = PLUGINS[slug];
     const to = p.routes[lang] || p.routes.es;
-    const active = location.pathname === to || (slug === "rtls" && location.pathname === "/rtls");
+    const active = path === to || (slug === "rtls" && path === "/rtls");
     return { slug, to, active, label: (p[lang] || p.es).title.replace(/^Horizon /, "") };
   });
   return (

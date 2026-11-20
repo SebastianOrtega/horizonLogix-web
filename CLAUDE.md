@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 - `npm run dev` — start Vite dev server on http://localhost:5173
-- `npm run build` — production build to `dist/`
-- `npm run preview` — serve the built `dist/` locally
+- `npm run build` — production build to `dist/`: client build (`vite build`), SSR build of `src/entry-server.jsx` to `dist-ssr/` (gitignored, never deployed), then `node scripts/prerender.mjs`, which writes one prerendered HTML file per route plus `spa-fallback.html` and `sitemap.xml`. Fails if a route in `App.jsx` is missing from `src/seo/route-table.js` (or vice versa), if a page lacks one `<main>`/a non-empty `<h1>`, or if the HTML points at a missing `/assets/` file.
+- `npm run preview` — serve the built `dist/` locally; a small plugin in `vite.config.js` resolves `/warehouse` → `warehouse/index.html` and unknown paths → `spa-fallback.html`, like Azure.
 - No test runner or linter is configured.
 
 ## Architecture
@@ -16,9 +16,22 @@ Single-page bilingual (ES default, EN fallback) marketing landing for **Horizon 
 ### Rendering & data flow
 
 - `src/main.jsx` mounts `<App />`. `src/App.jsx` is the only stateful container: it owns `lang`, `demoOpen`, and `cookies` state, plus side effects that sync `<html lang>` and the `--signal` CSS variable.
-- Language resolution order on first paint: `?lang=` query → `localStorage.hlogix.lang` → `navigator.language` → `es`. `setLang` writes back to both localStorage and the URL via `history.replaceState` so deep-links survive reloads.
+- Language resolution order on first paint: path-implied language (`ROUTE_LANG`, looked up with `normalizePath()` so `/containers/` = `/containers`) → `?lang=` query → `localStorage.hlogix.lang` → `navigator.language` → `es`. Browser-language detection is an explicit owner decision (2026-11-20); its SEO cost is accepted (see "SEO & prerender"). `setLang` writes back to both localStorage and the URL via `history.replaceState` (keeping `history.state`, which React Router needs for back/forward). `RouteSync` re-resolves the language on every location change, including back/forward. The same order is repeated in the inline script in `index.html` — keep the two in sync.
 - All copy lives in `src/i18n.js` as a nested `I18N[lang]` object. There is no react-i18next — sections receive a `t` prop (the language slice) and render strings directly. When adding copy, update both `es` and `en` branches in lockstep.
 - The accent color `#F39A2B` is exported from `src/App.jsx` as `ACCENT`, pushed into a CSS variable `--signal`, and also referenced as a Tailwind color (`signal`/`signal-deep`). `WorkflowDesigner` and `NetworkDiagram` paint SVG strokes/fills using the literal hex inline — when changing the accent, search for `F39A2B`/`D77A0F` across all components, not just the token.
+
+### SEO & prerender
+
+- `src/seo/route-table.js` is the single list of public routes (path, `lang: "query" | "es" | "en"`, `twin`, `aliasOf` for `/rtls`, sitemap fields). `src/lib/routes.js` (`ROUTE_TWINS`, `ROUTE_LANG`, `normalizePath`) derives from it. Adding a route = add it to `App.jsx` **and** to the table (the build checks both).
+- `src/seo/routes.js` holds titles/descriptions per route and language (plugin pages build the title from `PLUGINS[slug][lang].title/tagline`; `/plugins` uses `HUB[lang].meta`), and builds the head tags (description, canonical, hreflang, Open Graph, Twitter, Organization JSON-LD — all marked `data-seo`) and `sitemap.xml`. `src/seo/useRouteHead.js` (`applyRouteHead`) replaces the `data-seo` set and `document.title` on every navigation and language switch; it is called only from `App.jsx` (`RouteSync`, and `Shell`'s `setLang` right before its pageview), never from pages. It reads `window.location` (not the router's location, which is stale after `setLang`'s `replaceState`).
+- Canonical model for `lang: "query"` routes (`/`, `/plugins`, `/warehouse`, `/trace`): the bare URL is the language-neutral entry (`hreflang="x-default"`), `?lang=es`/`?lang=en` are the versions; the canonical is the requested URL with only a valid `lang` kept, never the painted language. One static file answers all three URLs, so the prerendered HTML has **no** canonical for these routes; the runtime hook adds it. Fixed-language routes have a static self-canonical. `/rtls` canonicalises to the matching `/trace` URL. Unknown paths get `robots: noindex`.
+- Prerender: `src/entry-server.jsx` renders `<Shell initialLang>` inside a `StaticRouter`; `scripts/prerender.mjs` injects it into the client `dist/index.html` between `<!--seo:start-->`/`<!--seo:end-->` and into `#root`, writing `dist/<route>/index.html`. `lang: "query"` routes are prerendered in Spanish.
+- Client takeover is `createRoot`, **not** `hydrateRoot` (`src/main.jsx`): the snapshot is Spanish and built without a viewport, while the first client render depends on `?lang=`/storage/navigator and `matchMedia` (grid vs. carousel on `/plugins`, 16:9 vs. 4:5 video). React clears the container on first commit, so nothing is duplicated.
+- Inline script + `<style>` in `index.html` (before Consent Mode/GTM): adds `.js` (CSS shows every `.reveal` without it, so no-JS readers see the content); if the resolved language differs from the snapshot, sets `<html lang>`/`<title>` and adds `.lang-pending` (hides `#root` until the app mounts, so an English visitor never sees Spanish). Recovery: if one of our `/assets/` scripts fails to load or throws before mount, it removes both classes and restores the snapshot's lang/title; a slow load reveals the snapshot after 4 s only when it is already in the right language. `Shell` sets `window.__HLX_MOUNTED__` and removes `.lang-pending`.
+- Code that renders during prerender must not touch `window`/`document`/storage in render or state initialisers without a `typeof window` guard (effects are fine). `useMedia(query, ssrDefault)` takes the value to use without a window. `Shell` never renders the cookie strip in the prerender.
+- Analytics: one `spa_pageview` per page shown, always after updating the head so `page_title` is the new page's. `RouteSync` pushes it on every location change; a language switch in place (no route change, so the router sees nothing) pushes it from `Shell`'s `setLang`. When the switch navigates to a language twin, `LangSwitch` passes `{ navigating: true }` and only `RouteSync` fires.
+- The inline script in `index.html` rewrites a `/…/index.html` URL (Azure serves the prerendered files by file name too) to its route with `history.replaceState` before the router reads it; otherwise the app would treat it as an unknown path, drop the content and add `noindex`.
+- Design and the Codex review log: `marketing/propuesta-seo-prerender.md` in the middleware-docs repo.
 
 ### Component layout
 
@@ -38,8 +51,10 @@ Single-page bilingual (ES default, EN fallback) marketing landing for **Horizon 
 
 ### Deployment
 
-- `staticwebapp.config.json` — SPA navigation fallback to `/index.html` (excluding asset extensions) plus security headers.
-- `.github/workflows/azure-static-web-apps.yml` — builds on push/PR to `main`, deploys via `AZURE_STATIC_WEB_APPS_API_TOKEN` secret. The workflow runs `npm ci && npm run build` then uploads `dist/` with `skip_app_build: true` so Oryx doesn't re-run the build.
+- `staticwebapp.config.json` — navigation fallback to `/spa-fallback.html` (empty-root shell, home copy, `noindex`; excluding asset extensions) plus security headers and MIME types. With no `trailingSlash` setting, Azure serves `/warehouse` and `/warehouse/` from `warehouse/index.html` before the fallback applies, so every prerendered route is served as its own file.
+- `.github/workflows/azure-static-web-apps-nice-sand-004d9530f.yml` — builds on push/PR to `main` (**every push to `main` deploys to production**). `Azure/static-web-apps-deploy@v1` runs Oryx, which detects Node (22.x in recent runs) and runs `npm install && npm run build`, then uploads `dist/` (`output_location`). No `skip_app_build`. Anything the build needs must work offline beyond npm (no browser downloads).
+- `dist/sitemap.xml` is generated by the prerender step from the route table; `public/sitemap.xml` is a stale copy that gets overwritten in `dist/` (delete it). `public/robots.txt` is hand-maintained.
+- `vite.config.js` pins `build.target` to Vite 5's browser floor (Safari 14+); Vite 7+ would otherwise default to Safari 16+.
 
 ## Notes from the design handoff
 

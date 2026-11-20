@@ -57,6 +57,8 @@ Hoy el card de cada plugin tiene un link "Conocer más" pero no tiene `href` (li
 
 **Recomendación**: React Router en modo SPA — la landing ya es un long-scroll y los visitantes esperan navegación instantánea entre productos. Para SEO de las páginas de plugin agregar prerender al build (vite-plugin-prerender o equivalente) para que el HTML inicial tenga el contenido — Google ya rastrea SPAs pero el prerender ayuda.
 
+✅ Prerender hecho (2026-11-20) sin dependencias nuevas: SSR build de Vite + `react-dom/server` en `scripts/prerender.mjs`; ver `CLAUDE.md` → "SEO & prerender".
+
 **Tareas**:
 - [ ] Decidir router (depende de cuánta distancia conceptual habrá entre páginas).
 - [ ] Crear plantilla `<PluginPage>` reusable: hero del plugin, screenshots reales (cuando los haya), bullets ampliados, sección de casos, CTA de demo.
@@ -109,11 +111,11 @@ Inventario actual tras `grep -rn 'href="#"' src/`:
 - **Trust logos del hero** — actualmente comentados en `src/components/Sections.jsx:161-170`. Decidir si se reactivan con logos reales de clientes/socios o se dejan ocultos.
 - **`docs: "Leer la documentación"` (i18n.js)** — string declarado pero el bloque que lo usa está comentado. Limpiar uno u otro lado.
 - **Form de contacto: campo "role/cargo"** — actualmente requerido por validación pero no es obligatorio (`src/components/DemoModal.jsx:18`). Confirmar si va o sale del formulario.
-- **Open Graph / metadatos sociales** — `index.html` solo tiene `<title>` y `<description>`. Falta `og:image`, `og:url`, `twitter:card`, JSON-LD de Organization. Importante cuando se compartan links del sitio.
+- ~~**Open Graph / metadatos sociales**~~ ✅ resuelto: cada ruta se sirve como HTML propio (prerender en el build) con `<title>`, descripción, canonical, hreflang, Open Graph, Twitter y JSON-LD de Organization correctos para esa ruta (`src/seo/routes.js`). Limitación conocida: en `/`, `/plugins`, `/warehouse` y `/trace` el HTML estático está en español también para `?lang=en`, así que la vista previa de un enlace `?lang=en` sale en español. Solución de fondo pendiente: URLs por idioma (`/en/...`).
 - ~~**Falta agregar un favicon del SVG del logo**~~ ✅ resuelto: `public/favicon.svg` (copia del logo) + `<link rel="icon" type="image/svg+xml" href="/favicon.svg">` en `index.html`. Pendiente menor: `favicon.ico` 32×32 y `apple-touch-icon.png` 180×180 para Safari/iOS antiguos — solo si soporte de navegadores legacy es importante.
 - **"Cómo funciona": texto de las etapas muy pequeño** — en el `FlowDiagram` (`src/components/Sections.jsx`, dentro de `HowItWorks`) los labels de cada etapa (`fontSize="12"` para el título y `fontSize="11"` para la descripción) se ven diminutos en desktop. Subir a ~16/13 y revisar que no se empalmen con 5 etapas. Si se aprietan, considerar wrap más agresivo o reducir descripción.
 - **GitHub Actions: dos workflows duplicados** — `azure-static-web-apps.yml` (placeholder que dejé al inicio, apunta a un secret `AZURE_STATIC_WEB_APPS_API_TOKEN` que no existe → falla en cada push) y `azure-static-web-apps-nice-sand-004d9530f.yml` (auto-generado por Azure cuando se conectó el repo, este sí deploya). **Borrar el primero** (`rm .github/workflows/azure-static-web-apps.yml`) para que la pestaña Actions deje de mostrar runs en rojo. Mejoras opcionales al workflow bueno: bumpear `actions/checkout@v3` → `v4`, y añadir `actions/setup-node@v4` con `node-version: "20"` para pinear la versión de Node y no depender del default de Oryx.
-- **Sitemap + robots.txt** — para SEO de las páginas de plugin. Va con la sección 3.
+- ~~**Sitemap + robots.txt**~~ ✅ resuelto: `dist/sitemap.xml` se genera en el build desde `src/seo/route-table.js` (con hreflang); `public/robots.txt` sin cambios. Pendiente menor: borrar `public/sitemap.xml`, que ya no se usa (el build lo sobrescribe en `dist/`).
 
 ---
 

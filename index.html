@@ -3,53 +3,79 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--seo:start-->
+    <!-- Replaced per route by scripts/prerender.mjs (src/seo/routes.js) and
+         kept current on client-side navigation by src/seo/useRouteHead.js.
+         What stays here is what the dev server shows for "/". -->
     <title>Horizon Logix — Middleware RFID industrial</title>
-    <meta name="description" content="Plataforma RFID industrial: middleware para integradores y aplicaciones listas para embarques, contenedores retornables y ubicación de activos." />
+    <meta data-seo name="description" content="Plataforma RFID industrial: middleware para integradores y aplicaciones listas para embarques, contenedores retornables y ubicación de activos." />
+    <meta data-seo property="og:type" content="website" />
+    <meta data-seo property="og:site_name" content="Horizon Logix" />
+    <meta data-seo property="og:title" content="Horizon Logix — Middleware RFID industrial" />
+    <meta data-seo property="og:image" content="https://hlogix.app/og-image-es.png" />
+    <meta data-seo name="twitter:card" content="summary_large_image" />
+    <!--seo:end-->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href="https://hlogix.app/" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Horizon Logix" />
-    <meta property="og:title" content="Horizon Logix — Middleware RFID Industrial" />
-    <meta property="og:description" content="Plataforma RFID industrial: middleware para integradores y aplicaciones listas para embarques, contenedores retornables y ubicación de activos." />
-    <meta property="og:url" content="https://hlogix.app/" />
-    <meta property="og:image" content="https://hlogix.app/og-image-es.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Horizon Logix — Middleware RFID Industrial" />
-    <meta property="og:locale" content="es_MX" />
-    <meta property="og:locale:alternate" content="en_US" />
-
-    <!-- English alternate image -->
-    <meta property="og:image" content="https://hlogix.app/og-image-en.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Horizon Logix — Industrial RFID Middleware" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Horizon Logix — Middleware RFID Industrial" />
-    <meta name="twitter:description" content="Plataforma RFID industrial: middleware para integradores y aplicaciones listas para embarques, contenedores retornables y ubicación de activos." />
-    <meta name="twitter:image" content="https://hlogix.app/og-image-es.png" />
-
-    <!-- Schema.org Organization -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Horizon Logix",
-        "alternateName": "HLogix",
-        "url": "https://hlogix.app/",
-        "logo": "https://hlogix.app/favicon.svg",
-        "description": "Plataforma RFID industrial: middleware para integradores y aplicaciones listas para embarques, contenedores retornables y ubicación de activos.",
-        "sameAs": [],
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "email": "hola@hlogix.app",
-          "contactType": "sales"
+    <!-- Before first paint, before Consent Mode/GTM. On a prerendered page
+         (window.__HLX_PRERENDER__, injected by scripts/prerender.mjs):
+         1. Adds .js: "the app is expected to mount" (index.css shows every
+            .reveal without it).
+         2. On ?lang= routes, resolves the language like detectLang() in
+            src/App.jsx (keep the two in sync). If it is not the prerendered
+            one, hides #root (.lang-pending) until the app paints, so an
+            English visitor never sees the Spanish snapshot, and sets
+            <html lang>/<title> so GTM's first page_view is right.
+         3. Recovery: a confirmed failure (one of our scripts fails to load,
+            or throws before mount) reveals the prerendered HTML with its own
+            lang/title. A slow load only reveals it after 4 s when it is
+            already in the right language; a pending language change stays
+            hidden until the app paints. -->
+    <style>html.lang-pending #root{visibility:hidden}</style>
+    <script>
+      (function () {
+        var d = document.documentElement;
+        var P = window.__HLX_PRERENDER__;
+        var savedLang = d.lang, savedTitle = document.title;
+        var pending = false, done = false;
+        d.classList.add("js");
+        // The host also serves each prerendered file by its file name
+        // (/warehouse/index.html), which is not a route: show it as /warehouse
+        // before the router and the head tags read the URL.
+        try {
+          var p = location.pathname;
+          if (/\/index\.html$/i.test(p)) history.replaceState(history.state, "", (p.slice(0, -11) || "/") + location.search + location.hash);
+        } catch (e) {}
+        function recover() {
+          if (done || window.__HLX_MOUNTED__) return;
+          done = true;
+          d.classList.remove("js");
+          d.classList.remove("lang-pending");
+          if (pending) { d.lang = savedLang; document.title = savedTitle; }
         }
-      }
+        if (P && P.mode === "query") {
+          var l = null;
+          try { var q = new URLSearchParams(location.search).get("lang"); if (q === "en" || q === "es") l = q; } catch (e) {}
+          if (!l) { try { var s = localStorage.getItem("hlogix.lang"); if (s === "en" || s === "es") l = s; } catch (e) {} }
+          if (!l) l = (navigator.language || "es").slice(0, 2) === "en" ? "en" : "es";
+          if (l !== P.lang) {
+            pending = true;
+            d.lang = l;
+            if (P.titles && P.titles[l]) document.title = P.titles[l];
+            d.classList.add("lang-pending");
+          }
+        }
+        var ours = function (u) { return !!u && u.indexOf(location.origin + "/assets/") === 0; };
+        window.addEventListener("error", function (e) {
+          var t = e.target;
+          if (t && t !== window && t.tagName) {
+            if ((t.tagName === "SCRIPT" && ours(t.src)) || (t.tagName === "LINK" && t.rel === "modulepreload" && ours(t.href))) recover();
+            return;
+          }
+          if (ours(e.filename)) recover();
+        }, true);
+        if (!pending) setTimeout(recover, 4000);
+      })();
     </script>
 
     <!-- Google Consent Mode v2 — must run BEFORE GTM -->
